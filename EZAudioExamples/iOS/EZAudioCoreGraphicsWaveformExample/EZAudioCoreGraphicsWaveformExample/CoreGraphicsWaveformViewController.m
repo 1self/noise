@@ -27,6 +27,7 @@
 @implementation CoreGraphicsWaveformViewController
 @synthesize audioPlot;
 @synthesize microphone;
+//@synthesize meterView;
 
 
 #pragma mark - Initialization
@@ -203,10 +204,6 @@
     
 }
 
--(void)pinch:(UIPinchGestureRecognizer*)pinch {
-  
-}
-
 #pragma mark - Actions
 -(void)changePlotType:(id)sender {
   NSInteger selectedSegment = [sender selectedSegmentIndex];
@@ -231,6 +228,15 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:registerUrl]];
 }
 
+- (IBAction)vizTapHandler:(id)sender {
+    [self.meterView2 setAlpha:0];
+    [self resetSample];
+    [UIView beginAnimations:NULL context:nil];
+    [UIView setAnimationDuration:2.0];
+    [self.meterView2 setAlpha:1];
+    [UIView commitAnimations];
+}
+
 #pragma mark - Action Extensions
 /*
  Give the visualization of the current buffer (this is almost exactly the openFrameworks audio input eample)
@@ -252,6 +258,13 @@ int samplePruining = 0;
 
 #pragma mark - EZMicrophoneDelegate
 #warning Thread Safety
+- (void)resetSample
+{
+    totalDbaSampleCount = 0;
+    totalDba = 0;
+    sampleStart = [NSDate date];
+}
+
 // Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
 -(void)microphone:(EZMicrophone *)microphone
  hasAudioReceived:(float **)buffer
@@ -317,8 +330,16 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         
+        int sampleSendFrequency = 1;
         NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
-        if(sampleDuration > 60 * 20){
+        NSTimeInterval fullSample = 60*1;
+        NSTimeInterval timeLeftRamainingInSample = fullSample - sampleDuration;
+        
+        int mins = (int)timeLeftRamainingInSample / 60;
+        int seconds = (int)timeLeftRamainingInSample % 60;
+        self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%0*d:%0*d", 2, mins, 2, seconds];
+        
+        if(sampleDuration > fullSample){
 
             NSDateFormatter* eventDateTime = [[NSDateFormatter alloc] init];
             eventDateTime.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
@@ -358,8 +379,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
                     samplesSent += 1;
                 }
             }];
-            totalDbaSampleCount = 0;
-            totalDba = 0;
+            [self resetSample];
         }
         NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
     

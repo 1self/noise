@@ -69,7 +69,20 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BWd-jV-r2v">
+                                        <rect key="frame" x="83" y="204" width="155" height="51"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <string key="text">Auto-upload in
+19:59</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1DB-jH-cBX" appends="YES" id="A0L-Ze-it7"/>
+                                </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 samples sent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Ty-cj-44T">
                                 <rect key="frame" x="103" y="442" width="116" height="21"/>
@@ -81,17 +94,25 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.1480739392" blue="0.74593842499999996" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
                     <connections>
                         <outlet property="audioPlot" destination="Lov-Wi-Vvt" id="Jbc-y7-FfI"/>
+                        <outlet property="autoupload" destination="BWd-jV-r2v" id="1hg-d3-VbD"/>
                         <outlet property="innerTicker" destination="Ds6-kg-3bR" id="zJA-Wb-Rqs"/>
                         <outlet property="lblDbspl" destination="wUF-Ef-knz" id="Wd4-U1-tKd"/>
                         <outlet property="lblsamplesSent" destination="0Ty-cj-44T" id="Z1F-7t-j9n"/>
+                        <outlet property="meterView2" destination="Yzj-62-0au" id="QjK-bq-cBv"/>
                         <outlet property="middleTicker" destination="fzC-gG-1j4" id="MK5-yG-EBH"/>
                         <outlet property="outerTicker" destination="4DF-8a-j0T" id="GYW-DP-Ppw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="1DB-jH-cBX">
+                    <connections>
+                        <action selector="vizTapHandler:" destination="vXZ-lx-hvc" id="6v8-Aq-yIe"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="58" y="96"/>
         </scene>
