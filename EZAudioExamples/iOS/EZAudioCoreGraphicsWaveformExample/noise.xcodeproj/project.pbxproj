@@ -64,7 +64,7 @@
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		94056F7A185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZAudioCoreGraphicsWaveformExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94056F7A185E593500EB94BA /* noise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = noise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94056F7D185E593500EB94BA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94056F7F185E593500EB94BA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		94056F81185E593500EB94BA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -158,8 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				2076C53319C03FF80018A5CF /* Pods.xcconfig */,
-				94056F83185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample */,
-				94056FA5185E593500EB94BA /* EZAudioCoreGraphicsWaveformExampleTests */,
+				94056F83185E593500EB94BA /* noise */,
+				94056FA5185E593500EB94BA /* NoiseTests */,
 				94056F7C185E593500EB94BA /* Frameworks */,
 				94056F7B185E593500EB94BA /* Products */,
 			);
@@ -168,7 +168,7 @@
 		94056F7B185E593500EB94BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94056F7A185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample.app */,
+				94056F7A185E593500EB94BA /* noise.app */,
 				94056F9E185E593500EB94BA /* EZAudioCoreGraphicsWaveformExampleTests.xctest */,
 			);
 			name = Products;
@@ -191,7 +191,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		94056F83185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample */ = {
+		94056F83185E593500EB94BA /* noise */ = {
 			isa = PBXGroup;
 			children = (
 				9417A7C01867DDD600D9D37B /* EZAudio */,
@@ -204,6 +204,7 @@
 				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
 			);
+			name = noise;
 			path = EZAudioCoreGraphicsWaveformExample;
 			sourceTree = "<group>";
 		};
@@ -219,12 +220,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		94056FA5185E593500EB94BA /* EZAudioCoreGraphicsWaveformExampleTests */ = {
+		94056FA5185E593500EB94BA /* NoiseTests */ = {
 			isa = PBXGroup;
 			children = (
 				94056FAB185E593500EB94BA /* EZAudioCoreGraphicsWaveformExampleTests.m */,
 				94056FA6185E593500EB94BA /* Supporting Files */,
 			);
+			name = NoiseTests;
 			path = EZAudioCoreGraphicsWaveformExampleTests;
 			sourceTree = "<group>";
 		};
@@ -280,9 +282,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94056F79185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample */ = {
+		94056F79185E593500EB94BA /* noise */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94056FAF185E593500EB94BA /* Build configuration list for PBXNativeTarget "EZAudioCoreGraphicsWaveformExample" */;
+			buildConfigurationList = 94056FAF185E593500EB94BA /* Build configuration list for PBXNativeTarget "noise" */;
 			buildPhases = (
 				A37F136170334577A327E8B4 /* Check Pods Manifest.lock */,
 				94056F76185E593500EB94BA /* Sources */,
@@ -294,9 +296,9 @@
 			);
 			dependencies = (
 			);
-			name = EZAudioCoreGraphicsWaveformExample;
+			name = noise;
 			productName = EZAudioCoreGraphicsWaveformExample;
-			productReference = 94056F7A185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample.app */;
+			productReference = 94056F7A185E593500EB94BA /* noise.app */;
 			productType = "com.apple.product-type.application";
 		};
 		94056F9D185E593500EB94BA /* EZAudioCoreGraphicsWaveformExampleTests */ = {
@@ -331,7 +333,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 94056F75185E593500EB94BA /* Build configuration list for PBXProject "EZAudioCoreGraphicsWaveformExample" */;
+			buildConfigurationList = 94056F75185E593500EB94BA /* Build configuration list for PBXProject "noise" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -344,7 +346,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94056F79185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample */,
+				94056F79185E593500EB94BA /* noise */,
 				94056F9D185E593500EB94BA /* EZAudioCoreGraphicsWaveformExampleTests */,
 			);
 		};
@@ -446,7 +448,7 @@
 /* Begin PBXTargetDependency section */
 		94056FA4185E593500EB94BA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94056F79185E593500EB94BA /* EZAudioCoreGraphicsWaveformExample */;
+			target = 94056F79185E593500EB94BA /* noise */;
 			targetProxy = 94056FA3185E593500EB94BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -573,7 +575,8 @@
 				GCC_PREFIX_HEADER = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Prefix.pch";
 				INFOPLIST_FILE = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = noise;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -588,7 +591,8 @@
 				GCC_PREFIX_HEADER = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Prefix.pch";
 				INFOPLIST_FILE = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = noise;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -640,7 +644,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94056F75185E593500EB94BA /* Build configuration list for PBXProject "EZAudioCoreGraphicsWaveformExample" */ = {
+		94056F75185E593500EB94BA /* Build configuration list for PBXProject "noise" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94056FAD185E593500EB94BA /* Debug */,
@@ -649,7 +653,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94056FAF185E593500EB94BA /* Build configuration list for PBXNativeTarget "EZAudioCoreGraphicsWaveformExample" */ = {
+		94056FAF185E593500EB94BA /* Build configuration list for PBXNativeTarget "noise" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94056FB0185E593500EB94BA /* Debug */,
