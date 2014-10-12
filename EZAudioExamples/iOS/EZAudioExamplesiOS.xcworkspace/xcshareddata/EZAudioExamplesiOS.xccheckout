@@ -12,20 +12,24 @@
 	<dict>
 		<key>9D6FF97A89F512CD81EAE1A971A1D2EB03E03F7C</key>
 		<string>ssh://github.com/edsykes/EZAudio.git</string>
+		<key>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</key>
+		<string>github.com:QuantifiedDev/iossoundmeter.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>EZAudioExamples/iOS/EZAudioExamplesiOS.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>9D6FF97A89F512CD81EAE1A971A1D2EB03E03F7C</key>
+		<string>../../../../EZAudio</string>
+		<key>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/edsykes/EZAudio.git</string>
+	<string>github.com:QuantifiedDev/iossoundmeter.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9D6FF97A89F512CD81EAE1A971A1D2EB03E03F7C</string>
+	<string>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>9D6FF97A89F512CD81EAE1A971A1D2EB03E03F7C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>EZAudio</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iossoundmeter</string>
 		</dict>
 	</array>
 </dict>
