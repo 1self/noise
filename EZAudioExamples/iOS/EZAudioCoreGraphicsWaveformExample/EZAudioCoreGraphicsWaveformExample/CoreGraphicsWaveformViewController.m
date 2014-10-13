@@ -70,12 +70,12 @@ NSMutableArray *unsentEvents = nil;
     totalDbaSampleCount = 0;
     totalDba = 0;
     samplesSent = 0;
-    apiUrlStem = @"http://10.0.1.15:7000";
-    appUrlStem = @"http://10.0.1.15:7000";
-    //apiUrlStem = @"http://localhost:7000";
-    //appUrlStem = @"http://localhost:7000";
-    //apiUrlStem = @"http://api.1self.co:7000";
-    //appUrlStem = @"http://app.1self.co:7000";
+    //apiUrlStem = @"http://10.0.1.15:7000";
+    //appUrlStem = @"http://10.0.1.15:7000";
+    apiUrlStem = @"http://localhost:7000";
+    appUrlStem = @"http://localhost:7000";
+    //apiUrlStem = @"http://api.1self.co";
+    //appUrlStem = @"http://app.1self.co";
     dbspl = [NSNumber numberWithInt:0];
     dba = [NSNumber numberWithInt:0];
     sid = @"";
@@ -94,6 +94,7 @@ NSMutableArray *unsentEvents = nil;
     }
     
     [self UpdateUIStats];
+    
     
     NSString *textToLoad = [loadPrefs stringForKey:@"streamid"];
     if(textToLoad == nil){
@@ -123,6 +124,8 @@ NSMutableArray *unsentEvents = nil;
             [prefs setObject: sid forKey:@"streamid"];
             [prefs setObject: writeToken forKey:@"writeToken"];
             [prefs setObject: readToken forKey:@"readToken"];
+            
+
         }
         else{
             NSLog(@"Couldn't create stream, stream is blank, nothing will be persisted to QD");
@@ -132,6 +135,7 @@ NSMutableArray *unsentEvents = nil;
         sid = [loadPrefs stringForKey:@"streamid"];
         readToken = [loadPrefs stringForKey:@"readToken"];
         writeToken = [loadPrefs stringForKey:@"writeToken"];
+        [self SendUnsentSamples];
     }
     
     locationManager = [[CLLocationManager alloc] init];
@@ -336,6 +340,21 @@ NSMutableArray *unsentEvents = nil;
     [self resetSample];
 }
 
+- (void)SendUnsentSamples
+{
+    NSMutableArray *eventsToSend = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < unsentEvents.count; i++) {
+        [eventsToSend addObject:unsentEvents[i]];
+    }
+    
+    [unsentEvents removeAllObjects];
+    
+    for (int i = 0; i < eventsToSend.count; i++) {
+        [self SendEvent:eventsToSend[i]];
+    }
+}
+
 - (IBAction)vizTapHandler:(id)sender {
     [self.meterView2 setAlpha:0];
     NSDate* currentTime = [NSDate date];
@@ -453,7 +472,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         
-        int sampleSendFrequency = 20;
+        int sampleSendFrequency = 1;
         NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
         NSTimeInterval fullSample = 60*sampleSendFrequency;
         NSTimeInterval timeLeftRamainingInSample = fullSample - sampleDuration;
