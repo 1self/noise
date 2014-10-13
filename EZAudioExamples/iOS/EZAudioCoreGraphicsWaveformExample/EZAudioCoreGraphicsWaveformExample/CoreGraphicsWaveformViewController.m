@@ -18,6 +18,7 @@
 @property (nonatomic,weak) IBOutlet UILabel *lblDba;
 @property (nonatomic,weak) IBOutlet UILabel *lblDbspl;
 @property (nonatomic,weak) IBOutlet UILabel *lblsamplesSent;
+@property (weak, nonatomic) IBOutlet UILabel *lblsamplesSaved;
 @property (nonatomic,weak) IBOutlet UILabel *lbl;
 @property (nonatomic, weak) IBOutlet UIImageView *innerTicker;
 @property (nonatomic, weak) IBOutlet UIImageView *middleTicker;
@@ -27,8 +28,10 @@
 @implementation CoreGraphicsWaveformViewController
 @synthesize audioPlot;
 @synthesize microphone;
-//@synthesize meterView;
 
+NSNumber *dbspl = 0;
+NSNumber *dba = 0;
+NSMutableArray *unsentEvents = nil;
 
 #pragma mark - Initialization
 -(id)init {
@@ -67,23 +70,46 @@
     totalDbaSampleCount = 0;
     totalDba = 0;
     samplesSent = 0;
-    urlStem = @"http://localhost:5000";
+    apiUrlStem = @"http://10.0.1.15:7000";
+    appUrlStem = @"http://10.0.1.15:7000";
+    //apiUrlStem = @"http://localhost:7000";
+    //appUrlStem = @"http://localhost:7000";
+    //apiUrlStem = @"http://api.1self.co:7000";
+    //appUrlStem = @"http://app.1self.co:7000";
+    dbspl = [NSNumber numberWithInt:0];
+    dba = [NSNumber numberWithInt:0];
+    sid = @"";
+    writeToken=@"";
+    readToken=@"";
     
     NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
+
+    //[loadPrefs removeObjectForKey:@"unsentEvents"];
+    NSArray *savedUnsentEvents = [loadPrefs objectForKey:@"unsentEvents"];
+    unsentEvents = [[NSMutableArray alloc] initWithCapacity:0];
+    if(savedUnsentEvents != nil){
+        for (int i = 0; i < savedUnsentEvents.count; ++i) {
+            [unsentEvents addObject:savedUnsentEvents[i]];
+        }
+    }
+    
+    [self UpdateUIStats];
+    
     NSString *textToLoad = [loadPrefs stringForKey:@"streamid"];
     if(textToLoad == nil){
         NSLog(@"No stream id found, creating a new one");
-        NSDictionary* headers = @{@"accept": @"application/json"};
+        NSDictionary* headers = @{@"accept": @"application/json", @"Authorization": @"apikey"};
         NSDictionary* parameters = @{@"parameter": @"value", @"foo": @"bar"};
+        NSString* url = [NSString stringWithFormat: @"%@/v1/streams", apiUrlStem];
         
         UNIHTTPJsonResponse* response = [[UNIRest post:^(UNISimpleRequest* request) {
-            [request setUrl: [NSString stringWithFormat: @"%@/stream", urlStem]];
+            [request setUrl: url];
             [request setHeaders:headers];
             [request setParameters:parameters];
         }] asJson];
         
         if (response.code == 200) {
-            NSLog(@"Successfully made rest call: %d", response.code);
+            NSLog(@"Successfully made rest call: %ld", (long)response.code);
             
             sid = response.body.JSONObject[@"streamid"];
             writeToken = response.body.JSONObject[@"writeToken"];
@@ -224,12 +250,97 @@
 }
 
 -(void)register1Self:(id)sender{
-    NSString* registerUrl = [NSString stringWithFormat: @"%@/dashboard?streamId=%@&readToken=%@", urlStem, sid, readToken];
+    NSString* registerUrl = [NSString stringWithFormat: @"%@/streams/%@/events/ambient;sound/sample/dbspl/mean/daily/barchart?readtoken=%@", appUrlStem, sid, readToken];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:registerUrl]];
+}
+
+
+- (void)SendEvent:(NSDictionary *)event
+{
+    NSDictionary* headers = @{@"Content-Type": @"application/json",
+                              @"Authorization": writeToken};
+    NSString *url = [NSString stringWithFormat:@"%@/v1/streams/%@/events", apiUrlStem, sid];
+    
+    [[UNIRest postEntity:^(UNIBodyRequest* request) {   
+        [request setUrl:url];
+        [request setHeaders:headers];
+        [request setBody:[NSJSONSerialization dataWithJSONObject:event options:0 error:nil]];
+    }] asJsonAsync:^(UNIHTTPJsonResponse* response, NSError *error) {
+        // This is the asyncronous callback block
+        NSInteger result = response.code;
+        NSLog(@"Tried to send event with result %ld", (long)result);
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        if(result == 200){
+            samplesSent += 1;
+        }
+        else{
+            
+            @synchronized(unsentEvents){
+                [unsentEvents addObject:event];
+            }
+        }
+        
+        @synchronized(unsentEvents){
+            [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+        }
+    }];
+}
+
+- (NSDictionary *)CreateEvent:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
+{
+    NSDateFormatter* eventDateTime = [[NSDateFormatter alloc] init];
+    eventDateTime.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+    
+    NSString *formattedDateString = [eventDateTime stringFromDate:sampleStart];
+    NSLog(@"ISO-8601 date: %@", formattedDateString);
+    
+    sampleStart = currentTime;
+    
+    
+    
+    NSNumber* sampleDbspl = [NSNumber numberWithInt: [dbspl intValue]];
+    NSNumber* sampleDba = [NSNumber numberWithInt: [dba intValue]];
+    NSDictionary *event = @{ @"dateTime":   formattedDateString,
+                             @"eventDateTime": formattedDateString,
+                             @"actionTags": @[@"sample"],
+                             @"location": @{ @"lat": [NSNumber numberWithDouble:currentLocation.coordinate.latitude],
+                                             @"long": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]
+                                             },
+                             @"objectTags":@[@"ambient", @"sound"],
+                             @"properties": @{@"dba": sampleDba, @"dbspl": sampleDbspl, @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
+                             @"source": @"1Self Noise",
+                             @"streamid":sid,
+                             @"version": @"1.0.0"
+                             };
+    return event;
+}
+
+- (void)SendSample:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
+{
+    NSMutableArray *eventsToSend = [[NSMutableArray alloc] init];
+    NSDictionary *event;
+    event = [self CreateEvent:currentTime sampleDuration:sampleDuration];
+    [eventsToSend addObject:event];
+    
+    for (int i = 0; i < unsentEvents.count; i++) {
+        [eventsToSend addObject:unsentEvents[i]];
+    }
+    
+    [unsentEvents removeAllObjects];
+    
+    for (int i = 0; i < eventsToSend.count; i++) {
+        [self SendEvent:eventsToSend[i]];
+    }
+    
+    [self resetSample];
 }
 
 - (IBAction)vizTapHandler:(id)sender {
     [self.meterView2 setAlpha:0];
+    NSDate* currentTime = [NSDate date];
+    NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
+    [self SendSample: currentTime sampleDuration: sampleDuration];
     [self resetSample];
     [UIView beginAnimations:NULL context:nil];
     [UIView setAnimationDuration:2.0];
@@ -263,6 +374,20 @@ int samplePruining = 0;
     totalDbaSampleCount = 0;
     totalDba = 0;
     sampleStart = [NSDate date];
+    dbspl = 0;
+    dba = 0;
+    [self animateInner];
+    [self animateOuter];
+    [self animateMiddle];
+}
+
+
+- (void)UpdateUIStats
+{
+    self.lblDba.text = [NSString stringWithFormat: @"%@ dba", dba];
+    self.lblDbspl.text = [NSString stringWithFormat: @"%@", dbspl];
+    self.lblsamplesSent.text = [NSString stringWithFormat: @"%d sample(s) sent", samplesSent];
+    self.lblsamplesSaved.text = [NSString stringWithFormat: @"%lu saved sample(s)", (unsigned long)unsentEvents.count];
 }
 
 // Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
@@ -316,23 +441,21 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         //  NSLog(@"mean is %10f (raw) %10f (db)", rawMeanVal, dbMeanVal);
         totalDba += sampleMeanDba;
         totalDbaSampleCount = totalDbaSampleCount + 1;
-        NSNumber *dba = [NSNumber numberWithInt:totalDba / totalDbaSampleCount];
+        dba = [NSNumber numberWithInt:totalDba / totalDbaSampleCount];
         float fdbspl = totalDba / totalDbaSampleCount + 150;
-        NSNumber *dbspl = [NSNumber numberWithInt:fdbspl];
+        dbspl = [NSNumber numberWithInt:fdbspl];
         
         
-        self.lblDba.text = [NSString stringWithFormat: @"%@ dba", dba];
-        self.lblDbspl.text = [NSString stringWithFormat: @"%@", dbspl];
-        self.lblsamplesSent.text = [NSString stringWithFormat: @"%d samples sent", samplesSent];
+        [self UpdateUIStats];
         
         float redness = fdbspl / 100;
         float greenness = 1 - redness;
         self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         
-        int sampleSendFrequency = 1;
+        int sampleSendFrequency = 20;
         NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
-        NSTimeInterval fullSample = 60*1;
+        NSTimeInterval fullSample = 60*sampleSendFrequency;
         NSTimeInterval timeLeftRamainingInSample = fullSample - sampleDuration;
         
         int mins = (int)timeLeftRamainingInSample / 60;
@@ -340,46 +463,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%0*d:%0*d", 2, mins, 2, seconds];
         
         if(sampleDuration > fullSample){
-
-            NSDateFormatter* eventDateTime = [[NSDateFormatter alloc] init];
-            eventDateTime.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-
-            NSString *formattedDateString = [eventDateTime stringFromDate:sampleStart];
-            NSLog(@"ISO-8601 date: %@", formattedDateString);
-            
-            sampleStart = currentTime;
-            
-            return;
-            
-            NSDictionary* headers = @{@"Content-Type": @"application/json",
-                                      @"Authorization": writeToken};
-            NSString *url = [NSString stringWithFormat:@"http://localhost:5000/stream/%@/event/realtime", sid];
-            [[UNIRest postEntity:^(UNIBodyRequest* request) {
-                [request setUrl:url];
-                [request setHeaders:headers];
-                
-                NSDictionary *event = @{ @"dateTime":   formattedDateString,
-                                         @"eventDateTime": formattedDateString,
-                                         @"actionTags": @[@"sample"],
-                                         @"location": @{ @"lat": [NSNumber numberWithDouble:currentLocation.coordinate.latitude],
-                                                         @"long": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]
-                                                         },
-                                         @"objectTags":@[@"1selfiossoundmeter"],
-                                         @"properties": @{@"dba": dba, @"dbspl": dbspl, @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
-                                         @"source": @"1Self iOS Soundmeter",
-                                         @"streamid":sid,
-                                         @"version": @"0.0.1.aldpha"
-                                         };
-                [request setBody:[NSJSONSerialization dataWithJSONObject:event options:0 error:nil]];
-            }] asJsonAsync:^(UNIHTTPJsonResponse* response, NSError *error) {
-                // This is the asyncronous callback block
-                NSInteger result = response.code;
-                NSLog(@"Tried to send event with result %ld", (long)result);
-                if(result == 200){
-                    samplesSent += 1;
-                }
-            }];
-            [self resetSample];
+            [self SendSample:currentTime sampleDuration:sampleDuration];
         }
         NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
     

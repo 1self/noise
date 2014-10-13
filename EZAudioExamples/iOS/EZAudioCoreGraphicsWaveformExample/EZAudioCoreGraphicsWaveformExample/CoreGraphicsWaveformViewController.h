@@ -24,7 +24,8 @@
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
     NSDate* sampleStart;
-    NSString* urlStem;
+    NSString* apiUrlStem;
+    NSString* appUrlStem;
     int samplesSent;
 }
 
