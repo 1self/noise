@@ -23,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *innerTicker;
 @property (nonatomic, weak) IBOutlet UIImageView *middleTicker;
 @property (nonatomic, weak) IBOutlet UIImageView *outerTicker;
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @end
 
 @implementation CoreGraphicsWaveformViewController
@@ -54,6 +55,8 @@ NSMutableArray *unsentEvents = nil;
 
 #pragma mark - Initialize View Controller Here
 -(void)initializeViewController {
+    [self registerGoingIntoBackgroundHandler];
+    self.backgroundTask = UIBackgroundTaskInvalid;
   // Create an instance of the microphone and tell it to use this view controller instance as the delegate
     
     AudioStreamBasicDescription dataFormat;
@@ -66,14 +69,15 @@ NSMutableArray *unsentEvents = nil;
     dataFormat.mChannelsPerFrame = 2;
     dataFormat.mBitsPerChannel = 8;
     
+    sampleSendFrequency = 20;
     self.microphone = [EZMicrophone microphoneWithDelegate:self withAudioStreamBasicDescription:dataFormat];
     totalDbaSampleCount = 0;
     totalDba = 0;
     samplesSent = 0;
-    //apiUrlStem = @"http://10.0.1.15:7000";
-    //appUrlStem = @"http://10.0.1.15:7000";
-    apiUrlStem = @"http://localhost:7000";
-    appUrlStem = @"http://localhost:7000";
+    apiUrlStem = @"http://10.0.1.15:7000";
+    appUrlStem = @"http://10.0.1.15:7000";
+    //apiUrlStem = @"http://localhost:7000";
+    //appUrlStem = @"http://localhost:7000";
     //apiUrlStem = @"http://api.1self.co";
     //appUrlStem = @"http://app.1self.co";
     dbspl = [NSNumber numberWithInt:0];
@@ -259,7 +263,7 @@ NSMutableArray *unsentEvents = nil;
 }
 
 
-- (void)SendEvent:(NSDictionary *)event
+- (void)SendEventAsync:(NSDictionary *)event
 {
     NSDictionary* headers = @{@"Content-Type": @"application/json",
                               @"Authorization": writeToken};
@@ -288,7 +292,50 @@ NSMutableArray *unsentEvents = nil;
         @synchronized(unsentEvents){
             [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
         }
+        
+        // If we are being put in the background there might be a background task going.
+        // So set this in case.
+        if(self.backgroundTask != UIBackgroundTaskInvalid){
+            self.backgroundTask = UIBackgroundTaskInvalid;
+        }
     }];
+}
+
+- (void)SendEvent:(NSDictionary *)event
+{
+    NSDictionary* headers = @{@"Content-Type": @"application/json",
+                              @"Authorization": writeToken};
+    NSString *url = [NSString stringWithFormat:@"%@/v1/streams/%@/events", apiUrlStem, sid];
+    
+    UNIHTTPJsonResponse* response = [[UNIRest postEntity:^(UNIBodyRequest* request) {
+        [request setUrl:url];
+        [request setHeaders:headers];
+        [request setBody:[NSJSONSerialization dataWithJSONObject:event options:0 error:nil]];
+    }] asJson];
+     
+        NSInteger result = response.code;
+        NSLog(@"Tried to send event with result %ld", (long)result);
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        if(result == 200){
+            samplesSent += 1;
+        }
+        else{
+            
+            @synchronized(unsentEvents){
+                [unsentEvents addObject:event];
+            }
+        }
+        
+        @synchronized(unsentEvents){
+            [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+        }
+        
+        // If we are being put in the background there might be a background task going.
+        // So set this in case.
+        if(self.backgroundTask != UIBackgroundTaskInvalid){
+            self.backgroundTask = UIBackgroundTaskInvalid;
+        }
 }
 
 - (NSDictionary *)CreateEvent:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
@@ -320,7 +367,7 @@ NSMutableArray *unsentEvents = nil;
     return event;
 }
 
-- (void)SendSample:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
+- (void)SendSamples:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
 {
     NSMutableArray *eventsToSend = [[NSMutableArray alloc] init];
     NSDictionary *event;
@@ -334,9 +381,18 @@ NSMutableArray *unsentEvents = nil;
     [unsentEvents removeAllObjects];
     
     for (int i = 0; i < eventsToSend.count; i++) {
-        [self SendEvent:eventsToSend[i]];
+        [self SendEventAsync:eventsToSend[i]];
     }
     
+    [self resetSample];
+}
+
+- (void)SendSingleSample:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
+{
+    NSMutableArray *eventsToSend = [[NSMutableArray alloc] init];
+    NSDictionary *event;
+    event = [self CreateEvent:currentTime sampleDuration:sampleDuration];
+    [self SendEvent:event];
     [self resetSample];
 }
 
@@ -351,7 +407,7 @@ NSMutableArray *unsentEvents = nil;
     [unsentEvents removeAllObjects];
     
     for (int i = 0; i < eventsToSend.count; i++) {
-        [self SendEvent:eventsToSend[i]];
+        [self SendEventAsync:eventsToSend[i]];
     }
 }
 
@@ -359,7 +415,7 @@ NSMutableArray *unsentEvents = nil;
     [self.meterView2 setAlpha:0];
     NSDate* currentTime = [NSDate date];
     NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
-    [self SendSample: currentTime sampleDuration: sampleDuration];
+    [self SendSamples: currentTime sampleDuration: sampleDuration];
     [self resetSample];
     [UIView beginAnimations:NULL context:nil];
     [UIView setAnimationDuration:2.0];
@@ -400,6 +456,38 @@ int samplePruining = 0;
     [self animateMiddle];
 }
 
+- (void) applicationWillResign {
+    [self.microphone stopFetchingAudio];
+    NSDate* currentTime = [NSDate date];
+    NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
+    [self SendSingleSample:currentTime sampleDuration: sampleDuration];
+
+    
+    self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        self.backgroundTask = UIBackgroundTaskInvalid;
+    }];
+    
+    [self resetSample];
+}
+
+- (void) applicationActive{
+    [self resetSample];
+    [self.microphone startFetchingAudio];
+}
+
+- (void) registerGoingIntoBackgroundHandler {
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillResign)
+     name:UIApplicationWillResignActiveNotification
+     object:NULL];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationActive)
+     name:UIApplicationDidBecomeActiveNotification
+     object:NULL];
+}
 
 - (void)UpdateUIStats
 {
@@ -472,7 +560,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
         
-        int sampleSendFrequency = 1;
         NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
         NSTimeInterval fullSample = 60*sampleSendFrequency;
         NSTimeInterval timeLeftRamainingInSample = fullSample - sampleDuration;
@@ -482,7 +569,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%0*d:%0*d", 2, mins, 2, seconds];
         
         if(sampleDuration > fullSample){
-            [self SendSample:currentTime sampleDuration:sampleDuration];
+            [self SendSamples:currentTime sampleDuration:sampleDuration];
         }
         NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
     

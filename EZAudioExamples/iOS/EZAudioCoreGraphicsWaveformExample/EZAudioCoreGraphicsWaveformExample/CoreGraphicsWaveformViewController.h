@@ -27,6 +27,7 @@
     NSString* apiUrlStem;
     NSString* appUrlStem;
     int samplesSent;
+    int sampleSendFrequency;
 }
 
 #pragma mark - Components
