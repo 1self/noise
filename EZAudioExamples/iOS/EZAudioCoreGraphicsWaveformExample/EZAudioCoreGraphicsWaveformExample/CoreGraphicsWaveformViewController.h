@@ -25,7 +25,6 @@
     CLLocation *currentLocation;
     NSDate* sampleStart;
     NSString* apiUrlStem;
-    NSString* appUrlStem;
     int samplesSent;
     int sendingSamples;
     int sampleSendFrequency;

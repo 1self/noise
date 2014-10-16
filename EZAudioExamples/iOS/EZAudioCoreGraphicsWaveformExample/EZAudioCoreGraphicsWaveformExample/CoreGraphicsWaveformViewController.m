@@ -119,12 +119,10 @@ NSMutableArray *unsentEvents = nil;
     // appUrlStem = @"http://localhost:5000";
     
     // LIVE!!
-    //apiUrlStem = @"https://app.quantifieddev.org";
-    //appUrlStem = @"https://app.quantifieddev.org";
+    //apiUrlStem = @"http://app.quantifieddev.org";
     
-    // staging
-    apiUrlStem = @"http://staging.quantifieddev.org:5000";
-    appUrlStem = @"http://staging.quantifieddev.org:5000";
+    // staging 1self
+    apiUrlStem = @"http://api-staging.1self.co:5000";
     
     // EE Office
     //apiUrlStem = @"http://10.5.5.44:7000";
@@ -625,7 +623,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     }];
     
     [self resetSample];
-    NSString* registerUrl = [NSString stringWithFormat: @"%@/streams/%@/events/ambient;sound/sample/dbspl/mean/daily/barchart?readtoken=%@", appUrlStem, sid, readToken];
+    NSString* registerUrl = [NSString stringWithFormat: @"%@/v1/streams/%@/events/ambient;sound/sample/dbspl/mean/daily/barchart?readtoken=%@", apiUrlStem, sid, readToken];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:registerUrl]];
 }
 @end
