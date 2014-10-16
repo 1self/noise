@@ -10,6 +10,10 @@
 		2009C09019E97ED6009756A1 /* middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C08D19E97ED6009756A1 /* middle.png */; };
 		2009C09219E97ED6009756A1 /* inner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C08F19E97ED6009756A1 /* inner.png */; };
 		2009C09419E97FA2009756A1 /* outer.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09319E97FA2009756A1 /* outer.png */; };
+		2009C09619ED3416009756A1 /* 1selflogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09519ED3416009756A1 /* 1selflogo.png */; };
+		2009C09C19ED3CE4009756A1 /* dial.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09B19ED3CE4009756A1 /* dial.png */; };
+		2009C0A019ED6333009756A1 /* noiselogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09F19ED6333009756A1 /* noiselogo.png */; };
+		2009C0A419ED737B009756A1 /* visualise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A319ED737B009756A1 /* visualise.png */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -61,6 +65,10 @@
 		2009C08D19E97ED6009756A1 /* middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middle.png; sourceTree = "<group>"; };
 		2009C08F19E97ED6009756A1 /* inner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inner.png; sourceTree = "<group>"; };
 		2009C09319E97FA2009756A1 /* outer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outer.png; sourceTree = "<group>"; };
+		2009C09519ED3416009756A1 /* 1selflogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1selflogo.png; sourceTree = "<group>"; };
+		2009C09B19ED3CE4009756A1 /* dial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dial.png; sourceTree = "<group>"; };
+		2009C09F19ED6333009756A1 /* noiselogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noiselogo.png; sourceTree = "<group>"; };
+		2009C0A319ED737B009756A1 /* visualise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visualise.png; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -147,7 +155,11 @@
 		2034AAAF19E8614900F925BA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2009C09519ED3416009756A1 /* 1selflogo.png */,
 				2009C09319E97FA2009756A1 /* outer.png */,
+				2009C09B19ED3CE4009756A1 /* dial.png */,
+				2009C0A319ED737B009756A1 /* visualise.png */,
+				2009C09F19ED6333009756A1 /* noiselogo.png */,
 				2009C08D19E97ED6009756A1 /* middle.png */,
 				2009C08F19E97ED6009756A1 /* inner.png */,
 			);
@@ -328,6 +340,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Syed Haris Ali";
 				TargetAttributes = {
+					94056F79185E593500EB94BA = {
+						DevelopmentTeam = CFYF9QT74F;
+					};
 					94056F9D185E593500EB94BA = {
 						TestTargetID = 94056F79185E593500EB94BA;
 					};
@@ -362,6 +377,10 @@
 				94056F91185E593500EB94BA /* Main_iPhone.storyboard in Resources */,
 				9417A7E61867DDD600D9D37B /* VERSION in Resources */,
 				2009C09019E97ED6009756A1 /* middle.png in Resources */,
+				2009C0A019ED6333009756A1 /* noiselogo.png in Resources */,
+				2009C09C19ED3CE4009756A1 /* dial.png in Resources */,
+				2009C0A419ED737B009756A1 /* visualise.png in Resources */,
+				2009C09619ED3416009756A1 /* 1selflogo.png in Resources */,
 				94056F88185E593500EB94BA /* InfoPlist.strings in Resources */,
 				2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */,
 				2009C09219E97ED6009756A1 /* inner.png in Resources */,
@@ -571,11 +590,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Prefix.pch";
 				INFOPLIST_FILE = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = noise;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -587,11 +609,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Prefix.pch";
 				INFOPLIST_FILE = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = noise;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

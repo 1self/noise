@@ -19,6 +19,7 @@
 @property (nonatomic,weak) IBOutlet UILabel *lblDbspl;
 @property (nonatomic,weak) IBOutlet UILabel *lblsamplesSent;
 @property (weak, nonatomic) IBOutlet UILabel *lblsamplesSaved;
+@property (weak, nonatomic) IBOutlet UILabel *lblSendingSamples;
 @property (nonatomic,weak) IBOutlet UILabel *lbl;
 @property (nonatomic, weak) IBOutlet UIImageView *innerTicker;
 @property (nonatomic, weak) IBOutlet UIImageView *middleTicker;
@@ -54,7 +55,41 @@ NSMutableArray *unsentEvents = nil;
 }
 
 #pragma mark - Initialize View Controller Here
+- (void)CreateStream {
+    NSLog(@"No stream id found, creating a new one");
+    NSDictionary* headers = @{@"Authorization": @"1selfnoise:12345678"};
+    NSString* url = [NSString stringWithFormat: @"%@/v1/streams", apiUrlStem];
+    
+    UNIHTTPJsonResponse* response = [[UNIRest post:^(UNISimpleRequest* request) {
+        [request setUrl: url];
+        [request setHeaders:headers];
+    }] asJson];
+    
+    if (response.code == 200) {
+        NSLog(@"Successfully made rest call: %ld", (long)response.code);
+        
+        sid = response.body.JSONObject[@"streamid"];
+        writeToken = response.body.JSONObject[@"writeToken"];
+        readToken = response.body.JSONObject[@"readToken"];
+        
+        NSLog(@"streamid: %@", sid);
+        NSLog(@"writeToken: %@", writeToken);
+        NSLog(@"readToken: %@", readToken);
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject: sid forKey:@"streamid"];
+        [prefs setObject: writeToken forKey:@"writeToken"];
+        [prefs setObject: readToken forKey:@"readToken"];
+        
+        
+    }
+    else{
+        NSLog(@"Couldn't create stream, stream is blank, nothing will be persisted to QD");
+    }
+}
+
 -(void)initializeViewController {
+    [self reset1Self: nil];
     [self registerGoingIntoBackgroundHandler];
     self.backgroundTask = UIBackgroundTaskInvalid;
   // Create an instance of the microphone and tell it to use this view controller instance as the delegate
@@ -74,8 +109,27 @@ NSMutableArray *unsentEvents = nil;
     totalDbaSampleCount = 0;
     totalDba = 0;
     samplesSent = 0;
-    apiUrlStem = @"http://10.0.1.15:7000";
-    appUrlStem = @"http://10.0.1.15:7000";
+    sendingSamples = 0;
+    // fake local api
+    //apiUrlStem = @"http://10.0.1.15:7000";
+    //appUrlStem = @"http://10.0.1.15:7000";
+    
+    // real local api
+    // apiUrlStem = @"http://localhost:5000";
+    // appUrlStem = @"http://localhost:5000";
+    
+    // LIVE!!
+    //apiUrlStem = @"https://app.quantifieddev.org";
+    //appUrlStem = @"https://app.quantifieddev.org";
+    
+    // staging
+    apiUrlStem = @"http://staging.quantifieddev.org:5000";
+    appUrlStem = @"http://staging.quantifieddev.org:5000";
+    
+    // EE Office
+    //apiUrlStem = @"http://10.5.5.44:7000";
+    //appUrlStem = @"http://10.5.5.44:7000";
+    
     //apiUrlStem = @"http://localhost:7000";
     //appUrlStem = @"http://localhost:7000";
     //apiUrlStem = @"http://api.1self.co";
@@ -102,38 +156,7 @@ NSMutableArray *unsentEvents = nil;
     
     NSString *textToLoad = [loadPrefs stringForKey:@"streamid"];
     if(textToLoad == nil){
-        NSLog(@"No stream id found, creating a new one");
-        NSDictionary* headers = @{@"accept": @"application/json", @"Authorization": @"apikey"};
-        NSDictionary* parameters = @{@"parameter": @"value", @"foo": @"bar"};
-        NSString* url = [NSString stringWithFormat: @"%@/v1/streams", apiUrlStem];
-        
-        UNIHTTPJsonResponse* response = [[UNIRest post:^(UNISimpleRequest* request) {
-            [request setUrl: url];
-            [request setHeaders:headers];
-            [request setParameters:parameters];
-        }] asJson];
-        
-        if (response.code == 200) {
-            NSLog(@"Successfully made rest call: %ld", (long)response.code);
-            
-            sid = response.body.JSONObject[@"streamid"];
-            writeToken = response.body.JSONObject[@"writeToken"];
-            readToken = response.body.JSONObject[@"readToken"];
-
-            NSLog(@"streamid: %@", sid);
-            NSLog(@"writeToken: %@", writeToken);
-            NSLog(@"readToken: %@", readToken);
-
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            [prefs setObject: sid forKey:@"streamid"];
-            [prefs setObject: writeToken forKey:@"writeToken"];
-            [prefs setObject: readToken forKey:@"readToken"];
-            
-
-        }
-        else{
-            NSLog(@"Couldn't create stream, stream is blank, nothing will be persisted to QD");
-        }
+        [self CreateStream];
     }
     else{
         sid = [loadPrefs stringForKey:@"streamid"];
@@ -150,11 +173,17 @@ NSMutableArray *unsentEvents = nil;
 	} else {
 		NSLog(@"Location services is not enabled");
 	}
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    
+    currentLocation = [locationManager location];
     
     NSLog(@"stream id loaded: %@", textToLoad);
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocations:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 	self->currentLocation = newLocation;
 	
 	NSLog(@"Latidude %f Longitude: %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
@@ -255,13 +284,8 @@ NSMutableArray *unsentEvents = nil;
     [prefs removeObjectForKey:@"streamid"];
     [prefs removeObjectForKey:@"writeToken"];
     [prefs removeObjectForKey:@"readToken"];
+    [prefs removeObjectForKey:@"unsentEvents"];
 }
-
--(void)register1Self:(id)sender{
-    NSString* registerUrl = [NSString stringWithFormat: @"%@/streams/%@/events/ambient;sound/sample/dbspl/mean/daily/barchart?readtoken=%@", appUrlStem, sid, readToken];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:registerUrl]];
-}
-
 
 - (void)SendEventAsync:(NSDictionary *)event
 {
@@ -269,6 +293,7 @@ NSMutableArray *unsentEvents = nil;
                               @"Authorization": writeToken};
     NSString *url = [NSString stringWithFormat:@"%@/v1/streams/%@/events", apiUrlStem, sid];
     
+    sendingSamples += 1;
     [[UNIRest postEntity:^(UNIBodyRequest* request) {   
         [request setUrl:url];
         [request setHeaders:headers];
@@ -298,6 +323,8 @@ NSMutableArray *unsentEvents = nil;
         if(self.backgroundTask != UIBackgroundTaskInvalid){
             self.backgroundTask = UIBackgroundTaskInvalid;
         }
+        
+        sendingSamples -= 1;
     }];
 }
 
@@ -436,10 +463,6 @@ NSMutableArray *unsentEvents = nil;
   self.audioPlot.shouldFill = YES;
 }
 
--(void)addStats {
-    
-}
-
 int samplePruining = 0;
 
 #pragma mark - EZMicrophoneDelegate
@@ -493,8 +516,9 @@ int samplePruining = 0;
 {
     self.lblDba.text = [NSString stringWithFormat: @"%@ dba", dba];
     self.lblDbspl.text = [NSString stringWithFormat: @"%@", dbspl];
-    self.lblsamplesSent.text = [NSString stringWithFormat: @"%d sample(s) sent", samplesSent];
-    self.lblsamplesSaved.text = [NSString stringWithFormat: @"%lu saved sample(s)", (unsigned long)unsentEvents.count];
+    self.lblsamplesSent.text = [NSString stringWithFormat: @"%d", samplesSent];
+    self.lblsamplesSaved.text = [NSString stringWithFormat: @"%lu", (unsigned long)unsentEvents.count];
+    self.lblSendingSamples.text = [NSString stringWithFormat: @"%d", sendingSamples];
 }
 
 // Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
@@ -589,4 +613,19 @@ withNumberOfChannels:(UInt32)numberOfChannels {
   // Getting audio data as a buffer list that can be directly fed into the EZRecorder or EZOutput. Say whattt...
 }
 
+- (IBAction)graphTap:(id)sender {
+    [self.microphone stopFetchingAudio];
+    NSDate* currentTime = [NSDate date];
+    NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
+    [self SendSingleSample:currentTime sampleDuration: sampleDuration];
+    
+    
+    self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        self.backgroundTask = UIBackgroundTaskInvalid;
+    }];
+    
+    [self resetSample];
+    NSString* registerUrl = [NSString stringWithFormat: @"%@/streams/%@/events/ambient;sound/sample/dbspl/mean/daily/barchart?readtoken=%@", appUrlStem, sid, readToken];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:registerUrl]];
+}
 @end

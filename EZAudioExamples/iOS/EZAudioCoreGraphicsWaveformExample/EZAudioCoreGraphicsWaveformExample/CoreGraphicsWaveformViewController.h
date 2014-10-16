@@ -15,7 +15,7 @@
 /**
  We will allow this view controller to act as an EZMicrophoneDelegate. This is how we listen for the microphone callback.
  */
-@interface CoreGraphicsWaveformViewController : UIViewController <EZMicrophoneDelegate>{
+@interface CoreGraphicsWaveformViewController : UIViewController <EZMicrophoneDelegate,CLLocationManagerDelegate>{
     __block int totalDbaSampleCount;
     __block float totalDba;
     NSString *sid;
@@ -27,6 +27,7 @@
     NSString* apiUrlStem;
     NSString* appUrlStem;
     int samplesSent;
+    int sendingSamples;
     int sampleSendFrequency;
 }
 
@@ -58,7 +59,9 @@
  */
 -(IBAction)toggleMicrophone:(id)sender;
 -(IBAction)reset1Self:(id)sender;
--(IBAction)register1Self:(id)sender;
 - (IBAction)vizTapHandler:(UIGestureRecognizer*)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *graphImageView;
+- (IBAction)graphTap:(UIGestureRecognizer*)sender;
+
 
 @end
