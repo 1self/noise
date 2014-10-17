@@ -10,8 +10,24 @@
 
 #import "EZAudio.h"
 
+@protocol NoiseView <NSObject>
+@optional
+- (void)updateView;
+-(void)updateAudioPlots:(float *)buffer
+     withBufferSize:(UInt32)bufferSize;
+
+@end
+
 @interface NoiseModel : NSObject<EZMicrophoneDelegate>
 
 @property (nonatomic,strong) EZMicrophone *microphone;
+@property NSNumber* dbspl;
+@property float fdbspl;
+@property NSTimeInterval sampleDuration;
+@property NSString *autouploadLeft;
+@property (weak) id<NoiseView> noiseView;
+
 @end
+
+
 #endif

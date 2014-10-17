@@ -15,7 +15,7 @@
 /**
  We will allow this view controller to act as an EZMicrophoneDelegate. This is how we listen for the microphone callback.
  */
-@interface CoreGraphicsWaveformViewController : UIViewController <EZMicrophoneDelegate,CLLocationManagerDelegate>{
+@interface CoreGraphicsWaveformViewController : UIViewController <EZMicrophoneDelegate,CLLocationManagerDelegate, NoiseView>{
     __block int totalDbaSampleCount;
     __block float totalDba;
     NSString *sid;

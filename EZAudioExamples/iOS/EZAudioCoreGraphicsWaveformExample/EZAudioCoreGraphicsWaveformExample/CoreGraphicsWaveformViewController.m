@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 Syed Haris Ali. All rights reserved.
 //
 
+#import "NoiseModel.h"
 #import "CoreGraphicsWaveformViewController.h"
 #import <Accelerate/Accelerate.h>
 #import <UNIRest.h>
+#import "AppDelegate.h"
 
 @interface CoreGraphicsWaveformViewController (){
   float scale;
@@ -34,6 +36,7 @@
 NSNumber *dbspl = 0;
 NSNumber *dba = 0;
 NSMutableArray *unsentEvents = nil;
+NoiseModel* noiseModel;
 
 #pragma mark - Initialization
 -(id)init {
@@ -88,100 +91,18 @@ NSMutableArray *unsentEvents = nil;
 }
 
 -(void)initializeViewController {
-    [self reset1Self: nil];
-    [self registerGoingIntoBackgroundHandler];
-    self.backgroundTask = UIBackgroundTaskInvalid;
-  // Create an instance of the microphone and tell it to use this view controller instance as the delegate
     
-    AudioStreamBasicDescription dataFormat;
-    dataFormat.mSampleRate = 10;
-    dataFormat.mFormatID = kAudioFormatLinearPCM;
-    dataFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsBigEndian;
-    dataFormat.mBytesPerPacket = 4;
-    dataFormat.mFramesPerPacket = 1;
-    dataFormat.mBytesPerFrame = 4;
-    dataFormat.mChannelsPerFrame = 2;
-    dataFormat.mBitsPerChannel = 8;
-    
-    sampleSendFrequency = 20;
-    //self.microphone = [EZMicrophone microphoneWithDelegate:self withAudioStreamBasicDescription:dataFormat];
-    totalDbaSampleCount = 0;
-    totalDba = 0;
-    samplesSent = 0;
-    sendingSamples = 0;
-    // fake local api
-    //apiUrlStem = @"http://10.0.1.15:7000";
-    //appUrlStem = @"http://10.0.1.15:7000";
-    
-    // real local api
-    // apiUrlStem = @"http://localhost:5000";
-    // appUrlStem = @"http://localhost:5000";
-    
-    // LIVE!!
-    //apiUrlStem = @"http://app.quantifieddev.org";
-    
-    // staging 1self
-    apiUrlStem = @"http://api-staging.1self.co:5000";
-    
-    // EE Office
-    //apiUrlStem = @"http://10.5.5.44:7000";
-    //appUrlStem = @"http://10.5.5.44:7000";
-    
-    //apiUrlStem = @"http://localhost:7000";
-    //appUrlStem = @"http://localhost:7000";
-    //apiUrlStem = @"http://api.1self.co";
-    //appUrlStem = @"http://app.1self.co";
-    dbspl = [NSNumber numberWithInt:0];
-    dba = [NSNumber numberWithInt:0];
-    sid = @"";
-    writeToken=@"";
-    readToken=@"";
-    
-    NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
+}
 
-    //[loadPrefs removeObjectForKey:@"unsentEvents"];
-    NSArray *savedUnsentEvents = [loadPrefs objectForKey:@"unsentEvents"];
-    unsentEvents = [[NSMutableArray alloc] initWithCapacity:0];
-    if(savedUnsentEvents != nil){
-        for (int i = 0; i < savedUnsentEvents.count; ++i) {
-            [unsentEvents addObject:savedUnsentEvents[i]];
-        }
-    }
-    
+-(void)updateAudioPlots:(float *)buffer withBufferSize:(UInt32)bufferSize{
+    [self.audioPlot updateBuffer:buffer withBufferSize:bufferSize];
+}
+
+- (void)updateView{
+    dbspl = noiseModel.dbspl;
     [self UpdateUIStats];
-    
-    
-    NSString *textToLoad = [loadPrefs stringForKey:@"streamid"];
-    if(textToLoad == nil){
-        [self CreateStream];
-    }
-    else{
-        sid = [loadPrefs stringForKey:@"streamid"];
-        readToken = [loadPrefs stringForKey:@"readToken"];
-        writeToken = [loadPrefs stringForKey:@"writeToken"];
-        [self SendUnsentSamples];
-    }
-    
-    locationManager = [[CLLocationManager alloc] init];
-	locationManager.delegate = self;
-	
-	if ([CLLocationManager locationServicesEnabled]) {
-		[locationManager startUpdatingLocation];
-	} else {
-		NSLog(@"Location services is not enabled");
-	}
-    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
-    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [locationManager requestWhenInUseAuthorization];
-    }
-    
-    currentLocation = [locationManager location];
-    
-    NSLog(@"stream id loaded: %@", textToLoad);
-    
-    UIApplication *myApp = [UIApplication sharedApplication];
-    myApp.idleTimerDisabled = YES;
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [self UpdateViewBackground];
+    self.autoupload.text = noiseModel.autouploadLeft;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocations:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -242,24 +163,136 @@ NSMutableArray *unsentEvents = nil;
 }
 
 #pragma mark - Customize the Audio Plot
+- (void)setInitialPlotColour
+{
+    self.audioPlot.backgroundColor = [UIColor colorWithRed:0.9 green:0.471 blue:0.525 alpha:0];
+    self.audioPlot.color           = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
+    self.audioPlot.plotType        = EZPlotTypeBuffer;
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+    
+    
+    
+    
+    
+    
+    
+    
+    [self reset1Self: nil];
+    [self registerGoingIntoBackgroundHandler];
+    self.backgroundTask = UIBackgroundTaskInvalid;
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    noiseModel = appDelegate.noiseModel;
+    noiseModel.noiseView = self;
+    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
+    
+    AudioStreamBasicDescription dataFormat;
+    dataFormat.mSampleRate = 10;
+    dataFormat.mFormatID = kAudioFormatLinearPCM;
+    dataFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsBigEndian;
+    dataFormat.mBytesPerPacket = 4;
+    dataFormat.mFramesPerPacket = 1;
+    dataFormat.mBytesPerFrame = 4;
+    dataFormat.mChannelsPerFrame = 2;
+    dataFormat.mBitsPerChannel = 8;
+    
+    sampleSendFrequency = 20;
+    self.microphone = [EZMicrophone microphoneWithDelegate:self withAudioStreamBasicDescription:dataFormat];
+    totalDbaSampleCount = 0;
+    totalDba = 0;
+    samplesSent = 0;
+    sendingSamples = 0;
+    // fake local api
+    //apiUrlStem = @"http://10.0.1.15:7000";
+    //appUrlStem = @"http://10.0.1.15:7000";
+    
+    // real local api
+    // apiUrlStem = @"http://localhost:5000";
+    // appUrlStem = @"http://localhost:5000";
+    
+    // LIVE!!
+    //apiUrlStem = @"http://app.quantifieddev.org";
+    
+    // staging 1self
+    apiUrlStem = @"http://api-staging.1self.co:5000";
+    
+    // EE Office
+    //apiUrlStem = @"http://10.5.5.44:7000";
+    //appUrlStem = @"http://10.5.5.44:7000";
+    
+    //apiUrlStem = @"http://localhost:7000";
+    //appUrlStem = @"http://localhost:7000";
+    //apiUrlStem = @"http://api.1self.co";
+    //appUrlStem = @"http://app.1self.co";
+    dbspl = [NSNumber numberWithInt:0];
+    dba = [NSNumber numberWithInt:0];
+    sid = @"";
+    writeToken=@"";
+    readToken=@"";
+    
+    NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
+    
+    //[loadPrefs removeObjectForKey:@"unsentEvents"];
+    NSArray *savedUnsentEvents = [loadPrefs objectForKey:@"unsentEvents"];
+    unsentEvents = [[NSMutableArray alloc] initWithCapacity:0];
+    if(savedUnsentEvents != nil){
+        for (int i = 0; i < savedUnsentEvents.count; ++i) {
+            [unsentEvents addObject:savedUnsentEvents[i]];
+        }
+    }
+    
+    [self UpdateUIStats];
+    
+    
+    NSString *textToLoad = [loadPrefs stringForKey:@"streamid"];
+    if(textToLoad == nil){
+        [self CreateStream];
+    }
+    else{
+        sid = [loadPrefs stringForKey:@"streamid"];
+        readToken = [loadPrefs stringForKey:@"readToken"];
+        writeToken = [loadPrefs stringForKey:@"writeToken"];
+        [self SendUnsentSamples];
+    }
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        [locationManager startUpdatingLocation];
+    } else {
+        NSLog(@"Location services is not enabled");
+    }
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    
+    currentLocation = [locationManager location];
+    
+    NSLog(@"stream id loaded: %@", textToLoad);
+    
+    UIApplication *myApp = [UIApplication sharedApplication];
+    myApp.idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    
+    
+    
+    
+    
+    
+    
   
-  /*
-   Customizing the audio plot's look
-   */
-  // Background colo
-  self.audioPlot.backgroundColor = [UIColor colorWithRed:0.9 green:0.471 blue:0.525 alpha:0];
-  // Waveform color
-  self.audioPlot.color           = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
-  // Plot type
-  self.audioPlot.plotType        = EZPlotTypeBuffer;
+    [self setInitialPlotColour];
   
   /*
    Start the microphone
    */
-  [self.microphone startFetchingAudio];
+  //[self.microphone startFetchingAudio];
   self.microphoneTextLabel.text = @"Microphone On";
     
     [self animateInner];
@@ -496,7 +529,7 @@ int samplePruining = 0;
 
 - (void) applicationActive{
     [self resetSample];
-    [self.microphone startFetchingAudio];
+    //[self.microphone startFetchingAudio];
 }
 
 - (void) registerGoingIntoBackgroundHandler {
@@ -522,6 +555,14 @@ int samplePruining = 0;
     self.lblSendingSamples.text = [NSString stringWithFormat: @"%d", sendingSamples];
 }
 
+- (void)UpdateViewBackground
+{
+    float redness = noiseModel.fdbspl / 100;
+    float greenness = 1 - redness;
+    self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
+    audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
+}
+
 // Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
 -(void)microphone:(EZMicrophone *)microphone
  hasAudioReceived:(float **)buffer
@@ -535,8 +576,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     dispatch_async(dispatch_get_main_queue(),^{
         // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
-        [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
-        samplePruining += 1;
+      //  [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+     //   samplePruining += 1;
         
        /* if(samplePruining % 10 != 0){
             return;
@@ -547,56 +588,43 @@ withNumberOfChannels:(UInt32)numberOfChannels {
             sampleStart = [NSDate date];
         }
         
-        NSDate* currentTime = [NSDate date];
+      //  NSDate* currentTime = [NSDate date];
         
         //NSLog(@"buffer received %d %f", totalCount, totalLoudness);
-        float rawMeanVal = 0.0;
-        float one = 1;
-        float* avBuffer = (float*)malloc(sizeof(float)*bufferSize);
-        vDSP_vsq(buffer[0], 1, avBuffer, 1, bufferSize);
-        vDSP_meanv(avBuffer, 1, &rawMeanVal, bufferSize);
-        free(avBuffer);
-        
-        if(rawMeanVal == 0){
-            NSLog(@"Skipping infinite reading");
-            return;
-        }
-        
-        float sampleMeanDba = 0;
-        vDSP_vdbcon(&rawMeanVal, 1, &one, &sampleMeanDba, 1, 1, 1);
-        
-        if(sampleMeanDba < -10000000){
-            //    NSLog(@"Skipping bad db value");
-            return;
-        }
-       
+     //   float rawMeanVal = 0.0;
+//        float one = 1;
+//        float* avBuffer = (float*)malloc(sizeof(float)*bufferSize);
+//        vDSP_vsq(buffer[0], 1, avBuffer, 1, bufferSize);
+//        vDSP_meanv(avBuffer, 1, &rawMeanVal, bufferSize);
+//        free(avBuffer);
+//        
+//        if(rawMeanVal == 0){
+//            NSLog(@"Skipping infinite reading");
+//            return;
+//        }
+//        
+//        float sampleMeanDba = 0;
+//        vDSP_vdbcon(&rawMeanVal, 1, &one, &sampleMeanDba, 1, 1, 1);
+//        
+//        if(sampleMeanDba < -10000000){
+//            //    NSLog(@"Skipping bad db value");
+//            return;
+//        }
+//       
         //  NSLog(@"mean is %10f (raw) %10f (db)", rawMeanVal, dbMeanVal);
-        totalDba += sampleMeanDba;
-        totalDbaSampleCount = totalDbaSampleCount + 1;
-        dba = [NSNumber numberWithInt:totalDba / totalDbaSampleCount];
-        float fdbspl = totalDba / totalDbaSampleCount + 150;
-        dbspl = [NSNumber numberWithInt:fdbspl];
+     //   totalDba += sampleMeanDba;
+     //   totalDbaSampleCount = totalDbaSampleCount + 1;
+     //   dba = [NSNumber numberWithInt:totalDba / totalDbaSampleCount];
+     //   float fdbspl = totalDba / totalDbaSampleCount + 150;
+     //   dbspl = [NSNumber numberWithInt:fdbspl];
         
         
-        [self UpdateUIStats];
+       
         
-        float redness = fdbspl / 100;
-        float greenness = 1 - redness;
-        self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
-        audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
-        
-        NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
-        NSTimeInterval fullSample = 60*sampleSendFrequency;
-        NSTimeInterval timeLeftRamainingInSample = fullSample - sampleDuration;
-        
-        int mins = (int)timeLeftRamainingInSample / 60;
-        int seconds = (int)timeLeftRamainingInSample % 60;
-        self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%0*d:%0*d", 2, mins, 2, seconds];
-        
-        if(sampleDuration > fullSample){
-            [self SendSamples:currentTime sampleDuration:sampleDuration];
-        }
-        NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
+   //     if(sampleDuration > fullSample){
+  //          [self SendSamples:currentTime sampleDuration:sampleDuration];
+   //     }
+      //  NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
     
       
   });
