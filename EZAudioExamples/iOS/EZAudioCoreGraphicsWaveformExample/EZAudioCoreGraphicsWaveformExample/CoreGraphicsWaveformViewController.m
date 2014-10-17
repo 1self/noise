@@ -179,6 +179,10 @@ NSMutableArray *unsentEvents = nil;
     currentLocation = [locationManager location];
     
     NSLog(@"stream id loaded: %@", textToLoad);
+    
+    UIApplication *myApp = [UIApplication sharedApplication];
+    myApp.idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocations:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {

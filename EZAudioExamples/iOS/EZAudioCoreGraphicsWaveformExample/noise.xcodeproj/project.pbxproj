@@ -14,6 +14,8 @@
 		2009C09C19ED3CE4009756A1 /* dial.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09B19ED3CE4009756A1 /* dial.png */; };
 		2009C0A019ED6333009756A1 /* noiselogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09F19ED6333009756A1 /* noiselogo.png */; };
 		2009C0A419ED737B009756A1 /* visualise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A319ED737B009756A1 /* visualise.png */; };
+		2009C0A819F155D1009756A1 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A719F155D1009756A1 /* help.png */; };
+		2009C0AA19F16378009756A1 /* circlebottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A919F16378009756A1 /* circlebottom.png */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -69,6 +71,8 @@
 		2009C09B19ED3CE4009756A1 /* dial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dial.png; sourceTree = "<group>"; };
 		2009C09F19ED6333009756A1 /* noiselogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noiselogo.png; sourceTree = "<group>"; };
 		2009C0A319ED737B009756A1 /* visualise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visualise.png; sourceTree = "<group>"; };
+		2009C0A719F155D1009756A1 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
+		2009C0A919F16378009756A1 /* circlebottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebottom.png; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -155,7 +159,9 @@
 		2034AAAF19E8614900F925BA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2009C0A719F155D1009756A1 /* help.png */,
 				2009C09519ED3416009756A1 /* 1selflogo.png */,
+				2009C0A919F16378009756A1 /* circlebottom.png */,
 				2009C09319E97FA2009756A1 /* outer.png */,
 				2009C09B19ED3CE4009756A1 /* dial.png */,
 				2009C0A319ED737B009756A1 /* visualise.png */,
@@ -382,7 +388,9 @@
 				2009C0A419ED737B009756A1 /* visualise.png in Resources */,
 				2009C09619ED3416009756A1 /* 1selflogo.png in Resources */,
 				94056F88185E593500EB94BA /* InfoPlist.strings in Resources */,
+				2009C0AA19F16378009756A1 /* circlebottom.png in Resources */,
 				2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */,
+				2009C0A819F155D1009756A1 /* help.png in Resources */,
 				2009C09219E97ED6009756A1 /* inner.png in Resources */,
 				9417A7E51867DDD600D9D37B /* CHANGELOG in Resources */,
 				2009C09419E97FA2009756A1 /* outer.png in Resources */,
@@ -590,14 +598,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Edward Sykes (CFYF9QT74F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Sykes (4X63478HBM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Prefix.pch";
 				INFOPLIST_FILE = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = noise;
-				PROVISIONING_PROFILE = "f71123ca-6ddd-4fc6-b113-35f0a89f1437";
+				PROVISIONING_PROFILE = "b9b1fb21-3b49-41d9-9723-8fbbbdaff676";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -609,14 +617,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Edward Sykes (CFYF9QT74F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Edward Sykes (4X63478HBM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Prefix.pch";
 				INFOPLIST_FILE = "EZAudioCoreGraphicsWaveformExample/EZAudioCoreGraphicsWaveformExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = noise;
-				PROVISIONING_PROFILE = "f71123ca-6ddd-4fc6-b113-35f0a89f1437";
+				PROVISIONING_PROFILE = "b9b1fb21-3b49-41d9-9723-8fbbbdaff676";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
