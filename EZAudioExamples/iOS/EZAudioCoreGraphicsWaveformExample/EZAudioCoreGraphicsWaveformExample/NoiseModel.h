@@ -8,9 +8,10 @@
 #ifndef noise_NoiseModel_h
 #define noise_NoiseModel_h
 
-@interface NoiseModel : NSObject
+#import "EZAudio.h"
 
+@interface NoiseModel : NSObject<EZMicrophoneDelegate>
 
-
+@property (nonatomic,strong) EZMicrophone *microphone;
 @end
 #endif

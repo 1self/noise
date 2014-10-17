@@ -104,7 +104,7 @@ NSMutableArray *unsentEvents = nil;
     dataFormat.mBitsPerChannel = 8;
     
     sampleSendFrequency = 20;
-    self.microphone = [EZMicrophone microphoneWithDelegate:self withAudioStreamBasicDescription:dataFormat];
+    //self.microphone = [EZMicrophone microphoneWithDelegate:self withAudioStreamBasicDescription:dataFormat];
     totalDbaSampleCount = 0;
     totalDba = 0;
     samplesSent = 0;
