@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NoiseModel.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property NoiseModel* noiseModel;
 
 @end

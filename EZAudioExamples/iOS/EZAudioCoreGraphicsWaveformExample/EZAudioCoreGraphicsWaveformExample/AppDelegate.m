@@ -10,9 +10,12 @@
 
 @implementation AppDelegate
 
+@synthesize noiseModel;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    noiseModel = [NoiseModel new];
     return YES;
 }
 							

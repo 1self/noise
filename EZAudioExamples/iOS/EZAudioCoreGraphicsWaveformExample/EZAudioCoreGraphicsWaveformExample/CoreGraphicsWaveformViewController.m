@@ -43,7 +43,6 @@ NSMutableArray *unsentEvents = nil;
   }
     
     return self;
-    NSLog(@"Init");
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder {

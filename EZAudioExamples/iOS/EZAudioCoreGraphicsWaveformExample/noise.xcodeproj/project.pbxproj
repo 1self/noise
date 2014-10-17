@@ -16,6 +16,7 @@
 		2009C0A419ED737B009756A1 /* visualise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A319ED737B009756A1 /* visualise.png */; };
 		2009C0A819F155D1009756A1 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A719F155D1009756A1 /* help.png */; };
 		2009C0AA19F16378009756A1 /* circlebottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A919F16378009756A1 /* circlebottom.png */; };
+		2009C0AC19F173F1009756A1 /* NoiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0AB19F173F1009756A1 /* NoiseModel.m */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -73,6 +74,8 @@
 		2009C0A319ED737B009756A1 /* visualise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visualise.png; sourceTree = "<group>"; };
 		2009C0A719F155D1009756A1 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		2009C0A919F16378009756A1 /* circlebottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebottom.png; sourceTree = "<group>"; };
+		2009C0AB19F173F1009756A1 /* NoiseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoiseModel.m; sourceTree = "<group>"; };
+		2009C0AD19F17414009756A1 /* NoiseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoiseModel.h; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 				94056F92185E593500EB94BA /* Main_iPad.storyboard */,
 				94056FDC185E59D900EB94BA /* CoreGraphicsWaveformViewController.h */,
 				94056FDD185E59D900EB94BA /* CoreGraphicsWaveformViewController.m */,
+				2009C0AD19F17414009756A1 /* NoiseModel.h */,
+				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
 				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
 			);
@@ -453,6 +458,7 @@
 				94056F8E185E593500EB94BA /* AppDelegate.m in Sources */,
 				9417A7DD1867DDD600D9D37B /* EZAudioPlot.m in Sources */,
 				9417A7DC1867DDD600D9D37B /* EZAudioFile.m in Sources */,
+				2009C0AC19F173F1009756A1 /* NoiseModel.m in Sources */,
 				9417A7DE1867DDD600D9D37B /* EZAudioPlotGL.m in Sources */,
 				94056F8A185E593500EB94BA /* main.m in Sources */,
 				9417A7E21867DDD600D9D37B /* EZPlot.m in Sources */,
