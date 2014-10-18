@@ -238,7 +238,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         vDSP_vdbcon(&rawMeanVal, 1, &one, &sampleMeanDba, 1, 1, 1);
         
         if(sampleMeanDba < -10000000){
-            //    NSLog(@"Skipping bad db value");
+            assert("throwing data away");
             return;
         }
         
@@ -249,10 +249,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         fdbspl = totalDba / totalDbaSampleCount + 150;
         dbspl = [NSNumber numberWithInt:fdbspl];
         
-        
-        //Call the UI callback to update stats
-        // needs to update text labels and update the colour of the ui, and the autouploads text
-        
         sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
         NSTimeInterval fullSample = 60*sampleSendFrequency;
         NSTimeInterval timeLeftRamainingInSample = fullSample - sampleDuration;
@@ -261,9 +257,9 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         int seconds = (int)timeLeftRamainingInSample % 60;
         autouploadLeft = [NSString stringWithFormat: @"Auto-upload in\n%0*d:%0*d", 2, mins, 2, seconds];
         
-        //if(sampleDuration > fullSample){
-        //    [self SendSamples:currentTime sampleDuration:sampleDuration];
-        //}
+        if(sampleDuration > fullSample){
+            [self SendSamples:currentTime sampleDuration:sampleDuration];
+        }
         NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
         
         if(_noiseView != nil){
