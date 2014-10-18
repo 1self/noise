@@ -96,6 +96,18 @@ NoiseModel* noiseModel;
     self.autoupload.text = noiseModel.autouploadLeft;
 }
 
+- (void) animateWaveform
+{
+    
+    [self.audioPlot setAlpha:0];
+    [UIView beginAnimations:NULL context:nil];
+    [UIView setAnimationDuration:2.0];
+    [self.audioPlot setAlpha:0];
+    [UIView setAnimationDuration:2.0];
+    [self.audioPlot setAlpha:0.8];
+    [UIView commitAnimations];
+}
+
 - (void) animateInner
 {
     float rotations = 1.0;
@@ -162,6 +174,7 @@ NoiseModel* noiseModel;
     [self animateInner];
     [self animateMiddle];
     [self animateOuter];
+    [self animateWaveform];
 }
 
 - (void)viewDidLoad
@@ -238,8 +251,8 @@ int samplePruining = 0;
 {
     float redness = noiseModel.fdbspl / 100;
     float greenness = 1 - redness;
-    self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
-    audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
+    audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
 }
 
 
