@@ -18,6 +18,14 @@
     if(noiseModel == nil){
         noiseModel = [NoiseModel new];
     }
+
+    
+    UIApplication *myApp = [UIApplication sharedApplication];
+    myApp.idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    [noiseModel load];
+    
     return YES;
 }
 							
