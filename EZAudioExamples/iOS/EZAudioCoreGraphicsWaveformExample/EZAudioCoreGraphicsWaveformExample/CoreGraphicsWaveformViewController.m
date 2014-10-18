@@ -150,6 +150,20 @@ NoiseModel* noiseModel;
     self.audioPlot.plotType        = EZPlotTypeBuffer;
 }
 
+-(void)goToBackground{
+    
+}
+-(void)goToForeground{
+    [self animate];
+}
+
+- (void)animate
+{
+    [self animateInner];
+    [self animateMiddle];
+    [self animateOuter];
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -158,9 +172,7 @@ NoiseModel* noiseModel;
     noiseModel = appDelegate.noiseModel;
     noiseModel.noiseView = self;
     [self setInitialPlotColour];
-    [self animateInner];
-    [self animateMiddle];
-    [self animateOuter];
+    [self animate];
 }
 
 #pragma mark - Actions

@@ -17,6 +17,8 @@
 - (void)updateView;
 -(void)updateAudioPlots:(float *)buffer
      withBufferSize:(UInt32)bufferSize;
+-(void)goToBackground;
+-(void)goToForeground;
 
 
 @end
@@ -37,6 +39,11 @@
 -(void)persist;
 -(void)sendSampleImmediately;
 -(void)openVisualization;
+
+-(void) goToBackground;
+-(void) didEnterBackground;
+-(void) goToForeground;
+-(void) becameActive;
 
 @end
 

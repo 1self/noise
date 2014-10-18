@@ -91,8 +91,6 @@
     }
     
     currentLocation = [locationManager location];
-    
-    [self registerGoingIntoBackgroundHandler];
     backgroundTask = UIBackgroundTaskInvalid;
     
     return self;
@@ -124,11 +122,6 @@
 
 - (void) logModelLoaded{
     NSLog(@"model loaded");
-}
-
-- (void) applicationActive{
-    [self resetSample];
-    //[self.microphone startFetchingAudio];
 }
 
 -(void) loadUnsentEvents{
@@ -469,10 +462,24 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     dba = 0;
 }
 
-- (void) applicationWillResign {
+-(void) didEnterBackground{
+    NSLog(@"NoiseModel didEnterBackground");
+}
+
+-(void) goToForeground{
+    NSLog(@"Model goToForeground");
+    [self startMicrophone];
+    [_noiseView goToForeground];
+}
+-(void) becameActive{
+    NSLog(@"Model didEnterBackground");
+}
+
+-(void) goToBackground {
+    NSLog(@"NoiseModel goToBackground");
     [self.microphone stopFetchingAudio];
     NSDate* currentTime = [NSDate date];
-    NSTimeInterval sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
+    sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
     [self SendSingleSample:currentTime sampleDuration: sampleDuration];
     
     
@@ -495,21 +502,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     [self resetSample];
 }
-
-- (void) registerGoingIntoBackgroundHandler {
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(applicationWillResign)
-     name:UIApplicationWillResignActiveNotification
-     object:NULL];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(applicationActive)
-     name:UIApplicationDidBecomeActiveNotification
-     object:NULL];
-}
-
 
 
 
