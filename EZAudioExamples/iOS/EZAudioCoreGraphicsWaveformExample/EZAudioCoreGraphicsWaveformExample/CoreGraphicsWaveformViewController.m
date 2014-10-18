@@ -11,6 +11,7 @@
 #import "CoreGraphicsWaveformViewController.h"
 #import <Accelerate/Accelerate.h>
 #import "AppDelegate.h"
+#import <sys/utsname.h>
 
 @interface CoreGraphicsWaveformViewController (){
   float scale;
@@ -19,13 +20,18 @@
 @property (nonatomic,weak) IBOutlet UILabel *microphoneTextLabel;
 @property (nonatomic,weak) IBOutlet UILabel *lblDba;
 @property (nonatomic,weak) IBOutlet UILabel *lblDbspl;
-@property (nonatomic,weak) IBOutlet UILabel *lblsamplesSent;
-@property (weak, nonatomic) IBOutlet UILabel *lblsamplesSaved;
-@property (weak, nonatomic) IBOutlet UILabel *lblSendingSamples;
+@property (nonatomic,weak) IBOutlet UILabel *sampleSent;
+@property (weak, nonatomic) IBOutlet UILabel *samplesToSend;
+@property (weak, nonatomic) IBOutlet UILabel *samplesSending;
 @property (nonatomic,weak) IBOutlet UILabel *lbl;
 @property (nonatomic, weak) IBOutlet UIImageView *innerTicker;
 @property (nonatomic, weak) IBOutlet UIImageView *middleTicker;
 @property (nonatomic, weak) IBOutlet UIImageView *outerTicker;
+@property (weak, nonatomic) IBOutlet UILabel *iphone4SamplesToSend;
+@property (weak, nonatomic) IBOutlet UILabel *iphoneSamplesSending;
+@property (weak, nonatomic) IBOutlet UILabel *iphone4SamplesSent;
+@property (weak, nonatomic) IBOutlet UIView *iphone4feedback;
+@property (weak, nonatomic) IBOutlet UIView *feedback;
 @end
 
 @implementation CoreGraphicsWaveformViewController
@@ -51,6 +57,20 @@ NoiseModel* noiseModel;
     
 }
 
+- (bool) isIphone4{
+    bool result = false;
+    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] bounds].size.height < 568)
+        {
+            
+            result = true;
+        }
+        
+    }
+    return result;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if(self){
@@ -66,6 +86,10 @@ NoiseModel* noiseModel;
 }
 
 - (void)updateView{
+    if([self isIphone4]){
+        _iphone4feedback.hidden = false;
+        _feedback.hidden = true;
+    }
     dbspl = noiseModel.dbspl;
     [self UpdateUIStats];
     [self UpdateViewBackground];
@@ -193,9 +217,9 @@ int samplePruining = 0;
 - (void)UpdateUIStats
 {
     self.lblDbspl.text = [NSString stringWithFormat: @"%@", noiseModel.dbspl];
-    self.lblsamplesSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
-    self.lblsamplesSaved.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSaved];
-    self.lblSendingSamples.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
+    self.sampleSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
+    self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSaved];
+    self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
 }
 
 - (void)UpdateViewBackground

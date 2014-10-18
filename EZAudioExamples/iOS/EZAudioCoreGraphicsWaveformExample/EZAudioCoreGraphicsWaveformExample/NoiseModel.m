@@ -95,8 +95,6 @@
     [self registerGoingIntoBackgroundHandler];
     backgroundTask = UIBackgroundTaskInvalid;
     
-
-    
     return self;
 }
 
@@ -515,6 +513,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
      name:UIApplicationDidBecomeActiveNotification
      object:NULL];
 }
+
+
 
 
 @end
