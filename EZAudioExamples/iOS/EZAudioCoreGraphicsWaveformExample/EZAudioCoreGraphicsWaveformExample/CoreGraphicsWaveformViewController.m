@@ -242,10 +242,10 @@ int samplePruining = 0;
 {
     self.lblDbspl.text = [NSString stringWithFormat: @"%@", noiseModel.dbspl];
     self.sampleSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
-    self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSaved];
+    self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesToSend];
     self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
     self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
-    self.dbraw.text = [NSString stringWithFormat:@"%.12f", noiseModel.dbraw];
+    self.dbraw.text = [NSString stringWithFormat:@"%.12f", noiseModel.sampleRawMean];
 }
 
 - (void)UpdateViewBackground

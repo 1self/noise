@@ -33,8 +33,14 @@
 @property (weak) id<NoiseView> noiseView;
 @property int samplesSent;
 @property int samplesSending;
-@property int samplesSaved;
-@property float dbraw;
+@property int samplesToSend;
+@property float sampleRawMean;
+@property float sampleDbaMean;
+@property float dbaMean;
+@property float lat;
+@property float lng;
+@property int sumDbaCount;
+@property float sumDba;
 
 -(void) load;
 -(void)persist;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DebugController : UIViewController
+@interface DebugController : UIViewController<NoiseView>
 - (IBAction)tapBack:(id)sender;
 
 @end

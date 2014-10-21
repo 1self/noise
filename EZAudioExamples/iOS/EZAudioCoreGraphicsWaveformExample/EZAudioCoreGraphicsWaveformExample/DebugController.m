@@ -6,22 +6,55 @@
 //  Copyright (c) 2014 Syed Haris Ali. All rights reserved.
 //
 
+#import "NoiseModel.h"
 #import "DebugController.h"
+#import "AppDelegate.h"
 
 @interface DebugController ()
-
+@property NoiseModel* noiseModel;
+@property (weak, nonatomic) IBOutlet UILabel *sampleRawMean;
+@property (weak, nonatomic) IBOutlet UILabel *sampleDbaMean;
+@property (weak, nonatomic) IBOutlet UILabel *sumDba;
+@property (weak, nonatomic) IBOutlet UILabel *sumDbaCount;
+@property (weak, nonatomic) IBOutlet UILabel *tosend;
+@property (weak, nonatomic) IBOutlet UILabel *sending;
+@property (weak, nonatomic) IBOutlet UILabel *sent;
+@property (weak, nonatomic) IBOutlet UILabel *autoupload;
+@property (weak, nonatomic) IBOutlet UILabel *location;
+@property (weak, nonatomic) IBOutlet UITextView *log;
 @end
 
 @implementation DebugController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    _noiseModel = appDelegate.noiseModel;
+    _noiseModel.noiseView = self;
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updateView{
+    _sampleRawMean.text = [NSString stringWithFormat: @"sampleRawMean: %.12f", _noiseModel.sampleRawMean];
+    _sampleDbaMean.text = [NSString stringWithFormat: @"sampleDbaMean: %.12f", _noiseModel.sampleDbaMean];
+    _sumDba.text = [NSString stringWithFormat: @"%.12f", _noiseModel.sumDba];
+    _sumDbaCount.text = [NSString stringWithFormat: @"%d",_noiseModel.sumDbaCount];
+    _tosend.text = [NSString stringWithFormat: @"%d", _noiseModel.samplesToSend];
+    _sending.text = [NSString stringWithFormat: @"%d", _noiseModel.samplesSending];
+    _sent.text = [NSString stringWithFormat: @"%d", _noiseModel.samplesSent];
+    _autoupload.text = _noiseModel.autouploadLeft;
+    _location.text = [NSString stringWithFormat: @"lat:%f,long%f", _noiseModel.lat, _noiseModel.lng];
+    _log.text = [NSString stringWithFormat: @""];
+    
+}
+
+-(void)updateAudioPlots:(float *)buffer withBufferSize:(UInt32)bufferSize{
+    
 }
 
 /*

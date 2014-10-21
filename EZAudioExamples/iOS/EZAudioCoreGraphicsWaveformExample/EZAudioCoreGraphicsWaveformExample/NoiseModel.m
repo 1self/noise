@@ -14,9 +14,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NoiseModel(){
-    __block int totalDbaSampleCount;
-    __block float totalDba;
-    NSNumber *dba;
+    float meanDba;
     NSDate* sampleStart;
     int sampleSendFrequency;
     NSMutableArray *unsentEvents;
@@ -40,17 +38,23 @@
 @synthesize autouploadLeft;
 @synthesize samplesSent;
 @synthesize samplesSending;
-@synthesize samplesSaved;
-@synthesize dbraw;
+@synthesize samplesToSend;
+@synthesize sampleRawMean;
+@synthesize sampleDbaMean;
+@synthesize dbaMean;
+@synthesize lat;
+@synthesize lng;
+@synthesize sumDbaCount;
+@synthesize sumDba;
 
 #pragma mark - Initialization
 - (id) init{
     dbspl = 0;
-    dba = 0;
+    meanDba = 0;
     sampleSendFrequency = 20;
     NSMutableArray *unsentEvents = nil;
     dbspl = [NSNumber numberWithInt:0];
-    dba = [NSNumber numberWithInt:0];
+    meanDba = 0;
     sid = @"";
     writeToken=@"";
     readToken=@"";
@@ -216,33 +220,34 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         NSDate* currentTime = [NSDate date];
         
         //NSLog(@"buffer received %d %f", totalCount, totalLoudness);
-        float rawMeanVal = 0.0;
         float one = 1;
         float* avBuffer = (float*)malloc(sizeof(float)*bufferSize);
         vDSP_vsq(buffer[0], 1, avBuffer, 1, bufferSize);
-        vDSP_meanv(avBuffer, 1, &rawMeanVal, bufferSize);
+        vDSP_meanv(avBuffer, 1, &sampleRawMean, bufferSize);
         free(avBuffer);
         
-        if(rawMeanVal == 0){
+        if(sampleRawMean == 0){
             NSLog(@"Skipping infinite reading");
             return;
         }
         
-        float sampleMeanDba = 0;
-        vDSP_vdbcon(&rawMeanVal, 1, &one, &sampleMeanDba, 1, 1, 1);
+        vDSP_vdbcon(&sampleRawMean, 1, &one, &sampleDbaMean, 1, 1, 1);
         
-        if(sampleMeanDba < -10000000){
+        if(sampleDbaMean < -10000000){
             assert("throwing data away");
             return;
         }
         
         //  NSLog(@"mean is %10f (raw) %10f (db)", rawMeanVal, dbMeanVal);
-        totalDba += sampleMeanDba;
-        totalDbaSampleCount = totalDbaSampleCount + 1;
-        dba = [NSNumber numberWithInt:totalDba / totalDbaSampleCount];
-        fdbspl = totalDba / totalDbaSampleCount + 150;
+        sumDba += sampleDbaMean;
+        sumDbaCount = sumDbaCount + 1;
+        meanDba = sumDba / sumDbaCount;
+        fdbspl = meanDba + 150;
         dbspl = [NSNumber numberWithInt:fdbspl];
-        dbraw = rawMeanVal;
+        lat = currentLocation.coordinate.latitude;
+        lng = currentLocation.coordinate.longitude;
+        
+        
         
         sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
         NSTimeInterval fullSample = 60*sampleSendFrequency;
@@ -376,8 +381,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     
     
-    NSNumber* sampleDbspl = [NSNumber numberWithInt: [dbspl intValue]];
-    NSNumber* sampleDba = [NSNumber numberWithInt: [dba intValue]];
+    NSNumber* sampleDbspl = [NSNumber numberWithFloat: [dbspl intValue]];
+    NSNumber* sampleDba = [NSNumber numberWithFloat: meanDba ];
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
                              @"eventDateTime": formattedDateString,
                              @"actionTags": @[@"sample"],
@@ -457,11 +462,11 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 }
 
 -(void) resetSample{
-    totalDbaSampleCount = 0;
-    totalDba = 0;
+    sumDbaCount = 0;
+    sumDba = 0;
     sampleStart = [NSDate date];
     dbspl = 0;
-    dba = 0;
+    meanDba = 0;
 }
 
 -(void) didEnterBackground{
