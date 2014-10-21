@@ -44,6 +44,7 @@
 - (IBAction)graphTap:(UIGestureRecognizer*)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *help;
 - (IBAction)help:(id)sender;
+- (IBAction)debug:(id)sender;
 
 
 @end

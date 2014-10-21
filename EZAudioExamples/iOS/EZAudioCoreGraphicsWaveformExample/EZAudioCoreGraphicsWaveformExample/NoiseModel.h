@@ -34,6 +34,7 @@
 @property int samplesSent;
 @property int samplesSending;
 @property int samplesSaved;
+@property float dbraw;
 
 -(void) load;
 -(void)persist;

@@ -10,8 +10,8 @@
 #import "AppDelegate.h"
 
 @interface HelpViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *helpText;
 @property NoiseModel* noiseModel;
+@property HelpModel* helpModel;
 @property bool animating;
 @property (weak, nonatomic) IBOutlet UIImageView *outerTicker;
 @property (weak, nonatomic) IBOutlet UIImageView *middleTicker;
@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _helpModel = [HelpModel new];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     _noiseModel = appDelegate.noiseModel;
     _noiseModel.noiseView = self;
@@ -63,9 +63,14 @@
     self.autoupload.text = _noiseModel.autouploadLeft;
 }
 
+-(void)UpdateHelp{
+    _helpText.text = _helpModel.helpText;
+}
+
 - (void)updateView{
     [self UpdateUIStats];
     [self UpdateViewBackground];
+    [self UpdateHelp];
 }
 
 -(void)updateAudioPlots:(float *)buffer

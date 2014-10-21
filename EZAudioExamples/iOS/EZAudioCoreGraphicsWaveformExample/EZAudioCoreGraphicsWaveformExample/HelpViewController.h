@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet UILabel *lblDbspl;
 @property (weak, nonatomic) IBOutlet UILabel *autoupload;
+@property (weak, nonatomic) IBOutlet UITextView *helpText;
 @end

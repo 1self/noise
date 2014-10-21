@@ -19,6 +19,7 @@
 		2009C0AC19F173F1009756A1 /* NoiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0AB19F173F1009756A1 /* NoiseModel.m */; };
 		2009C0B119F558A6009756A1 /* HelpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0B019F558A6009756A1 /* HelpModel.m */; };
 		2009C0B419F655AA009756A1 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0B319F655AA009756A1 /* HelpViewController.m */; };
+		2009C0B719F6A88F009756A1 /* DebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0B619F6A88F009756A1 /* DebugController.m */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -82,6 +83,8 @@
 		2009C0B019F558A6009756A1 /* HelpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpModel.m; sourceTree = "<group>"; };
 		2009C0B219F655AA009756A1 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		2009C0B319F655AA009756A1 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		2009C0B519F6A88F009756A1 /* DebugController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugController.h; sourceTree = "<group>"; };
+		2009C0B619F6A88F009756A1 /* DebugController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugController.m; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -236,6 +239,8 @@
 				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
 				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
+				2009C0B519F6A88F009756A1 /* DebugController.h */,
+				2009C0B619F6A88F009756A1 /* DebugController.m */,
 			);
 			name = noise;
 			path = EZAudioCoreGraphicsWaveformExample;
@@ -469,6 +474,7 @@
 				94056F8E185E593500EB94BA /* AppDelegate.m in Sources */,
 				9417A7DD1867DDD600D9D37B /* EZAudioPlot.m in Sources */,
 				9417A7DC1867DDD600D9D37B /* EZAudioFile.m in Sources */,
+				2009C0B719F6A88F009756A1 /* DebugController.m in Sources */,
 				2009C0AC19F173F1009756A1 /* NoiseModel.m in Sources */,
 				9417A7DE1867DDD600D9D37B /* EZAudioPlotGL.m in Sources */,
 				94056F8A185E593500EB94BA /* main.m in Sources */,

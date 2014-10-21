@@ -41,6 +41,7 @@
 @synthesize samplesSent;
 @synthesize samplesSending;
 @synthesize samplesSaved;
+@synthesize dbraw;
 
 #pragma mark - Initialization
 - (id) init{
@@ -241,6 +242,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         dba = [NSNumber numberWithInt:totalDba / totalDbaSampleCount];
         fdbspl = totalDba / totalDbaSampleCount + 150;
         dbspl = [NSNumber numberWithInt:fdbspl];
+        dbraw = rawMeanVal;
         
         sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
         NSTimeInterval fullSample = 60*sampleSendFrequency;

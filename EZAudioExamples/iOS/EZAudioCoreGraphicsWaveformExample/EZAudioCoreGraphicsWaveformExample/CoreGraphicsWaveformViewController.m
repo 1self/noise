@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *iphone4SamplesSent;
 @property (weak, nonatomic) IBOutlet UIView *iphone4feedback;
 @property (weak, nonatomic) IBOutlet UIView *feedback;
+@property (weak, nonatomic) IBOutlet UILabel *dbraw;
 @end
 
 @implementation CoreGraphicsWaveformViewController
@@ -244,6 +245,7 @@ int samplePruining = 0;
     self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSaved];
     self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
     self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
+    self.dbraw.text = [NSString stringWithFormat:@"%.12f", noiseModel.dbraw];
 }
 
 - (void)UpdateViewBackground
@@ -265,5 +267,11 @@ int samplePruining = 0;
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"HelpView"];
         [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)debug:(id)sender {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"DebugView"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 @end
