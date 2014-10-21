@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblDbspl;
 @property (weak, nonatomic) IBOutlet UILabel *autoupload;
 @property (weak, nonatomic) IBOutlet UITextView *helpText;
+- (IBAction)tapDial:(id)sender;
 @end
