@@ -36,7 +36,6 @@
 
 @implementation CoreGraphicsWaveformViewController
 @synthesize audioPlot;
-@synthesize microphone;
 
 NSNumber *dbspl = 0;
 NSNumber *dba = 0;
@@ -93,7 +92,7 @@ NoiseModel* noiseModel;
     dbspl = noiseModel.dbspl;
     [self UpdateUIStats];
     [self UpdateViewBackground];
-    self.autoupload.text = noiseModel.autouploadLeft;
+    
 }
 
 - (void) animateWaveform
@@ -236,7 +235,6 @@ int samplePruining = 0;
 
 - (void) applicationActive{
     [self resetSample];
-    //[self.microphone startFetchingAudio];
 }
 
 - (void)UpdateUIStats
@@ -245,6 +243,7 @@ int samplePruining = 0;
     self.sampleSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
     self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSaved];
     self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
+    self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
 }
 
 - (void)UpdateViewBackground
@@ -259,5 +258,12 @@ int samplePruining = 0;
 - (IBAction)graphTap:(id)sender {
     [noiseModel sendSampleImmediately];
     [noiseModel openVisualization];
+}
+
+
+- (IBAction)help:(id)sender {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+        UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"HelpView"];
+        [self presentViewController:vc animated:YES completion:nil];
 }
 @end

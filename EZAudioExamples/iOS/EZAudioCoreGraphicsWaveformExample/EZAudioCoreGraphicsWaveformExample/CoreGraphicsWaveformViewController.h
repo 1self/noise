@@ -23,13 +23,7 @@
  The CoreGraphics based audio plot
  */
 @property (nonatomic,weak) IBOutlet EZAudioPlotGL *audioPlot;
-
-/**
- The microphone component
- */
-@property (nonatomic,strong) EZMicrophone *microphone;
 	
-
 @property (weak, nonatomic) IBOutlet UILabel *autoupload;
 
 #pragma mark - Actions
@@ -48,6 +42,8 @@
 - (IBAction)vizTapHandler:(UIGestureRecognizer*)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *graphImageView;
 - (IBAction)graphTap:(UIGestureRecognizer*)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *help;
+- (IBAction)help:(id)sender;
 
 
 @end

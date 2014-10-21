@@ -74,7 +74,7 @@
                                 </subviews>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" id="v79-Sa-0eb" userLabel="feedback">
-                                <rect key="frame" x="29" y="369.9999988624308" width="261" height="81"/>
+                                <rect key="frame" x="29" y="370.0000034747676" width="261" height="81"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dial.png" id="JsO-6a-zkS" userLabel="dialsending">
@@ -206,9 +206,13 @@
                                     <outletCollection property="gestureRecognizers" destination="06M-va-oI1" appends="YES" id="oPN-Q6-DTs"/>
                                 </connections>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help.png" id="KSo-yK-cH0">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help.png" id="KSo-yK-cH0">
                                 <rect key="frame" x="261" y="515" width="46" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Nna-lK-DDp" appends="YES" id="3Ba-5F-I6h"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.1480739392" blue="0.74593842499999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -220,6 +224,7 @@
                         <outlet property="autoupload" destination="BWd-jV-r2v" id="1hg-d3-VbD"/>
                         <outlet property="feedback" destination="v79-Sa-0eb" id="UlK-ng-Hwg"/>
                         <outlet property="graphImageView" destination="yp2-Tk-OfK" id="aTv-bH-ugJ"/>
+                        <outlet property="help" destination="KSo-yK-cH0" id="npZ-37-iA5"/>
                         <outlet property="innerTicker" destination="Ds6-kg-3bR" id="zJA-Wb-Rqs"/>
                         <outlet property="iphone4SamplesSent" destination="PZW-f6-8yz" id="OG9-hY-7mt"/>
                         <outlet property="iphone4SamplesToSend" destination="Djw-EC-4Kg" id="gDT-B1-CHL"/>
@@ -245,13 +250,18 @@
                         <action selector="graphTap:" destination="vXZ-lx-hvc" id="Lzp-vc-pqX"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="Nna-lK-DDp">
+                    <connections>
+                        <action selector="help:" destination="vXZ-lx-hvc" id="DrA-4M-P7M"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="58" y="96"/>
         </scene>
         <!--Help-->
         <scene sceneID="WKV-wn-tQ0">
             <objects>
-                <viewController title="Help" id="oex-BA-VLj" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpView" title="Help" id="oex-BA-VLj" customClass="HelpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vPF-9R-p2a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -261,7 +271,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.80000001192092896" contentMode="scaleToFill" id="HNe-Gb-7xd" customClass="EZAudioPlotGL">
-                                        <rect key="frame" x="23" y="29" width="33" height="8"/>
+                                        <rect key="frame" x="23" y="26" width="33" height="7"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
                                     <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="outer.png" id="cf0-c7-OX8" userLabel="outer">
@@ -273,26 +283,17 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.94999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WU2-WL-tEz">
-                                        <rect key="frame" x="10" y="-9" width="57" height="57"/>
+                                        <rect key="frame" x="10" y="10" width="57" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="-5" height="-1"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dB spl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8D-cj-Ah8">
-                                        <rect key="frame" x="10" y="4" width="57" height="46"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:59" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wTL-SM-EQh">
+                                        <rect key="frame" x="16" y="28" width="44" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="4"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wTL-SM-EQh">
-                                        <rect key="frame" x="17" y="27" width="44" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <string key="text">Auto-upload in
-19:59</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="3"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -300,8 +301,8 @@
                                         <rect key="frame" x="10" y="-4" width="57" height="57"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circlebottom.png" id="yCy-ob-fKm">
-                                        <rect key="frame" x="28" y="41" width="20" height="22"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.94999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circlebottom.png" id="yCy-ob-fKm">
+                                        <rect key="frame" x="26" y="50" width="25" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -318,6 +319,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.1480739392" blue="0.74593842499999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="audioPlot" destination="HNe-Gb-7xd" id="Hbj-Vr-4N9"/>
+                        <outlet property="autoupload" destination="wTL-SM-EQh" id="2J7-ZH-meu"/>
+                        <outlet property="helpText" destination="hJt-YT-q3M" id="HS8-3r-Y2q"/>
+                        <outlet property="innerTicker" destination="M7i-6W-TZ9" id="jcV-aU-Ovk"/>
+                        <outlet property="lblDbspl" destination="WU2-WL-tEz" id="Stc-Ff-6BR"/>
+                        <outlet property="middleTicker" destination="eFn-4K-BaZ" id="xeY-Rt-GYo"/>
+                        <outlet property="outerTicker" destination="cf0-c7-OX8" id="4G0-37-GEy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HX9-U9-ket" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

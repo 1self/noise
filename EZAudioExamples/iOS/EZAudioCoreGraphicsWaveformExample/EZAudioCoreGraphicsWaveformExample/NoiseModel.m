@@ -248,12 +248,12 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         
         int mins = (int)timeLeftRamainingInSample / 60;
         int seconds = (int)timeLeftRamainingInSample % 60;
-        autouploadLeft = [NSString stringWithFormat: @"Auto-upload in\n%0*d:%0*d", 2, mins, 2, seconds];
+        autouploadLeft = [NSString stringWithFormat: @"%0*d:%0*d", 2, mins, 2, seconds];
         
         if(sampleDuration > fullSample){
             [self SendSamples:currentTime sampleDuration:sampleDuration];
         }
-        NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
+    //    NSLog(@"count %d %f (raw: %f)", totalDbaSampleCount, totalDba / totalDbaSampleCount + 150, sampleMeanDba);
         
         if(_noiseView != nil){
             [_noiseView updateView];
@@ -262,7 +262,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
     
     
-    NSLog(@"Received");
+    //NSLog(@"Received");
 }
 -(void)microphone:(EZMicrophone *)microphone hasAudioStreamBasicDescription:(AudioStreamBasicDescription)audioStreamBasicDescription {
     // The AudioStreamBasicDescription of the microphone stream. This is useful when configuring the EZRecorder or telling another component what audio format type to expect.
@@ -501,6 +501,11 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     }];
     
     [self resetSample];
+}
+
+-(void)openVisualization{
+    NSString *vizUrl = [NSString stringWithFormat:@"%@/v1/streams/%@/events/ambient,sound/sample/mean(dbspl)/daily/barchart", apiUrlStem, sid];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:vizUrl]];
 }
 
 
