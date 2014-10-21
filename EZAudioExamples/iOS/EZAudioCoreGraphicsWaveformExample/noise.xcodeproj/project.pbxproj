@@ -231,6 +231,8 @@
 				94056F92185E593500EB94BA /* Main_iPad.storyboard */,
 				94056FDC185E59D900EB94BA /* CoreGraphicsWaveformViewController.h */,
 				94056FDD185E59D900EB94BA /* CoreGraphicsWaveformViewController.m */,
+				2009C0B519F6A88F009756A1 /* DebugController.h */,
+				2009C0B619F6A88F009756A1 /* DebugController.m */,
 				2009C0B219F655AA009756A1 /* HelpViewController.h */,
 				2009C0B319F655AA009756A1 /* HelpViewController.m */,
 				2009C0B019F558A6009756A1 /* HelpModel.m */,
@@ -239,8 +241,6 @@
 				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
 				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
-				2009C0B519F6A88F009756A1 /* DebugController.h */,
-				2009C0B619F6A88F009756A1 /* DebugController.m */,
 			);
 			name = noise;
 			path = EZAudioCoreGraphicsWaveformExample;

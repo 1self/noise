@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface DebugController : UIViewController
+- (IBAction)tapBack:(id)sender;
 
 @end
