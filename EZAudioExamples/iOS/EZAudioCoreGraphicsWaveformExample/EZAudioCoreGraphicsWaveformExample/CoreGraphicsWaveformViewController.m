@@ -183,9 +183,11 @@ NoiseModel* noiseModel;
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     noiseModel = appDelegate.noiseModel;
     noiseModel.noiseView = self;
+    [self setInitialPlotColour];
+    [self animate];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [self setInitialPlotColour];
     [self animate];

@@ -83,7 +83,7 @@
     //appUrlStem = @"http://localhost:7000";
     //apiUrlStem = @"http://api.1self.co";
     //appUrlStem = @"http://app.1self.co";
-    apiUrlStem = @"http://api-staging.1self.co:5000";
+        
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -485,10 +485,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     meanDba = 0;
 }
 
--(void) didEnterBackground{
-    NSLog(@"NoiseModel didEnterBackground");
-}
-
 -(void) goToForeground{
     NSLog(@"Model goToForeground");
     [self startMicrophone];
@@ -505,10 +501,9 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
     [self SendSingleSample:currentTime sampleDuration: sampleDuration];
     
-    
-    backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        backgroundTask = UIBackgroundTaskInvalid;
-    }];
+   // backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+   //     backgroundTask = UIBackgroundTaskInvalid;
+    //}];
     
     [self resetSample];
 }
