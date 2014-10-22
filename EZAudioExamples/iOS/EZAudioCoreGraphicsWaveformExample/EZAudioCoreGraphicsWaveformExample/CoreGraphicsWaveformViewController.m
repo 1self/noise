@@ -166,7 +166,6 @@ NoiseModel* noiseModel;
     
 }
 -(void)goToForeground{
-    [self animate];
 }
 
 - (void)animate
@@ -184,6 +183,10 @@ NoiseModel* noiseModel;
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     noiseModel = appDelegate.noiseModel;
     noiseModel.noiseView = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [self setInitialPlotColour];
     [self animate];
 }
