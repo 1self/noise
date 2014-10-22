@@ -10,9 +10,7 @@
 		2009C09019E97ED6009756A1 /* middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C08D19E97ED6009756A1 /* middle.png */; };
 		2009C09219E97ED6009756A1 /* inner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C08F19E97ED6009756A1 /* inner.png */; };
 		2009C09419E97FA2009756A1 /* outer.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09319E97FA2009756A1 /* outer.png */; };
-		2009C09619ED3416009756A1 /* 1selflogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09519ED3416009756A1 /* 1selflogo.png */; };
 		2009C09C19ED3CE4009756A1 /* dial.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09B19ED3CE4009756A1 /* dial.png */; };
-		2009C0A019ED6333009756A1 /* noiselogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C09F19ED6333009756A1 /* noiselogo.png */; };
 		2009C0A419ED737B009756A1 /* visualise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A319ED737B009756A1 /* visualise.png */; };
 		2009C0A819F155D1009756A1 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A719F155D1009756A1 /* help.png */; };
 		2009C0AA19F16378009756A1 /* circlebottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2009C0A919F16378009756A1 /* circlebottom.png */; };
@@ -23,6 +21,7 @@
 		203F437619F856210078A4E3 /* noise-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437419F856210078A4E3 /* noise-icon@2x.png */; };
 		203F437719F856210078A4E3 /* noise-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437519F856210078A4E3 /* noise-icon@3x.png */; };
 		203F437B19F858420078A4E3 /* noise-icon-inapp.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437A19F858420078A4E3 /* noise-icon-inapp.png */; };
+		203F437D19F859C30078A4E3 /* 1self-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437C19F859C30078A4E3 /* 1self-logo.png */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -74,9 +73,7 @@
 		2009C08D19E97ED6009756A1 /* middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middle.png; sourceTree = "<group>"; };
 		2009C08F19E97ED6009756A1 /* inner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inner.png; sourceTree = "<group>"; };
 		2009C09319E97FA2009756A1 /* outer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outer.png; sourceTree = "<group>"; };
-		2009C09519ED3416009756A1 /* 1selflogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1selflogo.png; sourceTree = "<group>"; };
 		2009C09B19ED3CE4009756A1 /* dial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dial.png; sourceTree = "<group>"; };
-		2009C09F19ED6333009756A1 /* noiselogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noiselogo.png; sourceTree = "<group>"; };
 		2009C0A319ED737B009756A1 /* visualise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visualise.png; sourceTree = "<group>"; };
 		2009C0A719F155D1009756A1 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		2009C0A919F16378009756A1 /* circlebottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebottom.png; sourceTree = "<group>"; };
@@ -91,6 +88,7 @@
 		203F437419F856210078A4E3 /* noise-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon@2x.png"; sourceTree = "<group>"; };
 		203F437519F856210078A4E3 /* noise-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon@3x.png"; sourceTree = "<group>"; };
 		203F437A19F858420078A4E3 /* noise-icon-inapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon-inapp.png"; sourceTree = "<group>"; };
+		203F437C19F859C30078A4E3 /* 1self-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1self-logo.png"; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -179,12 +177,10 @@
 			children = (
 				203F435519F803070078A4E3 /* icons */,
 				2009C0A719F155D1009756A1 /* help.png */,
-				2009C09519ED3416009756A1 /* 1selflogo.png */,
 				2009C0A919F16378009756A1 /* circlebottom.png */,
 				2009C09319E97FA2009756A1 /* outer.png */,
 				2009C09B19ED3CE4009756A1 /* dial.png */,
 				2009C0A319ED737B009756A1 /* visualise.png */,
-				2009C09F19ED6333009756A1 /* noiselogo.png */,
 				2009C08D19E97ED6009756A1 /* middle.png */,
 				2009C08F19E97ED6009756A1 /* inner.png */,
 			);
@@ -195,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				203F437419F856210078A4E3 /* noise-icon@2x.png */,
+				203F437C19F859C30078A4E3 /* 1self-logo.png */,
 				203F437A19F858420078A4E3 /* noise-icon-inapp.png */,
 				203F437519F856210078A4E3 /* noise-icon@3x.png */,
 			);
@@ -421,16 +418,15 @@
 				94056F91185E593500EB94BA /* Main_iPhone.storyboard in Resources */,
 				9417A7E61867DDD600D9D37B /* VERSION in Resources */,
 				2009C09019E97ED6009756A1 /* middle.png in Resources */,
-				2009C0A019ED6333009756A1 /* noiselogo.png in Resources */,
 				2009C09C19ED3CE4009756A1 /* dial.png in Resources */,
 				203F437B19F858420078A4E3 /* noise-icon-inapp.png in Resources */,
 				2009C0A419ED737B009756A1 /* visualise.png in Resources */,
-				2009C09619ED3416009756A1 /* 1selflogo.png in Resources */,
 				203F437719F856210078A4E3 /* noise-icon@3x.png in Resources */,
 				94056F88185E593500EB94BA /* InfoPlist.strings in Resources */,
 				2009C0AA19F16378009756A1 /* circlebottom.png in Resources */,
 				2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */,
 				2009C0A819F155D1009756A1 /* help.png in Resources */,
+				203F437D19F859C30078A4E3 /* 1self-logo.png in Resources */,
 				2009C09219E97ED6009756A1 /* inner.png in Resources */,
 				9417A7E51867DDD600D9D37B /* CHANGELOG in Resources */,
 				2009C09419E97FA2009756A1 /* outer.png in Resources */,
