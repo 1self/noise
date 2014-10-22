@@ -266,12 +266,14 @@ int samplePruining = 0;
 - (IBAction)help:(id)sender {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"HelpView"];
+        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
         [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)debug:(id)sender {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"DebugView"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:vc animated:YES completion:nil];
 }
 @end
