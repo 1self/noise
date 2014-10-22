@@ -14,6 +14,7 @@
 @property NoiseModel* noiseModel;
 @property (weak, nonatomic) IBOutlet UILabel *sampleRawMean;
 @property (weak, nonatomic) IBOutlet UILabel *sampleDbaMean;
+@property (weak, nonatomic) IBOutlet UILabel *sampleSplMean;
 @property (weak, nonatomic) IBOutlet UILabel *sumDba;
 @property (weak, nonatomic) IBOutlet UILabel *sumDbaCount;
 @property (weak, nonatomic) IBOutlet UILabel *tosend;
@@ -31,7 +32,7 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     _noiseModel = appDelegate.noiseModel;
     _noiseModel.noiseView = self;
-
+    _log.text = _noiseModel.log;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,19 +43,19 @@
 - (void)updateView{
     _sampleRawMean.text = [NSString stringWithFormat: @"sampleRawMean: %.12f", _noiseModel.sampleRawMean];
     _sampleDbaMean.text = [NSString stringWithFormat: @"sampleDbaMean: %.12f", _noiseModel.sampleDbaMean];
-    _sumDba.text = [NSString stringWithFormat: @"%.12f", _noiseModel.sumDba];
-    _sumDbaCount.text = [NSString stringWithFormat: @"%d",_noiseModel.sumDbaCount];
-    _tosend.text = [NSString stringWithFormat: @"%d", _noiseModel.samplesToSend];
-    _sending.text = [NSString stringWithFormat: @"%d", _noiseModel.samplesSending];
-    _sent.text = [NSString stringWithFormat: @"%d", _noiseModel.samplesSent];
+    _sampleSplMean.text = [NSString stringWithFormat: @"sampleSplMean: %.12f", _noiseModel.sampleSplMean];
+    _sumDba.text = [NSString stringWithFormat: @"sumDba:%.12f", _noiseModel.sumDba];
+    _sumDbaCount.text = [NSString stringWithFormat: @"sumDbaCount%d",_noiseModel.sumDbaCount];
+    _tosend.text = [NSString stringWithFormat: @"toSend%d", _noiseModel.samplesToSend];
+    _sending.text = [NSString stringWithFormat: @"sending%d", _noiseModel.samplesSending];
+    _sent.text = [NSString stringWithFormat: @"sent%d", _noiseModel.samplesSent];
     _autoupload.text = _noiseModel.autouploadLeft;
     _location.text = [NSString stringWithFormat: @"lat:%f,long%f", _noiseModel.lat, _noiseModel.lng];
-    _log.text = [NSString stringWithFormat: @""];
+    
     
 }
 
 -(void)updateAudioPlots:(float *)buffer withBufferSize:(UInt32)bufferSize{
-    
 }
 
 /*
@@ -71,5 +72,6 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"MainView"];
     [self presentViewController:vc animated:YES completion:nil];
+    [_noiseModel logMessage:@"Going into debug view"];
 }
 @end

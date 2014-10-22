@@ -36,11 +36,13 @@
 @property int samplesToSend;
 @property float sampleRawMean;
 @property float sampleDbaMean;
+@property float sampleSplMean;
 @property float dbaMean;
 @property float lat;
 @property float lng;
 @property int sumDbaCount;
 @property float sumDba;
+@property NSMutableString* log;
 
 -(void) load;
 -(void)persist;
@@ -51,6 +53,8 @@
 -(void) didEnterBackground;
 -(void) goToForeground;
 -(void) becameActive;
+
+-(void) logMessage:(NSString*)message;
 
 @end
 

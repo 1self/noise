@@ -41,14 +41,17 @@
 @synthesize samplesToSend;
 @synthesize sampleRawMean;
 @synthesize sampleDbaMean;
+@synthesize sampleSplMean;
 @synthesize dbaMean;
 @synthesize lat;
 @synthesize lng;
 @synthesize sumDbaCount;
 @synthesize sumDba;
+@synthesize log;
 
 #pragma mark - Initialization
 - (id) init{
+    log = [NSMutableString new];
     dbspl = 0;
     meanDba = 0;
     sampleSendFrequency = 20;
@@ -101,6 +104,11 @@
     return self;
 }
 
+-(void) logMessage:(NSString*)message{
+    [log appendString: message];
+    [log appendString: @"\n"];
+}
+
 -(void) load{
     [self startMicrophone];
     [self logModelLoaded];
@@ -146,7 +154,7 @@
     NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
     NSString *streamCreated = [loadPrefs stringForKey:@"streamid"];
     if(streamCreated == nil){
-        NSLog(@"No stream id found, creating a new one");
+        [self logMessage: @"No stream id found, creating a new one"];
         NSDictionary* headers = @{@"Authorization": @"1selfnoise:12345678"};
         NSString* url = [NSString stringWithFormat: @"%@/v1/streams", apiUrlStem];
         
@@ -156,7 +164,7 @@
         }] asJson];
         
         if (response.code == 200) {
-            NSLog(@"Successfully made rest call: %ld", (long)response.code);
+            [self logMessage:[NSString stringWithFormat:@"Successfully made rest call: %ld", (long)response.code] ];
             
             sid = response.body.JSONObject[@"streamid"];
             writeToken = response.body.JSONObject[@"writeToken"];
@@ -174,10 +182,10 @@
             
         }
         else{
-            UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Can't connect to 1self!"
-                                                               message:@"Hey! We need the internet to collect the noise samples you create. Don't worry, we'll keep a hold of the samples until you're reconnected, then we'll re-send them. Until 1self has the samples, you won't be able to see any visualisations."
+            UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"1self cloud alert"
+                                                               message:@"Hey! Just to let you know, we couldn't reach the 1self cloud. Panic not, we'll trap the samples until you're reconnected, then we'll re-send them. One minor thing, since the visualisations are powered by our cloud, you won't be able to see the visualization until the interwebs are back."
                                                               delegate:self
-                                                     cancelButtonTitle:@"OK"
+                                                     cancelButtonTitle:@"OK computer"
                                                      otherButtonTitles:nil];
             [theAlert show];
 
@@ -237,6 +245,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
             assert("throwing data away");
             return;
         }
+        
+        sampleSplMean = sampleDbaMean + 150;
         
         //  NSLog(@"mean is %10f (raw) %10f (db)", rawMeanVal, dbMeanVal);
         sumDba += sampleDbaMean;
@@ -379,15 +389,17 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     sampleStart = currentTime;
     
-    
-    
     NSNumber* sampleDbspl = [NSNumber numberWithFloat: [dbspl intValue]];
     NSNumber* sampleDba = [NSNumber numberWithFloat: meanDba ];
+    
+    NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
+    
+    NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
                              @"eventDateTime": formattedDateString,
                              @"actionTags": @[@"sample"],
-                             @"location": @{ @"lat": [NSNumber numberWithDouble:currentLocation.coordinate.latitude],
-                                             @"long": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]
+                             @"location": @{ @"lat": latitude,
+                                             @"long": longitude
                                              },
                              @"objectTags":@[@"ambient", @"sound"],
                              @"properties": @{@"dba": sampleDba, @"dbspl": sampleDbspl, @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
@@ -420,6 +432,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 - (void)SendSingleSample:(NSDate *)currentTime sampleDuration:(NSTimeInterval)sampleDuration
 {
+    if(sid == nil){
+        return;
+    }
+    
     NSMutableArray *eventsToSend = [[NSMutableArray alloc] init];
     NSDictionary *event;
     event = [self CreateEvent:currentTime sampleDuration:sampleDuration];
