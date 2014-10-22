@@ -183,14 +183,6 @@
                                     <outletCollection property="gestureRecognizers" destination="1DB-jH-cBX" appends="YES" id="A0L-Ze-it7"/>
                                 </connections>
                             </view>
-                            <imageView alpha="0.94999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noiselogo.png" id="YOO-a2-geR">
-                                <rect key="frame" x="125" y="20" width="70" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="tNn-yr-1Jt" appends="YES" id="bxj-7N-nrY"/>
-                                </connections>
-                            </imageView>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visualise.png" id="yp2-Tk-OfK">
                                 <rect key="frame" x="100" y="514" width="121" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
@@ -205,6 +197,14 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Nna-lK-DDp" appends="YES" id="3Ba-5F-I6h"/>
+                                </connections>
+                            </imageView>
+                            <imageView alpha="0.94999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noise-icon-inapp.png" id="YOO-a2-geR">
+                                <rect key="frame" x="110" y="5" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="tNn-yr-1Jt" appends="YES" id="bxj-7N-nrY"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -464,7 +464,7 @@
         <image name="help.png" width="232" height="236"/>
         <image name="inner.png" width="1800" height="1800"/>
         <image name="middle.png" width="1800" height="1800"/>
-        <image name="noiselogo.png" width="408" height="521"/>
+        <image name="noise-icon-inapp.png" width="180" height="180"/>
         <image name="outer.png" width="1800" height="1800"/>
         <image name="visualise.png" width="376" height="202"/>
     </resources>

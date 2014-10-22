@@ -20,6 +20,9 @@
 		2009C0B119F558A6009756A1 /* HelpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0B019F558A6009756A1 /* HelpModel.m */; };
 		2009C0B419F655AA009756A1 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0B319F655AA009756A1 /* HelpViewController.m */; };
 		2009C0B719F6A88F009756A1 /* DebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2009C0B619F6A88F009756A1 /* DebugController.m */; };
+		203F437619F856210078A4E3 /* noise-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437419F856210078A4E3 /* noise-icon@2x.png */; };
+		203F437719F856210078A4E3 /* noise-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437519F856210078A4E3 /* noise-icon@3x.png */; };
+		203F437B19F858420078A4E3 /* noise-icon-inapp.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437A19F858420078A4E3 /* noise-icon-inapp.png */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -85,6 +88,9 @@
 		2009C0B319F655AA009756A1 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		2009C0B519F6A88F009756A1 /* DebugController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugController.h; sourceTree = "<group>"; };
 		2009C0B619F6A88F009756A1 /* DebugController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugController.m; sourceTree = "<group>"; };
+		203F437419F856210078A4E3 /* noise-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon@2x.png"; sourceTree = "<group>"; };
+		203F437519F856210078A4E3 /* noise-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon@3x.png"; sourceTree = "<group>"; };
+		203F437A19F858420078A4E3 /* noise-icon-inapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon-inapp.png"; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 		2034AAAF19E8614900F925BA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				203F435519F803070078A4E3 /* icons */,
 				2009C0A719F155D1009756A1 /* help.png */,
 				2009C09519ED3416009756A1 /* 1selflogo.png */,
 				2009C0A919F16378009756A1 /* circlebottom.png */,
@@ -182,6 +189,16 @@
 				2009C08F19E97ED6009756A1 /* inner.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		203F435519F803070078A4E3 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				203F437419F856210078A4E3 /* noise-icon@2x.png */,
+				203F437A19F858420078A4E3 /* noise-icon-inapp.png */,
+				203F437519F856210078A4E3 /* noise-icon@3x.png */,
+			);
+			name = icons;
 			sourceTree = "<group>";
 		};
 		94056F71185E593500EB94BA = {
@@ -399,14 +416,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				94056F94185E593500EB94BA /* Main_iPad.storyboard in Resources */,
+				203F437619F856210078A4E3 /* noise-icon@2x.png in Resources */,
 				94056F99185E593500EB94BA /* Images.xcassets in Resources */,
 				94056F91185E593500EB94BA /* Main_iPhone.storyboard in Resources */,
 				9417A7E61867DDD600D9D37B /* VERSION in Resources */,
 				2009C09019E97ED6009756A1 /* middle.png in Resources */,
 				2009C0A019ED6333009756A1 /* noiselogo.png in Resources */,
 				2009C09C19ED3CE4009756A1 /* dial.png in Resources */,
+				203F437B19F858420078A4E3 /* noise-icon-inapp.png in Resources */,
 				2009C0A419ED737B009756A1 /* visualise.png in Resources */,
 				2009C09619ED3416009756A1 /* 1selflogo.png in Resources */,
+				203F437719F856210078A4E3 /* noise-icon@3x.png in Resources */,
 				94056F88185E593500EB94BA /* InfoPlist.strings in Resources */,
 				2009C0AA19F16378009756A1 /* circlebottom.png in Resources */,
 				2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */,
@@ -574,7 +594,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -609,7 +629,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
