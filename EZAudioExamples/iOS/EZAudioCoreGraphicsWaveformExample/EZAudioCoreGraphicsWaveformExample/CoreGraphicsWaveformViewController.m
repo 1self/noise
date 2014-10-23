@@ -19,6 +19,8 @@
 #pragma mark - UI Extras
 @property (nonatomic,weak) IBOutlet UILabel *microphoneTextLabel;
 @property (nonatomic,weak) IBOutlet UILabel *lblDba;
+@property (weak, nonatomic) IBOutlet UILabel *lblMinDbspl;
+@property (weak, nonatomic) IBOutlet UILabel *lblMaxDbSpl;
 @property (nonatomic,weak) IBOutlet UILabel *lblDbspl;
 @property (nonatomic,weak) IBOutlet UILabel *sampleSent;
 @property (weak, nonatomic) IBOutlet UILabel *samplesToSend;
@@ -246,6 +248,8 @@ int samplePruining = 0;
 - (void)UpdateUIStats
 {
     self.lblDbspl.text = [NSString stringWithFormat: @"%@", noiseModel.dbspl];
+    self.lblMinDbspl.text = [NSString stringWithFormat: @"%0.f", noiseModel.mindbspl];
+    self.lblMaxDbSpl.text = [NSString stringWithFormat: @"%0.f", noiseModel.maxdbspl];
     self.sampleSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
     self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesToSend];
     self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];

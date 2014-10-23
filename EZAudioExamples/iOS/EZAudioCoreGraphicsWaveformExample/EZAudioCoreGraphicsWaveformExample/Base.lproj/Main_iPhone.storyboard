@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -254,6 +253,8 @@
                         <outlet property="iphone4feedback" destination="j64-I5-AjY" id="wnY-Vb-uwq"/>
                         <outlet property="iphoneSamplesSending" destination="LQS-sA-u3l" id="mVJ-d6-F5o"/>
                         <outlet property="lblDbspl" destination="wUF-Ef-knz" id="Wd4-U1-tKd"/>
+                        <outlet property="lblMaxDbSpl" destination="HNd-Hw-BPs" id="BSZ-xn-Sn1"/>
+                        <outlet property="lblMinDbspl" destination="ZR5-Pd-SE0" id="z0D-zT-Sx1"/>
                         <outlet property="meterView2" destination="Yzj-62-0au" id="QjK-bq-cBv"/>
                         <outlet property="middleTicker" destination="fzC-gG-1j4" id="MK5-yG-EBH"/>
                         <outlet property="outerTicker" destination="4DF-8a-j0T" id="GYW-DP-Ppw"/>

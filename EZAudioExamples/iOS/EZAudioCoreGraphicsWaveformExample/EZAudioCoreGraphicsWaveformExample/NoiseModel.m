@@ -25,6 +25,10 @@
     CLLocation* currentLocation;
     UIBackgroundTaskIdentifier backgroundTask;
     CLLocationManager* locationManager;
+    float minDbSplSum;
+    float maxDbSplSum;
+    float minDbSplCount;
+    float maxDbSplCount;
 }
 
 #pragma mark - UI Extras
@@ -33,6 +37,8 @@
 @implementation NoiseModel
 @synthesize microphone;
 @synthesize dbspl;
+@synthesize mindbspl;
+@synthesize maxdbspl;
 @synthesize fdbspl;
 @synthesize sampleDuration;
 @synthesize autouploadLeft;
@@ -53,6 +59,12 @@
 - (id) init{
     log = [NSMutableString new];
     dbspl = 0;
+    mindbspl = -1;
+    maxdbspl = -1;
+    minDbSplSum = 0;
+    maxDbSplSum = 0;
+    minDbSplCount = 0;
+    maxDbSplSum = 0;
     meanDba = 0;
     sampleSendFrequency = 20;
     NSMutableArray *unsentEvents = nil;
@@ -254,6 +266,28 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         meanDba = sumDba / sumDbaCount;
         fdbspl = [self dbaToDbspl: meanDba];
         dbspl = [NSNumber numberWithInt:fdbspl];
+        
+        minDbSplSum += sampleSplMean;
+        minDbSplCount += 1;
+        if((int)minDbSplCount % 20 == 0){
+            float rollingMin = minDbSplSum / minDbSplCount;
+            if(mindbspl == -1 || rollingMin < mindbspl){
+                mindbspl = rollingMin;
+            }
+            minDbSplSum = 0;
+            minDbSplCount = 0;
+        }
+        
+        maxDbSplSum += sampleSplMean;
+        maxDbSplCount += 1;
+        if((int)maxDbSplCount % 20 == 0){
+            float rollingMax = maxDbSplSum / maxDbSplCount;
+            if(mindbspl == -1 || rollingMax > maxdbspl){
+                maxdbspl = rollingMax;
+            }
+            maxDbSplSum = 0;
+            maxDbSplCount = 0;
+        }
         lat = currentLocation.coordinate.latitude;
         lng = currentLocation.coordinate.longitude;
         
@@ -390,6 +424,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     sampleStart = currentTime;
     
     NSNumber* sampleDbspl = [NSNumber numberWithFloat: [dbspl intValue]];
+        NSNumber* sampleMinDbspl = [NSNumber numberWithFloat: mindbspl ];
+        NSNumber* sampleMaxDbspl = [NSNumber numberWithFloat: maxdbspl ];
     NSNumber* sampleDba = [NSNumber numberWithFloat: meanDba ];
     
     NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
@@ -402,7 +438,11 @@ withNumberOfChannels:(UInt32)numberOfChannels {
                                              @"long": longitude
                                              },
                              @"objectTags":@[@"ambient", @"sound"],
-                             @"properties": @{@"dba": sampleDba, @"dbspl": sampleDbspl, @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
+                             @"properties": @{@"dba": sampleDba,
+                                              @"dbspl": sampleDbspl,
+                                              @"mindbspl": sampleMinDbspl,
+                                              @"maxdbspl": sampleMaxDbspl,
+                                              @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
                              @"source": @"1Self Noise",
                              @"streamid":sid,
                              @"version": @"1.0.0"
@@ -482,6 +522,12 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     sumDba = 0;
     sampleStart = [NSDate date];
     dbspl = 0;
+    mindbspl = 0;
+    minDbSplSum = 0;
+    minDbSplCount = 0;
+    maxdbspl = 0;
+    maxDbSplSum = 0;
+    maxDbSplCount = 0;
     meanDba = 0;
 }
 

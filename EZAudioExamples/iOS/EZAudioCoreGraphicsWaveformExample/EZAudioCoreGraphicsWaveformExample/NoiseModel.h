@@ -27,6 +27,8 @@
 
 @property (nonatomic,strong) EZMicrophone *microphone;
 @property NSNumber* dbspl;
+@property float mindbspl;
+@property float maxdbspl;
 @property float fdbspl;
 @property NSTimeInterval sampleDuration;
 @property NSString *autouploadLeft;
