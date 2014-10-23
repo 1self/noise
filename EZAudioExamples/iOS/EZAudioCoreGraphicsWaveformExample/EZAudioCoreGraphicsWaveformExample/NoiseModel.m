@@ -95,6 +95,8 @@
     //appUrlStem = @"http://localhost:7000";
     //apiUrlStem = @"http://api.1self.co";
     //appUrlStem = @"http://app.1self.co";
+    
+    apiUrlStem = @"http://api-staging.1self.co:5000";r
         
     
     locationManager = [[CLLocationManager alloc] init];
