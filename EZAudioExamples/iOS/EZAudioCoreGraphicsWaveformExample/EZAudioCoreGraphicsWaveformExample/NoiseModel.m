@@ -96,8 +96,8 @@
     //apiUrlStem = @"http://api.1self.co";
     //appUrlStem = @"http://app.1self.co";
     
-    apiUrlStem = @"http://api-staging.1self.co:5000";r
-        
+    apiUrlStem = @"http://api.1self.co:5000";
+    
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -162,6 +162,8 @@
             [unsentEvents addObject:savedUnsentEvents[i]];
         }
     }
+    
+    samplesToSend = unsentEvents.count;
 }
 
 -(void) createStream{
@@ -201,7 +203,7 @@
                                                               delegate:self
                                                      cancelButtonTitle:@"OK computer"
                                                      otherButtonTitles:nil];
-            [theAlert show];
+            //[theAlert show];
 
             NSLog(@"Couldn't create stream, stream is blank, nothing will be persisted to QD");
         }
@@ -338,8 +340,40 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     [prefs removeObjectForKey:@"unsentEvents"];
 }
 
+- (void)addUnsentEvent:(NSDictionary *)event
+{
+    @synchronized(unsentEvents)
+    {
+        [unsentEvents addObject:event];
+        samplesToSend = unsentEvents.count;
+    }
+}
+
 - (void)SendEventAsync:(NSDictionary *)event
 {
+    // stream couldn't be created
+    if(sid == nil){
+        [self addUnsentEvent:event];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        @synchronized(unsentEvents){
+            [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+        }
+        return;
+    }
+    else{
+        event = @{ @"dateTime":   event[@"dateTime"],
+                                 @"eventDateTime": event[@"eventDateTime"],
+                                 @"actionTags": event[@"actionTags"],
+                                 @"location": event[@"location"],
+                                 @"objectTags":event[@"objectTags"],
+                                 @"properties": event[@"properties"],
+                                 @"source": event[ @"source"],
+                                 @"streamid":sid,
+                                 @"version": event[@"version"]
+                                 };
+    }
+    
+    
     NSDictionary* headers = @{@"Content-Type": @"application/json",
                               @"Authorization": writeToken};
     NSString *url = [NSString stringWithFormat:@"%@/v1/streams/%@/events", apiUrlStem, sid];
@@ -359,13 +393,12 @@ withNumberOfChannels:(UInt32)numberOfChannels {
             samplesSent += 1;
         }
         else{
-                        @synchronized(unsentEvents){
-                [unsentEvents addObject:event];
-            }
+            [self addUnsentEvent:event];
         }
         
         @synchronized(unsentEvents){
             [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+            samplesToSend = unsentEvents.count;
         }
         
         // If we are being put in the background there might be a background task going.
@@ -380,6 +413,27 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 - (void)SendEvent:(NSDictionary *)event
 {
+    if(sid == nil){
+        [self addUnsentEvent:event];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        @synchronized(unsentEvents){
+            [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+        }
+        return;
+    }
+    else{
+            event = @{ @"dateTime":   event[@"dateTime"],
+                       @"eventDateTime": event[@"eventDateTime"],
+                       @"actionTags": event[@"actionTags"],
+                       @"location": event[@"location"],
+                       @"objectTags":event[@"objectTags"],
+                       @"properties": event[@"properties"],
+                       @"source": event[ @"source"],
+                       @"streamid":sid,
+                       @"version": event[@"version"]
+                       };
+    }
+    
     NSDictionary* headers = @{@"Content-Type": @"application/json",
                               @"Authorization": writeToken};
     NSString *url = [NSString stringWithFormat:@"%@/v1/streams/%@/events", apiUrlStem, sid];
@@ -401,6 +455,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         
         @synchronized(unsentEvents){
             [unsentEvents addObject:event];
+            samplesToSend = unsentEvents.count;
         }
     }
     
@@ -433,6 +488,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
     
     NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
+    
+    
+    NSString* streamid = sid == nil ? @"" : sid;
+    
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
                              @"eventDateTime": formattedDateString,
                              @"actionTags": @[@"sample"],
@@ -446,7 +505,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
                                               @"maxdbspl": sampleMaxDbspl,
                                               @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
                              @"source": @"1Self Noise",
-                             @"streamid":sid,
+                             @"streamid":streamid,
                              @"version": @"1.0.0"
                              };
     return event;
@@ -464,6 +523,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     }
     
     [unsentEvents removeAllObjects];
+    samplesToSend = unsentEvents;
     
     for (int i = 0; i < eventsToSend.count; i++) {
         [self SendEventAsync:eventsToSend[i]];
@@ -524,10 +584,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     sumDba = 0;
     sampleStart = [NSDate date];
     dbspl = 0;
-    mindbspl = 0;
+    mindbspl = -1;
     minDbSplSum = 0;
     minDbSplCount = 0;
-    maxdbspl = 0;
+    maxdbspl = -1;
     maxDbSplSum = 0;
     maxDbSplCount = 0;
     meanDba = 0;

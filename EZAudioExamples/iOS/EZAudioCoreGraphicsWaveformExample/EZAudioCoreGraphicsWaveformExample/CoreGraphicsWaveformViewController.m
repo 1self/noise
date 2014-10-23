@@ -119,7 +119,7 @@ NoiseModel* noiseModel;
     rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * rotations * duration ];
     rotationAnimation.duration = duration;
     rotationAnimation.cumulative = YES;
-    rotationAnimation.repeatCount = 1.0 * 60 * 60;
+    rotationAnimation.repeatCount = HUGE_VALF;
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
 
     
@@ -135,7 +135,7 @@ NoiseModel* noiseModel;
     rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * rotations * duration ];
     rotationAnimation.duration = duration;
     rotationAnimation.cumulative = YES;
-    rotationAnimation.repeatCount = 1.0 * 60 * 60;
+    rotationAnimation.repeatCount = HUGE_VALF;
     
     
     [_middleTicker.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
@@ -150,7 +150,7 @@ NoiseModel* noiseModel;
     rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * rotations * duration ];
     rotationAnimation.duration = duration;
     rotationAnimation.cumulative = YES;
-    rotationAnimation.repeatCount = 1.0 * 60 * 60;
+    rotationAnimation.repeatCount = HUGE_VALF;
     
     
     [_outerTicker.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
@@ -261,8 +261,8 @@ int samplePruining = 0;
 {
     float redness = noiseModel.fdbspl / 100;
     float greenness = 1 - redness;
-    self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
-    audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
+    audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0 alpha:1];
 }
 
 
