@@ -11,7 +11,29 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface EventRepository : NSObject
+@protocol EventRepositoryProtocol <NSObject>
+
+-(void) SendSamples: (NSDictionary*) event;
+-(void) SendSingleSample: (NSDictionary*) event;
+-(NSString*) getVizUrl;
+-(NSDictionary*) CreateEvent: (NSDate*) currentTime
+              sampleDuration: (NSTimeInterval) sampleDuration
+                       dbspl: (NSNumber*) dbspl
+                    mindbspl: (float) mindbspl
+                    maxdbspl: (float) maxdbspl
+                     meanDba: (float) meanDba
+             currentLocation: (CLLocation*) currentLocation
+                 sampleStart: (NSDate*) sampleStart;
+-(void) load;
+-(void) sendSavedEvents;
+
+@property NSMutableArray* samplesToSend;
+@property int samplesSent;
+@property int samplesSending;
+
+@end
+
+@interface EventRepository : NSObject<EventRepositoryProtocol>
 
 @property NSMutableArray* samplesToSend;
 @property NSMutableString* log;

@@ -17,6 +17,7 @@
     NSString *sid;
     NSString *writeToken;
     NSString *readToken;
+    
 }
 
 @end
@@ -162,13 +163,11 @@
     }
     else{
         event = @{ @"dateTime":   event[@"dateTime"],
-                   @"eventDateTime": event[@"eventDateTime"],
                    @"actionTags": event[@"actionTags"],
                    @"location": event[@"location"],
                    @"objectTags":event[@"objectTags"],
                    @"properties": event[@"properties"],
                    @"source": event[ @"source"],
-                   @"streamid":sid,
                    @"version": event[@"version"]
                    };
     }
@@ -223,13 +222,11 @@
     }
     else{
         event = @{ @"dateTime":   event[@"dateTime"],
-                   @"eventDateTime": event[@"eventDateTime"],
                    @"actionTags": event[@"actionTags"],
                    @"location": event[@"location"],
                    @"objectTags":event[@"objectTags"],
                    @"properties": event[@"properties"],
                    @"source": event[ @"source"],
-                   @"streamid":sid,
                    @"version": event[@"version"]
                    };
     }
@@ -278,10 +275,11 @@
               currentLocation: (CLLocation*) currentLocation
                   sampleStart: (NSDate*) sampleStart;
 {
-    NSDateFormatter* eventDateTime = [[NSDateFormatter alloc] init];
-    eventDateTime.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:SS'Z'";
     
-    NSString *formattedDateString = [eventDateTime stringFromDate:sampleStart];
+    NSString *formattedDateString = [formatter stringFromDate:sampleStart];
     NSLog(@"ISO-8601 date: %@", formattedDateString);
     
     NSNumber* sampleDbspl = [NSNumber numberWithFloat: [dbspl intValue]];
@@ -297,7 +295,6 @@
     NSString* streamid = sid == nil ? @"" : sid;
     
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
-                             @"eventDateTime": formattedDateString,
                              @"actionTags": @[@"sample"],
                              @"location": @{ @"lat": latitude,
                                              @"long": longitude
@@ -309,7 +306,6 @@
                                               @"maxdbspl": sampleMaxDbspl,
                                               @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
                              @"source": @"1Self Noise",
-                             @"streamid":streamid,
                              @"version": @"1.0.0"
                              };
     return event;

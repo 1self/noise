@@ -23,7 +23,7 @@
     float maxDbSplSum;
     float minDbSplCount;
     float maxDbSplCount;
-    EventRepository *eventRepository;
+    id<EventRepositoryProtocol> eventRepository;
     NSDate* sampleStart;
 }
 
