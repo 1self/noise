@@ -1,6 +1,6 @@
     //
 //  CoreGraphicsWaveformViewController.m
-//  EZAudioCoreGraphicsWaveformExample
+//  Noise
 //
 //  Created by Syed Haris Ali on 12/15/13.
 //  Copyright (c) 2013 Syed Haris Ali. All rights reserved.
@@ -178,15 +178,41 @@ NoiseModel* noiseModel;
     [self animateWaveform];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    bool openedAppBefore = 1;
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:openedAppBefore forKey: @"openedAppBefore"];
+    
+    if (buttonIndex == 1) {
+        noiseModel.connected = true;
+    }
+}
+
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
+    [super viewDidLoad];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     noiseModel = appDelegate.noiseModel;
     noiseModel.noiseView = self;
     [self setInitialPlotColour];
     [self animate];
+    
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    bool openedAppBefore = [prefs objectForKey:@"openedAppBefore"];
+    if (openedAppBefore == false) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"1self Noise data policy"
+                                                        message:@"1self Noise connects to the 1self cloud to keep your noise samples safe and show you smart visualisations. Once connected you can share or correlate your data. We use connected data to build a high level public map of our noisy planet. Your raw data will never be shown and it won't be possible to tell who you are or where you've been. Would you like to connect Noise to the 1self cloud?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"No"
+                                              otherButtonTitles:@"Connect", nil];
+        [alert show];
+        
+
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -267,7 +293,7 @@ int samplePruining = 0;
 
 
 - (IBAction)graphTap:(id)sender {
-    [noiseModel sendSampleImmediately];
+    [noiseModel persistImmediately];
     [noiseModel openVisualization];
 }
 

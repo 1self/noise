@@ -33,9 +33,8 @@
 @property NSTimeInterval sampleDuration;
 @property NSString *autouploadLeft;
 @property (weak) id<NoiseView> noiseView;
-@property int samplesSent;
-@property int samplesSending;
-@property int samplesToSend;
+
+
 @property float sampleRawMean;
 @property float sampleDbaMean;
 @property float sampleSplMean;
@@ -45,10 +44,12 @@
 @property int sumDbaCount;
 @property float sumDba;
 @property NSMutableString* log;
+@property bool noiseModel;
+@property bool connected;
 
 -(void) load;
 -(void)persist;
--(void)sendSampleImmediately;
+-(void)persistImmediately;
 -(void)openVisualization;
 
 -(void) goToBackground;
@@ -57,6 +58,10 @@
 -(void) becameActive;
 
 -(void) logMessage:(NSString*)message;
+
+-(int) samplesSent;
+-(int) samplesToSend;
+-(int) samplesSending;
 
 @end
 
