@@ -311,6 +311,11 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 }
 
 - (NSDictionary*)CreateEvent{
+    
+    // need to do this here for when the app is first granted permissions to
+    // access location. Until permission is granted lat and long is 0;
+    currentLocation = [locationManager location];
+    
     NSDictionary* result;
     NSDate* currentTime = [NSDate date];
     sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
