@@ -10,7 +10,10 @@
 #import "HistoryViewController.h"
 #import "AppDelegate.h"
 
-@interface HistoryViewController ()
+@interface HistoryViewController (){
+    NSArray *tableData;
+}
+
 @property NoiseModel* noiseModel;
 @property HelpModel* helpModel;
 @property bool animating;
@@ -28,6 +31,49 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     _noiseModel = appDelegate.noiseModel;
     _noiseModel.noiseView = self;
+    
+    tableData = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
+    
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [tableData count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
+    
+    /*
+     *   If the cell is nil it means no cell was available for reuse and that we should
+     *   create a new one.
+     */
+    if (cell == nil) {
+        
+        /*
+         *   Actually create a new cell (with an identifier so that it can be dequeued).
+         */
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+    }
+    
+    /*
+     *   Now that we have a cell we can configure it to display the data corresponding to
+     *   this row/section
+     */
+    
+    cell.textLabel.text = @"test1";
+    cell.detailTextLabel.text = @"test2";
+    
+    /* Now that the cell is configured we return it to the table view so that it can display it */
+    
+    return cell;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

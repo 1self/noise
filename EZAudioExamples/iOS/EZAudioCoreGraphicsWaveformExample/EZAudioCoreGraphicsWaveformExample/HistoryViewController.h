@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryViewController : UIViewController<NoiseView>
+@interface HistoryViewController : UIViewController<NoiseView, UITableViewDelegate, UITableViewDataSource>
 
 
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *autoupload;
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
 - (IBAction)TapperDial:(id)sender;
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 @end

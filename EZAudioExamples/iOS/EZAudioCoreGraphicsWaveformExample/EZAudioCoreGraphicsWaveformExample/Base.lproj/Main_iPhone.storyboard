@@ -561,6 +561,10 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="409"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="M1x-vJ-8e5" id="ELt-Xf-Pkr"/>
+                                    <outlet property="delegate" destination="M1x-vJ-8e5" id="scV-E2-eln"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.1480739392" blue="0.74593842499999996" alpha="1" colorSpace="calibratedRGB"/>
