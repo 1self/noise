@@ -377,6 +377,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     [eventRepository createStream];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:true forKey: @"connected"];
+    connected = true;
 }
 
 - (NSMutableArray*) fullHistory{

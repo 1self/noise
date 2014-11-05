@@ -32,7 +32,6 @@
 @synthesize fullHistory;
 
 -(id) init{
-    sid = @"";
     writeToken=@"";
     readToken=@"";
     backgroundTask = UIBackgroundTaskInvalid;
