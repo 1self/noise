@@ -312,7 +312,10 @@ int samplePruining = 0;
             }
         }];
 
-    }    
+    }
+    else{
+        [noiseModel openVisualization];
+    }
 }
 
 

@@ -373,6 +373,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 - (void) connect{
     eventRepository = [[C1selfEventRepository alloc] init];
+    [eventRepository load];
     [eventRepository createStream];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:true forKey: @"connected"];
