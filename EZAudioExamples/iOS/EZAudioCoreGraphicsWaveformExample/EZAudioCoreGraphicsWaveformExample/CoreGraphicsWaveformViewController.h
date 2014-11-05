@@ -45,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *help;
 - (IBAction)help:(id)sender;
 - (IBAction)debug:(id)sender;
+- (IBAction)historyTap:(UIGestureRecognizer*)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *history;
 
 
 @end

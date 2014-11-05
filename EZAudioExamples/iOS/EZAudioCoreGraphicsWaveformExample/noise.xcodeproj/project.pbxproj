@@ -27,6 +27,8 @@
 		20517EFA1A07A2F60085D7A2 /* C1selfEventRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517EF91A07A2F60085D7A2 /* C1selfEventRepository.m */; };
 		20517EFE1A08FE9C0085D7A2 /* LocalEventRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */; };
 		20517F011A0966470085D7A2 /* UIAlertView+additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517F001A0966470085D7A2 /* UIAlertView+additions.m */; };
+		20517F031A0A15210085D7A2 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = 20517F021A0A15210085D7A2 /* history.png */; };
+		20517F061A0A20DF0085D7A2 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517F051A0A20DF0085D7A2 /* HistoryViewController.m */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -103,6 +105,9 @@
 		20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalEventRepository.m; sourceTree = "<group>"; };
 		20517EFF1A0966240085D7A2 /* UIAlertView+additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+additions.h"; sourceTree = "<group>"; };
 		20517F001A0966470085D7A2 /* UIAlertView+additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+additions.m"; sourceTree = "<group>"; };
+		20517F021A0A15210085D7A2 /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history.png; sourceTree = "<group>"; };
+		20517F041A0A20DF0085D7A2 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		20517F051A0A20DF0085D7A2 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -191,6 +196,7 @@
 			children = (
 				203F435519F803070078A4E3 /* icons */,
 				2009C0A719F155D1009756A1 /* help.png */,
+				20517F021A0A15210085D7A2 /* history.png */,
 				2009C0A919F16378009756A1 /* circlebottom.png */,
 				2009C09319E97FA2009756A1 /* outer.png */,
 				2009C09B19ED3CE4009756A1 /* dial.png */,
@@ -212,6 +218,53 @@
 				203F437519F856210078A4E3 /* noise-icon@3x.png */,
 			);
 			name = icons;
+			sourceTree = "<group>";
+		};
+		20517F071A0A20FB0085D7A2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94056FDC185E59D900EB94BA /* CoreGraphicsWaveformViewController.h */,
+				94056FDD185E59D900EB94BA /* CoreGraphicsWaveformViewController.m */,
+				2009C0B519F6A88F009756A1 /* DebugController.h */,
+				2009C0B619F6A88F009756A1 /* DebugController.m */,
+				2009C0B219F655AA009756A1 /* HelpViewController.h */,
+				2009C0B319F655AA009756A1 /* HelpViewController.m */,
+				20517F051A0A20DF0085D7A2 /* HistoryViewController.m */,
+				20517F041A0A20DF0085D7A2 /* HistoryViewController.h */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		20517F081A0A21180085D7A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2009C0B019F558A6009756A1 /* HelpModel.m */,
+				2009C0AF19F557E5009756A1 /* HelpModel.h */,
+				2009C0AD19F17414009756A1 /* NoiseModel.h */,
+				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		20517F091A0A21220085D7A2 /* Repos */ = {
+			isa = PBXGroup;
+			children = (
+				20517EF81A07A22C0085D7A2 /* C1selfEventRepository.h */,
+				20517EF91A07A2F60085D7A2 /* C1selfEventRepository.m */,
+				20517EFB1A08FDB50085D7A2 /* EventRepository.h */,
+				20517EFC1A08FE890085D7A2 /* LocalEventRepository.h */,
+				20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */,
+			);
+			name = Repos;
+			sourceTree = "<group>";
+		};
+		20517F0A1A0A21290085D7A2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				20517EFF1A0966240085D7A2 /* UIAlertView+additions.h */,
+				20517F001A0966470085D7A2 /* UIAlertView+additions.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		94056F71185E593500EB94BA = {
@@ -254,30 +307,17 @@
 		94056F83185E593500EB94BA /* noise */ = {
 			isa = PBXGroup;
 			children = (
+				20517F071A0A20FB0085D7A2 /* Controllers */,
 				9417A7C01867DDD600D9D37B /* EZAudio */,
 				94056F8C185E593500EB94BA /* AppDelegate.h */,
 				94056F8D185E593500EB94BA /* AppDelegate.m */,
 				94056F8F185E593500EB94BA /* Main_iPhone.storyboard */,
 				94056F92185E593500EB94BA /* Main_iPad.storyboard */,
-				94056FDC185E59D900EB94BA /* CoreGraphicsWaveformViewController.h */,
-				94056FDD185E59D900EB94BA /* CoreGraphicsWaveformViewController.m */,
-				2009C0B519F6A88F009756A1 /* DebugController.h */,
-				2009C0B619F6A88F009756A1 /* DebugController.m */,
-				2009C0B219F655AA009756A1 /* HelpViewController.h */,
-				2009C0B319F655AA009756A1 /* HelpViewController.m */,
-				2009C0B019F558A6009756A1 /* HelpModel.m */,
-				2009C0AF19F557E5009756A1 /* HelpModel.h */,
-				2009C0AD19F17414009756A1 /* NoiseModel.h */,
-				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
+				20517F081A0A21180085D7A2 /* Models */,
 				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
-				20517EF81A07A22C0085D7A2 /* C1selfEventRepository.h */,
-				20517EF91A07A2F60085D7A2 /* C1selfEventRepository.m */,
-				20517EFB1A08FDB50085D7A2 /* EventRepository.h */,
-				20517EFC1A08FE890085D7A2 /* LocalEventRepository.h */,
-				20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */,
-				20517EFF1A0966240085D7A2 /* UIAlertView+additions.h */,
-				20517F001A0966470085D7A2 /* UIAlertView+additions.m */,
+				20517F091A0A21220085D7A2 /* Repos */,
+				20517F0A1A0A21290085D7A2 /* Utils */,
 			);
 			name = noise;
 			path = EZAudioCoreGraphicsWaveformExample;
@@ -441,6 +481,7 @@
 				94056F91185E593500EB94BA /* Main_iPhone.storyboard in Resources */,
 				9417A7E61867DDD600D9D37B /* VERSION in Resources */,
 				2009C09019E97ED6009756A1 /* middle.png in Resources */,
+				20517F031A0A15210085D7A2 /* history.png in Resources */,
 				2009C09C19ED3CE4009756A1 /* dial.png in Resources */,
 				203F437B19F858420078A4E3 /* noise-icon-inapp.png in Resources */,
 				2009C0A419ED737B009756A1 /* visualise.png in Resources */,
@@ -521,6 +562,7 @@
 				9417A7DE1867DDD600D9D37B /* EZAudioPlotGL.m in Sources */,
 				94056F8A185E593500EB94BA /* main.m in Sources */,
 				9417A7E21867DDD600D9D37B /* EZPlot.m in Sources */,
+				20517F061A0A20DF0085D7A2 /* HistoryViewController.m in Sources */,
 				9417A7E01867DDD600D9D37B /* EZMicrophone.m in Sources */,
 				2009C0B419F655AA009756A1 /* HelpViewController.m in Sources */,
 				9417A7E31867DDD600D9D37B /* EZRecorder.m in Sources */,
