@@ -28,7 +28,7 @@
 @synthesize fullHistory;
 
 -(id) init{
-    apiUrlStem = @"https://api-test.1self.co";
+    apiUrlStem = @"https://api.1self.co";
     return self;
 }
 

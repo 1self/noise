@@ -47,7 +47,7 @@
     //apiUrlStem = @"http://app.quantifieddev.org";
     
     // staging 1self
-    //apiUrlStem = @"http://api-staging.1self.co:5000";
+    apiUrlStem = @"http://api.1self.co";
     
     // EE Office
     //apiUrlStem = @"http://10.5.5.44:7000";
@@ -59,7 +59,7 @@
     //appUrlStem = @"http://app.1self.co";
     
     //apiUrlStem = @"http://api.1self.co:5000";
-        apiUrlStem = @"https://api-test.1self.co";
+       // apiUrlStem = @"https://api-test.1self.co";
     return self;
 }
 
@@ -100,13 +100,6 @@
             
         }
         else{
-            UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"1self cloud alert"
-                                                               message:@"Hey! Just to let you know, we couldn't reach the 1self cloud. Panic not, we'll trap the samples until you're reconnected, then we'll re-send them. One minor thing, since the visualisations are powered by our cloud, you won't be able to see the visualization until the interwebs are back."
-                                                              delegate:self
-                                                     cancelButtonTitle:@"OK computer"
-                                                     otherButtonTitles:nil];
-            //[theAlert show];
-            
             NSLog(@"Couldn't create stream, stream is blank, nothing will be persisted to QD");
         }
     }
