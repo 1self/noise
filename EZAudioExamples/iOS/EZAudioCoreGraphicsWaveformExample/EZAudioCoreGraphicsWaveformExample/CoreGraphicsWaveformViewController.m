@@ -288,6 +288,10 @@ int samplePruining = 0;
     self.sampleSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
     self.samplesToSend.text = [NSString stringWithFormat: @"%lu", (unsigned long)(noiseModel.samplesToSend.count)];
     self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
+    self.iphone4SamplesSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
+    self.iphone4SamplesToSend.text = [NSString stringWithFormat: @"%lu", (unsigned long)(noiseModel.samplesToSend.count)];
+    self.iphoneSamplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
+
     self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
     self.dbraw.text = [NSString stringWithFormat:@"%.12f", noiseModel.sampleRawMean];
 }
