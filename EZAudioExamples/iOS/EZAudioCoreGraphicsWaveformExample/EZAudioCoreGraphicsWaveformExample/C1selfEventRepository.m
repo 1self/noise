@@ -70,8 +70,8 @@
 
 -(void) createStream{
     NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
-    NSString *streamCreated = [loadPrefs stringForKey:@"streamid"];
-    if(streamCreated == nil){
+    sid = [loadPrefs stringForKey:@"streamid"];
+    if(sid == nil){
         [self logMessage: @"No stream id found, creating a new one"];
         NSDictionary* headers = @{@"Authorization": @"1selfnoise:12345678"};
         NSString* url = [NSString stringWithFormat: @"%@/v1/streams", apiUrlStem];
@@ -167,12 +167,16 @@
 {
     // stream couldn't be created
     if(sid == nil){
-        [self addUnsentEvent:event];
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        @synchronized(unsentEvents){
-            [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+        [self createStream];
+        if(sid == nil)
+        {
+            [self addUnsentEvent:event];
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            @synchronized(unsentEvents){
+                [prefs setValue: unsentEvents  forKey:@"unsentEvents"];
+            }
+            return;
         }
-        return;
     }
     
     NSDictionary* headers = @{@"Content-Type": @"application/json",
