@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryViewController : UIViewController
+@interface HistoryViewController : UIViewController<NoiseView>
 
+
+@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
+@property (weak, nonatomic) IBOutlet UILabel *lblDbspl;
+@property (weak, nonatomic) IBOutlet UILabel *autoupload;
+@property (weak, nonatomic) IBOutlet UITableView *historyTable;
+- (IBAction)TapperDial:(id)sender;
 @end

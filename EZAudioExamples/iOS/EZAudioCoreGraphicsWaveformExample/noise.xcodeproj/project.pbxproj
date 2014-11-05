@@ -267,6 +267,18 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		20517F0B1A0A22440085D7A2 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				94056F8C185E593500EB94BA /* AppDelegate.h */,
+				94056F8D185E593500EB94BA /* AppDelegate.m */,
+				94056F8F185E593500EB94BA /* Main_iPhone.storyboard */,
+				94056F92185E593500EB94BA /* Main_iPad.storyboard */,
+				94056F98185E593500EB94BA /* Images.xcassets */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
 		94056F71185E593500EB94BA = {
 			isa = PBXGroup;
 			children = (
@@ -307,14 +319,10 @@
 		94056F83185E593500EB94BA /* noise */ = {
 			isa = PBXGroup;
 			children = (
+				20517F0B1A0A22440085D7A2 /* App */,
+				20517F081A0A21180085D7A2 /* Models */,
 				20517F071A0A20FB0085D7A2 /* Controllers */,
 				9417A7C01867DDD600D9D37B /* EZAudio */,
-				94056F8C185E593500EB94BA /* AppDelegate.h */,
-				94056F8D185E593500EB94BA /* AppDelegate.m */,
-				94056F8F185E593500EB94BA /* Main_iPhone.storyboard */,
-				94056F92185E593500EB94BA /* Main_iPad.storyboard */,
-				20517F081A0A21180085D7A2 /* Models */,
-				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
 				20517F091A0A21220085D7A2 /* Repos */,
 				20517F0A1A0A21290085D7A2 /* Utils */,

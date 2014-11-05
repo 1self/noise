@@ -506,7 +506,7 @@
         <!--HistoryView-->
         <scene sceneID="WHR-jS-hNP">
             <objects>
-                <viewController storyboardIdentifier="HistoryView" title="HistoryView" id="M1x-vJ-8e5" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistoryView" title="HistoryView" id="M1x-vJ-8e5" customClass="HistoryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6W2-CB-TxI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -553,6 +553,9 @@
                                     </imageView>
                                 </subviews>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="JcJ-Na-Qyf" appends="YES" id="56a-15-TMB"/>
+                                </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IHf-OP-lDu">
                                 <rect key="frame" x="0.0" y="20" width="320" height="409"/>
@@ -562,8 +565,22 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.1480739392" blue="0.74593842499999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="audioPlot" destination="tZy-g7-nfq" id="Cxa-oY-qvt"/>
+                        <outlet property="autoupload" destination="WVU-9w-4u5" id="g3o-vd-mDr"/>
+                        <outlet property="historyTable" destination="IHf-OP-lDu" id="tog-ti-EHE"/>
+                        <outlet property="innerTicker" destination="Puf-ZU-FCZ" id="ieW-Yb-Y7U"/>
+                        <outlet property="lblDbspl" destination="ZSr-oW-haC" id="Gxw-S6-hyd"/>
+                        <outlet property="middleTicker" destination="Loj-CY-MbU" id="Jdt-2V-0eY"/>
+                        <outlet property="outerTicker" destination="XgY-24-2hy" id="5FM-KT-e9k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXG-fN-5ox" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="JcJ-Na-Qyf" userLabel="Dial Tap">
+                    <connections>
+                        <action selector="TapperDial:" destination="M1x-vJ-8e5" id="9Tj-f1-aTb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="529" y="829"/>
         </scene>
