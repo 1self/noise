@@ -330,12 +330,14 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 - (void) persist
 {
     NSDictionary* event = [self CreateEvent];
+    [self reset];
     [eventRepository SendSamples: event];
 }
 
 - (void) persistImmediately
 {
     NSDictionary* event = [self CreateEvent];
+    [self reset];
     [eventRepository SendSamplesSync: event];
 }
 

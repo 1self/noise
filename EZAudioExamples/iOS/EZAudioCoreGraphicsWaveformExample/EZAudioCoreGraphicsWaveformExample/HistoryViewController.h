@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *autoupload;
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
 - (IBAction)TapperDial:(id)sender;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 @end

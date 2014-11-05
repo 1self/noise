@@ -79,6 +79,9 @@
     
     cell.textLabel.text = [NSString stringWithFormat: @"%@: %@ decibels", outputString, fullHistory[indexPath.row][@"properties"][@"dbspl"]];
     cell.detailTextLabel.text = [NSString stringWithFormat: @"lat: %@ long: %@", fullHistory[indexPath.row][@"location"][@"lat"], fullHistory[indexPath.row][@"location"][@"long"]];
+    cell.textLabel.textColor =  [UIColor colorWithRed:256/256.0 green:256/256.0 blue:256/256.0 alpha:0.9];
+    cell.detailTextLabel.textColor =  [UIColor colorWithRed:256/256.0 green:256/256.0 blue:256/256.0 alpha:0.6];
+    cell.backgroundColor = [UIColor colorWithRed:0/256.0 green:0/256.0 blue:0/256.0 alpha:0.4];
     
     /* Now that the cell is configured we return it to the table view so that it can display it */
     
@@ -110,6 +113,7 @@
     float redness = _noiseModel.fdbspl / 100;
     float greenness = 1 - redness;
     self.view.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
+    self.tableView.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
     self.audioPlot.backgroundColor = [UIColor colorWithRed:redness green:greenness blue:0.4 alpha:1];
 }
 

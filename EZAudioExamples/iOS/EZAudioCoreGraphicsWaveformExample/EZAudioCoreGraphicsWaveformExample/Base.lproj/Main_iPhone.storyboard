@@ -512,8 +512,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" id="dn5-Oe-a9V">
-                                <rect key="frame" x="-5" y="437" width="76" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="-5" y="505" width="76" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <view opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.80000001192092896" contentMode="scaleToFill" id="tZy-g7-nfq" customClass="EZAudioPlotGL">
                                         <rect key="frame" x="22" y="26" width="33" height="7"/>
@@ -544,7 +544,7 @@
                                     </label>
                                     <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inner.png" id="Puf-ZU-FCZ" userLabel="inner">
                                         <rect key="frame" x="10" y="0.0" width="57" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" alpha="0.94999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circlebottom.png" id="0vq-nL-z9L">
@@ -557,10 +557,21 @@
                                     <outletCollection property="gestureRecognizers" destination="JcJ-Na-Qyf" appends="YES" id="56a-15-TMB"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Noise Samples Taken" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i0K-aY-8qO">
+                                <rect key="frame" x="0.0" y="37" width="320" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IHf-OP-lDu">
-                                <rect key="frame" x="0.0" y="20" width="320" height="409"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="79" width="320" height="418"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="M1x-vJ-8e5" id="ELt-Xf-Pkr"/>
                                     <outlet property="delegate" destination="M1x-vJ-8e5" id="scV-E2-eln"/>
@@ -577,6 +588,7 @@
                         <outlet property="lblDbspl" destination="ZSr-oW-haC" id="Gxw-S6-hyd"/>
                         <outlet property="middleTicker" destination="Loj-CY-MbU" id="Jdt-2V-0eY"/>
                         <outlet property="outerTicker" destination="XgY-24-2hy" id="5FM-KT-e9k"/>
+                        <outlet property="tableView" destination="IHf-OP-lDu" id="XVG-hD-rdo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXG-fN-5ox" userLabel="First Responder" sceneMemberID="firstResponder"/>
