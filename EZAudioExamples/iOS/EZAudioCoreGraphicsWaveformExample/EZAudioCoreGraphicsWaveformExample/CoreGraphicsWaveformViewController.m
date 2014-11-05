@@ -12,6 +12,7 @@
 #import <Accelerate/Accelerate.h>
 #import "AppDelegate.h"
 #import <sys/utsname.h>
+#import "UIAlertView+additions.h"
 
 @interface CoreGraphicsWaveformViewController (){
   float scale;
@@ -178,15 +179,23 @@ NoiseModel* noiseModel;
     [self animateWaveform];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)storeChoiceMade
 {
-    bool openedAppBefore = 1;
+    bool openedAppBefore = true;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:openedAppBefore forKey: @"openedAppBefore"];
-    
-    if (buttonIndex == 1) {
-        noiseModel.connected = true;
-    }
+}
+
+- (void)requestConnect: (void (^) (NSUInteger index)) connectBlock
+{
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"1self Noise data policy"
+//                                                    message:@"1self Noise uses the 1self cloud to show you smart visualizations of your noise. Once connected you can also share and correlate your data. We use connected data to build a high level public map of our noisy planet. Your raw data will never be shown and it won't be possible to tell who you are or where you've been. Would you like to connect Noise to the 1self cloud?"
+//                                                    buttons:@[ @"No", @"Connect" ]
+//                                              buttonHandler:connectBlock
+      [UIAlertView presentWithTitle:@"1self Noise data policy"
+                                                      message:@"1self Noise uses the 1self cloud to show you smart visualizations of your noise. Once connected you can also share and correlate your data. We use connected data to build a high level public map of our noisy planet. Your raw data will never be shown and it won't be possible to tell who you are or where you've been. Would you like to connect Noise to the 1self cloud?"
+                                                      buttons:@[ @"No", @"Connect" ]
+                buttonHandler:connectBlock];
 }
 
 - (void)viewDidLoad
@@ -203,12 +212,12 @@ NoiseModel* noiseModel;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     bool openedAppBefore = [prefs objectForKey:@"openedAppBefore"];
     if (openedAppBefore == false) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"1self Noise data policy"
-                                                        message:@"1self Noise connects to the 1self cloud to keep your noise samples safe and show you smart visualisations. Once connected you can share or correlate your data. We use connected data to build a high level public map of our noisy planet. Your raw data will never be shown and it won't be possible to tell who you are or where you've been. Would you like to connect Noise to the 1self cloud?"
-                                                       delegate:self
-                                              cancelButtonTitle:@"No"
-                                              otherButtonTitles:@"Connect", nil];
-        [alert show];
+        [self requestConnect: ^(NSUInteger buttonIndex){
+            [self storeChoiceMade];
+            if (buttonIndex == 1) {
+                [noiseModel connect];
+            }
+        }];
         
 
     }
@@ -277,7 +286,7 @@ int samplePruining = 0;
     self.lblMinDbspl.text = [NSString stringWithFormat: @"%0.f", noiseModel.mindbspl];
     self.lblMaxDbSpl.text = [NSString stringWithFormat: @"%0.f", noiseModel.maxdbspl];
     self.sampleSent.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSent];
-    self.samplesToSend.text = [NSString stringWithFormat: @"%d", noiseModel.samplesToSend];
+    self.samplesToSend.text = [NSString stringWithFormat: @"%lu", (unsigned long)(noiseModel.samplesToSend.count)];
     self.samplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
     self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
     self.dbraw.text = [NSString stringWithFormat:@"%.12f", noiseModel.sampleRawMean];
@@ -293,8 +302,17 @@ int samplePruining = 0;
 
 
 - (IBAction)graphTap:(id)sender {
-    [noiseModel persistImmediately];
-    [noiseModel openVisualization];
+    if(noiseModel.connected == false){
+        [self requestConnect: ^(NSUInteger buttonIndex){
+            [self storeChoiceMade];
+            if (buttonIndex == 1) {
+                [noiseModel connect];
+                [noiseModel persistImmediately];
+                [noiseModel openVisualization];
+            }
+        }];
+
+    }    
 }
 
 

@@ -24,7 +24,9 @@
 		203F437D19F859C30078A4E3 /* 1self-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F437C19F859C30078A4E3 /* 1self-logo.png */; };
 		203F438119FA32090078A4E3 /* noise-icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F438019FA32090078A4E3 /* noise-icon-114.png */; };
 		203F438319FA35970078A4E3 /* noise-icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 203F438219FA35970078A4E3 /* noise-icon-57.png */; };
-		20517EFA1A07A2F60085D7A2 /* EventRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517EF91A07A2F60085D7A2 /* EventRepository.m */; };
+		20517EFA1A07A2F60085D7A2 /* C1selfEventRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517EF91A07A2F60085D7A2 /* C1selfEventRepository.m */; };
+		20517EFE1A08FE9C0085D7A2 /* LocalEventRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */; };
+		20517F011A0966470085D7A2 /* UIAlertView+additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 20517F001A0966470085D7A2 /* UIAlertView+additions.m */; };
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
@@ -94,8 +96,13 @@
 		203F437C19F859C30078A4E3 /* 1self-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1self-logo.png"; sourceTree = "<group>"; };
 		203F438019FA32090078A4E3 /* noise-icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon-114.png"; sourceTree = "<group>"; };
 		203F438219FA35970078A4E3 /* noise-icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noise-icon-57.png"; sourceTree = "<group>"; };
-		20517EF81A07A22C0085D7A2 /* EventRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventRepository.h; sourceTree = "<group>"; };
-		20517EF91A07A2F60085D7A2 /* EventRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventRepository.m; sourceTree = "<group>"; };
+		20517EF81A07A22C0085D7A2 /* C1selfEventRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C1selfEventRepository.h; sourceTree = "<group>"; };
+		20517EF91A07A2F60085D7A2 /* C1selfEventRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = C1selfEventRepository.m; sourceTree = "<group>"; };
+		20517EFB1A08FDB50085D7A2 /* EventRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventRepository.h; sourceTree = "<group>"; };
+		20517EFC1A08FE890085D7A2 /* LocalEventRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalEventRepository.h; sourceTree = "<group>"; };
+		20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalEventRepository.m; sourceTree = "<group>"; };
+		20517EFF1A0966240085D7A2 /* UIAlertView+additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+additions.h"; sourceTree = "<group>"; };
+		20517F001A0966470085D7A2 /* UIAlertView+additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+additions.m"; sourceTree = "<group>"; };
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -264,8 +271,13 @@
 				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
 				94056F98185E593500EB94BA /* Images.xcassets */,
 				94056F84185E593500EB94BA /* Supporting Files */,
-				20517EF81A07A22C0085D7A2 /* EventRepository.h */,
-				20517EF91A07A2F60085D7A2 /* EventRepository.m */,
+				20517EF81A07A22C0085D7A2 /* C1selfEventRepository.h */,
+				20517EF91A07A2F60085D7A2 /* C1selfEventRepository.m */,
+				20517EFB1A08FDB50085D7A2 /* EventRepository.h */,
+				20517EFC1A08FE890085D7A2 /* LocalEventRepository.h */,
+				20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */,
+				20517EFF1A0966240085D7A2 /* UIAlertView+additions.h */,
+				20517F001A0966470085D7A2 /* UIAlertView+additions.m */,
 			);
 			name = noise;
 			path = EZAudioCoreGraphicsWaveformExample;
@@ -501,7 +513,7 @@
 				94056FDE185E59D900EB94BA /* CoreGraphicsWaveformViewController.m in Sources */,
 				9417A7DA1867DDD600D9D37B /* AEFloatConverter.m in Sources */,
 				94056F8E185E593500EB94BA /* AppDelegate.m in Sources */,
-				20517EFA1A07A2F60085D7A2 /* EventRepository.m in Sources */,
+				20517EFA1A07A2F60085D7A2 /* C1selfEventRepository.m in Sources */,
 				9417A7DD1867DDD600D9D37B /* EZAudioPlot.m in Sources */,
 				9417A7DC1867DDD600D9D37B /* EZAudioFile.m in Sources */,
 				2009C0B719F6A88F009756A1 /* DebugController.m in Sources */,
@@ -512,6 +524,8 @@
 				9417A7E01867DDD600D9D37B /* EZMicrophone.m in Sources */,
 				2009C0B419F655AA009756A1 /* HelpViewController.m in Sources */,
 				9417A7E31867DDD600D9D37B /* EZRecorder.m in Sources */,
+				20517F011A0966470085D7A2 /* UIAlertView+additions.m in Sources */,
+				20517EFE1A08FE9C0085D7A2 /* LocalEventRepository.m in Sources */,
 				9417A7DB1867DDD600D9D37B /* EZAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

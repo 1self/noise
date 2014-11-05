@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EventRepository.h"
+#import "C1selfEventRepository.h"
 #import <UNIRest.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface EventRepository (){
+
+@interface C1selfEventRepository (){
     NSMutableArray *unsentEvents;
     NSString* apiUrlStem;
     NSString *sid;
@@ -22,7 +23,7 @@
 
 @end
 
-@implementation EventRepository
+@implementation C1selfEventRepository
 @synthesize samplesToSend;
 @synthesize log;
 @synthesize samplesSent;
@@ -161,22 +162,13 @@
         }
         return;
     }
-    else{
-        event = @{ @"dateTime":   event[@"dateTime"],
-                   @"actionTags": event[@"actionTags"],
-                   @"location": event[@"location"],
-                   @"objectTags":event[@"objectTags"],
-                   @"properties": event[@"properties"],
-                   @"source": event[ @"source"],
-                   @"version": event[@"version"]
-                   };
-    }
-    
     
     NSDictionary* headers = @{@"Content-Type": @"application/json",
                               @"Authorization": writeToken};
     NSString *url = [NSString stringWithFormat:@"%@/v1/streams/%@/events", apiUrlStem, sid];
-    
+    NSData* json = [NSJSONSerialization dataWithJSONObject:event options:0 error:nil];
+    NSString *jsonLog = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    NSLog(@"sending json %@", jsonLog);
     samplesSending += 1;
     [[UNIRest postEntity:^(UNIBodyRequest* request) {
         [request setUrl:url];
@@ -291,9 +283,6 @@
     
     NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
     
-    
-    NSString* streamid = sid == nil ? @"" : sid;
-    
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
                              @"actionTags": @[@"sample"],
                              @"location": @{ @"lat": latitude,
@@ -328,7 +317,24 @@
     }
 }
 
-- (void)SendSingleSample:(NSDate *)currentTime event:(NSDictionary* )event
+- (void)SendSamplesSync:(NSDictionary*) event
+{
+    NSMutableArray *eventsToSend = [[NSMutableArray alloc] init];
+    [eventsToSend addObject:event];
+    
+    for (int i = 0; i < unsentEvents.count; i++) {
+        [eventsToSend addObject:unsentEvents[i]];
+    }
+    
+    [unsentEvents removeAllObjects];
+    samplesToSend = unsentEvents;
+    
+    for (int i = 0; i < eventsToSend.count; i++) {
+        [self SendEvent:eventsToSend[i]];
+    }
+}
+
+- (void)SendSingleSample: (NSDictionary* )event
 {
     if(sid == nil){
         return;

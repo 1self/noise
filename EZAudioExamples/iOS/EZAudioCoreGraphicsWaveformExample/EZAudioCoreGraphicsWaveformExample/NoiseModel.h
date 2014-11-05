@@ -33,6 +33,7 @@
 @property NSTimeInterval sampleDuration;
 @property NSString *autouploadLeft;
 @property (weak) id<NoiseView> noiseView;
+@property bool connected;
 
 
 @property float sampleRawMean;
@@ -45,7 +46,6 @@
 @property float sumDba;
 @property NSMutableString* log;
 @property bool noiseModel;
-@property bool connected;
 
 -(void) load;
 -(void)persist;
@@ -60,8 +60,10 @@
 -(void) logMessage:(NSString*)message;
 
 -(int) samplesSent;
--(int) samplesToSend;
+-(NSMutableArray*) samplesToSend;
 -(int) samplesSending;
+
+-(void) connect;
 
 @end
 

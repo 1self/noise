@@ -10,7 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "NoiseModel.h"
 #import <Accelerate/Accelerate.h>
-#import "EventRepository.h"
+#import "C1selfEventRepository.h"
+#import "LocalEventRepository.h"
 
 #import <UIKit/UIKit.h>
 
@@ -23,7 +24,7 @@
     float maxDbSplSum;
     float minDbSplCount;
     float maxDbSplCount;
-    id<EventRepositoryProtocol> eventRepository;
+    id<EventRepository> eventRepository;
     NSDate* sampleStart;
 }
 
@@ -65,9 +66,7 @@
     NSMutableArray *unsentEvents = nil;
     dbspl = [NSNumber numberWithInt:0];
     meanDba = 0;
-    
-
-    
+    connected = false;
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -83,10 +82,21 @@
     }
     
     currentLocation = [locationManager location];
-    connected = false;
     
-    eventRepository = [[EventRepository alloc] init];
+    [self instantiateEventRepository];
     return self;
+}
+
+-(void) instantiateEventRepository{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    connected = [prefs objectForKey:@"connected"];
+    if(connected){
+         eventRepository = [[C1selfEventRepository alloc] init];
+    }
+    else{
+       eventRepository = [[LocalEventRepository alloc] init];
+    }
+  
 }
 
 -(int) samplesSent{
@@ -258,17 +268,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     [prefs removeObjectForKey:@"unsentEvents"];
 }
 
-
-
-
-
-
-
-
-
-
-
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocations:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     self->currentLocation = newLocation;
     
@@ -333,6 +332,12 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     [eventRepository SendSamples: event];
 }
 
+- (void) persistImmediately
+{
+    NSDictionary* event = [self CreateEvent];
+    [eventRepository SendSamplesSync: event];
+}
+
 - (void) sendSampleImmediately{
     [self.microphone stopFetchingAudio];
     NSDate* currentTime = [NSDate date];
@@ -358,6 +363,12 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:vizUrl]];
 }
 
+- (void) connect{
+    eventRepository = [[C1selfEventRepository alloc] init];
+    [eventRepository createStream];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:true forKey: @"connected"];
+}
 
 -(float)dbaToDbspl:(float)dba{
     float result;
