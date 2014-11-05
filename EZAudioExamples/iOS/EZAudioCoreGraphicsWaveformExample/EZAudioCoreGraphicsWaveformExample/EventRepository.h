@@ -29,6 +29,7 @@
 -(void) sendSavedEvents;
 -(void) createStream;
 
+@property NSMutableArray* fullHistory;
 @property NSMutableArray* samplesToSend;
 @property int samplesSent;
 @property int samplesSending;

@@ -16,6 +16,7 @@
 @interface LocalEventRepository : NSObject<EventRepository>
 
 @property NSMutableArray* samplesToSend;
+@property NSMutableArray* fullHistory;
 @property NSMutableString* log;
 @property int samplesSent;
 @property int samplesSending;

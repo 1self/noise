@@ -29,6 +29,7 @@
 @synthesize samplesSent;
 @synthesize samplesSending;
 @synthesize backgroundTask;
+@synthesize fullHistory;
 
 -(id) init{
     sid = @"";
@@ -112,7 +113,19 @@
     }
 }
 
+- (void)loadHistory {
+    NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
+    NSArray *fullHistoryFromStorage = [loadPrefs objectForKey:@"fullHistory"];
+    fullHistory = [[NSMutableArray alloc] initWithCapacity:0];
+    if(fullHistoryFromStorage != nil){
+        for (int i = 0; i < fullHistoryFromStorage.count; ++i) {
+            [fullHistory addObject:fullHistoryFromStorage[i]];
+        }
+    }
+}
+
 -(void) load{
+    [self loadHistory];
     [self loadUnsentEvents];
     [self createStream];
 }
@@ -269,7 +282,7 @@
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:SS'Z'";
+    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     
     NSString *formattedDateString = [formatter stringFromDate:sampleStart];
     NSLog(@"ISO-8601 date: %@", formattedDateString);
@@ -297,6 +310,11 @@
                              @"source": @"1Self Noise",
                              @"version": @"1.0.0"
                              };
+    
+    [fullHistory addObject:event];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue: fullHistory  forKey:@"fullHistory"];
+    
     return event;
 }
 

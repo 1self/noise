@@ -63,7 +63,6 @@
     maxDbSplSum = 0;
     meanDba = 0;
     sampleSendFrequency = 20;
-    NSMutableArray *unsentEvents = nil;
     dbspl = [NSNumber numberWithInt:0];
     meanDba = 0;
     connected = false;
@@ -312,9 +311,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 }
 
 - (NSDictionary*)CreateEvent{
+    NSDictionary* result;
     NSDate* currentTime = [NSDate date];
     sampleDuration = [currentTime timeIntervalSinceDate:sampleStart];
-    return [eventRepository CreateEvent:currentTime
+    result = [eventRepository CreateEvent:currentTime
                                         sampleDuration:sampleDuration
                                                  dbspl: dbspl
                                               mindbspl: mindbspl
@@ -324,6 +324,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
                                            sampleStart: sampleStart
                            ];
     sampleStart = currentTime;
+    return result;
 }
 
 - (void) persist
@@ -368,6 +369,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     [eventRepository createStream];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:true forKey: @"connected"];
+}
+
+- (NSMutableArray*) fullHistory{
+    return eventRepository.fullHistory;
 }
 
 -(float)dbaToDbspl:(float)dba{

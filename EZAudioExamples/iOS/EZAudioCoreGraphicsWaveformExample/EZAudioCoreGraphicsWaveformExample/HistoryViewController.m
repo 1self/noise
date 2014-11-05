@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 
 @interface HistoryViewController (){
-    NSArray *tableData;
+    NSMutableArray* fullHistory;
 }
 
 @property NoiseModel* noiseModel;
@@ -31,15 +31,13 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     _noiseModel = appDelegate.noiseModel;
     _noiseModel.noiseView = self;
-    
-    tableData = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
-    
-
+    fullHistory = [_noiseModel fullHistory];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableData count];
+    NSUInteger count = [fullHistory count];
+    return count;
 }
 
 
@@ -67,9 +65,20 @@
      *   Now that we have a cell we can configure it to display the data corresponding to
      *   this row/section
      */
+    NSDateFormatter* df = [[NSDateFormatter alloc]init];
+    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    NSString* str = fullHistory[indexPath.row][@"dateTime" ];
+    NSDate* date = [df dateFromString:str];
     
-    cell.textLabel.text = @"test1";
-    cell.detailTextLabel.text = @"test2";
+    NSTimeZone *outputTimeZone = [NSTimeZone localTimeZone];
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+    [outputDateFormatter setTimeZone:outputTimeZone];
+    [outputDateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [outputDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    NSString *outputString = [outputDateFormatter stringFromDate:date];
+    
+    cell.textLabel.text = [NSString stringWithFormat: @"%@: %@ decibels", outputString, fullHistory[indexPath.row][@"properties"][@"dbspl"]];
+    cell.detailTextLabel.text = [NSString stringWithFormat: @"lat: %@ long: %@", fullHistory[indexPath.row][@"location"][@"lat"], fullHistory[indexPath.row][@"location"][@"long"]];
     
     /* Now that the cell is configured we return it to the table view so that it can display it */
     

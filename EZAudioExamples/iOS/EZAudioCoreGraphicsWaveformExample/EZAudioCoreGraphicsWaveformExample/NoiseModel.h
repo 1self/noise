@@ -62,6 +62,7 @@
 -(int) samplesSent;
 -(NSMutableArray*) samplesToSend;
 -(int) samplesSending;
+-(NSMutableArray*) fullHistory;
 
 -(void) connect;
 

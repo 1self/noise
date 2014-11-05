@@ -25,6 +25,7 @@
 @synthesize samplesSent;
 @synthesize samplesSending;
 @synthesize backgroundTask;
+@synthesize fullHistory;
 
 -(id) init{
     apiUrlStem = @"https://api-test.1self.co";
@@ -38,8 +39,6 @@
 
 -(void) load{
     NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
-    
-    //[loadPrefs removeObjectForKey:@"unsentEvents"];
     NSArray *savedUnsentEvents = [loadPrefs objectForKey:@"unsentEvents"];
     unsentEvents = [[NSMutableArray alloc] initWithCapacity:0];
     if(savedUnsentEvents != nil){
@@ -49,6 +48,14 @@
     }
     
     samplesToSend = unsentEvents;
+    
+    NSArray *fullHistoryFromStorage = [loadPrefs objectForKey:@"fullHistory"];
+    fullHistory = [[NSMutableArray alloc] initWithCapacity:0];
+    if(fullHistoryFromStorage != nil){
+        for (int i = 0; i < fullHistoryFromStorage.count; ++i) {
+            [fullHistory addObject:fullHistoryFromStorage[i]];
+        }
+    }
 
 }
 
@@ -72,7 +79,7 @@
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:SS'Z'";
+    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     
     NSString *formattedDateString = [formatter stringFromDate:sampleStart];
     NSLog(@"ISO-8601 date: %@", formattedDateString);
@@ -103,6 +110,11 @@
                              @"source": @"1Self Noise",
                              @"version": @"1.0.0"
                              };
+    
+    [fullHistory addObject:event];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue: fullHistory  forKey:@"fullHistory"];
+    
     return event;
 }
 
