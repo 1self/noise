@@ -17,4 +17,6 @@
 @property NoiseModel* noiseModel;
 @property HelpModel* helpModel;
 
+- (void)createModels;
+
 @end

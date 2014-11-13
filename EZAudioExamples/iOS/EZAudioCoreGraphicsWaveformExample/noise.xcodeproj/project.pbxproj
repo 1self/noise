@@ -32,6 +32,8 @@
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
+		20C235CE1A14F7B800AB61FA /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C235CD1A14F7B800AB61FA /* IntroViewController.m */; };
+		20C235D41A14FBD000AB61FA /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 20C235D31A14FBD000AB61FA /* button.png */; };
 		94056F7E185E593500EB94BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94056F7D185E593500EB94BA /* Foundation.framework */; };
 		94056F80185E593500EB94BA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94056F7F185E593500EB94BA /* CoreGraphics.framework */; };
 		94056F82185E593500EB94BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94056F81185E593500EB94BA /* UIKit.framework */; };
@@ -111,6 +113,9 @@
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		20C235CC1A14F7B800AB61FA /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		20C235CD1A14F7B800AB61FA /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		20C235D31A14FBD000AB61FA /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		94056F7A185E593500EB94BA /* noise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = noise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94056F7D185E593500EB94BA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94056F7F185E593500EB94BA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -227,10 +232,13 @@
 				94056FDD185E59D900EB94BA /* CoreGraphicsWaveformViewController.m */,
 				2009C0B519F6A88F009756A1 /* DebugController.h */,
 				2009C0B619F6A88F009756A1 /* DebugController.m */,
+				20C235D31A14FBD000AB61FA /* button.png */,
 				2009C0B219F655AA009756A1 /* HelpViewController.h */,
 				2009C0B319F655AA009756A1 /* HelpViewController.m */,
 				20517F051A0A20DF0085D7A2 /* HistoryViewController.m */,
 				20517F041A0A20DF0085D7A2 /* HistoryViewController.h */,
+				20C235CC1A14F7B800AB61FA /* IntroViewController.h */,
+				20C235CD1A14F7B800AB61FA /* IntroViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -494,6 +502,7 @@
 				203F437B19F858420078A4E3 /* noise-icon-inapp.png in Resources */,
 				2009C0A419ED737B009756A1 /* visualise.png in Resources */,
 				203F437719F856210078A4E3 /* noise-icon@3x.png in Resources */,
+				20C235D41A14FBD000AB61FA /* button.png in Resources */,
 				94056F88185E593500EB94BA /* InfoPlist.strings in Resources */,
 				2009C0AA19F16378009756A1 /* circlebottom.png in Resources */,
 				2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */,
@@ -572,6 +581,7 @@
 				9417A7E21867DDD600D9D37B /* EZPlot.m in Sources */,
 				20517F061A0A20DF0085D7A2 /* HistoryViewController.m in Sources */,
 				9417A7E01867DDD600D9D37B /* EZMicrophone.m in Sources */,
+				20C235CE1A14F7B800AB61FA /* IntroViewController.m in Sources */,
 				2009C0B419F655AA009756A1 /* HelpViewController.m in Sources */,
 				9417A7E31867DDD600D9D37B /* EZRecorder.m in Sources */,
 				20517F011A0966470085D7A2 /* UIAlertView+additions.m in Sources */,
