@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DebugController : UIViewController<NoiseView>
+@interface DebugController : UIViewController<NoiseView,UIPickerViewDelegate>
 - (IBAction)tapBack:(id)sender;
+@property (weak, nonatomic) IBOutlet UIPickerView *apiOptions;
 
 @end

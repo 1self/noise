@@ -23,12 +23,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *autoupload;
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UITextView *log;
+@property NSArray* pickerData;
 @end
 
 @implementation DebugController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _pickerData = @[@"live", @"live http", @"staging", @"staging http", @"test", @"test http"];
+    _apiOptions.dataSource = self;
+    _apiOptions.delegate = self;
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     _noiseModel = appDelegate.noiseModel;
     _noiseModel.noiseView = self;
@@ -75,4 +79,62 @@
     [self presentViewController:vc animated:YES completion:nil];
     [_noiseModel logMessage:@"Going into debug view"];
 }
+
+// The number of columns of data
+- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// The number of rows of data
+- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return _pickerData.count;
+}
+
+// The data to return for the row and component (column) that's being passed in
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return _pickerData[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if([_pickerData[row]  isEqual: @"live"])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate liveMode];
+    }
+    
+    if([_pickerData[row]  isEqual: @"live http"])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate liveHttpMode];
+    }
+    
+    if([_pickerData[row]  isEqual: @"staging"])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate stagingMode];
+    }
+    
+    if([_pickerData[row]  isEqual: @"staging http"])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate stagingHttpMode];
+    }
+    
+    if([_pickerData[row]  isEqual: @"test"])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate testMode];
+    }
+    
+    if([_pickerData[row]  isEqual: @"test http"])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate testHttpMode];
+    }
+}
+
 @end

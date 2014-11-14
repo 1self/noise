@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LocalEventRepository.h"
 #import <UNIRest.h>
-#import <CoreLocation/CoreLocation.h>
+//#import <CoreLocation/CoreLocation.h>
 
 
 @interface LocalEventRepository (){
@@ -28,7 +28,6 @@
 @synthesize fullHistory;
 
 -(id) init{
-    apiUrlStem = @"https://api.1self.co";
     return self;
 }
 
@@ -74,7 +73,7 @@
                      mindbspl: (float) mindbspl
                      maxdbspl: (float) maxdbspl
                       meanDba: (float) meanDba
-              currentLocation: (CLLocation*) currentLocation
+             // currentLocation: (CLLocation*) currentLocation
                   sampleStart: (NSDate*) sampleStart;
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -88,19 +87,19 @@
     NSNumber* sampleMinDbspl = [NSNumber numberWithFloat: mindbspl ];
     NSNumber* sampleMaxDbspl = [NSNumber numberWithFloat: maxdbspl ];
     NSNumber* sampleDba = [NSNumber numberWithFloat: meanDba ];
-    
-    NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
-    
-    NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
+//    
+//    NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
+//    
+//    NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
     
     
     NSString* streamid =  @"";
     
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
                              @"actionTags": @[@"sample"],
-                             @"location": @{ @"lat": latitude,
-                                             @"long": longitude
-                                             },
+//                             @"location": @{ @"lat": latitude,
+//                                             @"long": longitude
+//                                             },
                              @"objectTags":@[@"ambient", @"sound"],
                              @"properties": @{@"dba": sampleDba,
                                               @"dbspl": sampleDbspl,

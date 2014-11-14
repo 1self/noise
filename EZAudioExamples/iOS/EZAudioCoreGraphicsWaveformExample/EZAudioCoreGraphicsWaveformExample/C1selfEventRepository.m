@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "C1selfEventRepository.h"
 #import <UNIRest.h>
-#import <CoreLocation/CoreLocation.h>
+#import "AppDelegate.h"
+//#import <CoreLocation/CoreLocation.h>
 
 
 @interface C1selfEventRepository (){
@@ -35,31 +36,8 @@
     writeToken=@"";
     readToken=@"";
     backgroundTask = UIBackgroundTaskInvalid;
-    // fake local api
-    //apiUrlStem = @"http://10.0.1.15:7000";
-    //appUrlStem = @"http://10.0.1.15:7000";
-    
-    // real local api
-    // apiUrlStem = @"http://localhost:5000";
-    // appUrlStem = @"http://localhost:5000";
-    
-    // LIVE!!
-    //apiUrlStem = @"http://app.quantifieddev.org";
-    
-    // staging 1self
-    apiUrlStem = @"http://api.1self.co";
-    
-    // EE Office
-    //apiUrlStem = @"http://10.5.5.44:7000";
-    //appUrlStem = @"http://10.5.5.44:7000";
-    
-    //apiUrlStem = @"http://localhost:7000";
-    //appUrlStem = @"http://localhost:7000";
-    //apiUrlStem = @"http://api.1self.co";
-    //appUrlStem = @"http://app.1self.co";
-    
-    //apiUrlStem = @"http://api.1self.co:5000";
-       // apiUrlStem = @"https://api-test.1self.co";
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    apiUrlStem = appDelegate.apiUrl;
     return self;
 }
 
@@ -71,6 +49,8 @@
 -(void) createStream{
     NSUserDefaults *loadPrefs = [NSUserDefaults standardUserDefaults];
     sid = [loadPrefs stringForKey:@"streamid"];
+    readToken = [loadPrefs stringForKey:@"readToken"];
+    writeToken = [loadPrefs stringForKey:@"writeToken"];
     if(sid == nil){
         [self logMessage: @"No stream id found, creating a new one"];
         NSDictionary* headers = @{@"Authorization": @"1selfnoise:12345678"};
@@ -224,7 +204,7 @@
     else{
         event = @{ @"dateTime":   event[@"dateTime"],
                    @"actionTags": event[@"actionTags"],
-                   @"location": event[@"location"],
+                  // @"location": event[@"location"],
                    @"objectTags":event[@"objectTags"],
                    @"properties": event[@"properties"],
                    @"source": event[ @"source"],
@@ -273,7 +253,7 @@
                      mindbspl: (float) mindbspl
                      maxdbspl: (float) maxdbspl
                       meanDba: (float) meanDba
-              currentLocation: (CLLocation*) currentLocation
+              //currentLocation: (CLLocation*) currentLocation
                   sampleStart: (NSDate*) sampleStart;
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -288,15 +268,15 @@
     NSNumber* sampleMaxDbspl = [NSNumber numberWithFloat: maxdbspl ];
     NSNumber* sampleDba = [NSNumber numberWithFloat: meanDba ];
     
-    NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
-    
-    NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
+//    NSNumber *latitude = currentLocation == nil ? [NSNumber numberWithDouble:0]: [NSNumber numberWithDouble:currentLocation.coordinate.latitude];
+//    
+//    NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
     
     NSDictionary *event = @{ @"dateTime":   formattedDateString,
                              @"actionTags": @[@"sample"],
-                             @"location": @{ @"lat": latitude,
-                                             @"long": longitude
-                                             },
+//                             @"location": @{ @"lat": latitude,
+//                                             @"long": longitude
+//                                             },
                              @"objectTags":@[@"ambient", @"sound"],
                              @"properties": @{@"dba": sampleDba,
                                               @"dbspl": sampleDbspl,

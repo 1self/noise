@@ -54,12 +54,18 @@
 }
 
 - (IBAction)startClick:(id)sender {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate createModels];
-    appDelegate.noiseModel.connected = connected.selected;
-    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:true forKey: @"introDone"];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate createModels];
+    
+    if(connected.on)
+    {
+        [appDelegate.noiseModel connect];
+    }
+    
+
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"MainView"];

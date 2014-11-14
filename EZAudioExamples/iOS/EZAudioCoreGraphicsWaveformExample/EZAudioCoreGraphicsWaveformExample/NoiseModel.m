@@ -67,20 +67,20 @@
     meanDba = 0;
     connected = false;
     
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
+//    locationManager = [[CLLocationManager alloc] init];
+//    locationManager.delegate = self;
     
-    if ([CLLocationManager locationServicesEnabled]) {
-        [locationManager startUpdatingLocation];
-    } else {
-        NSLog(@"Location services is not enabled");
-    }
-    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
-    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [locationManager requestWhenInUseAuthorization];
-    }
-    
-    currentLocation = [locationManager location];
+//    if ([CLLocationManager locationServicesEnabled]) {
+//        [locationManager startUpdatingLocation];
+//    } else {
+//        NSLog(@"Location services is not enabled");
+//    }
+//    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+//    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+//        [locationManager requestWhenInUseAuthorization];
+//    }
+//    
+//    currentLocation = [locationManager location];
     
     [self instantiateEventRepository];
     return self;
@@ -217,8 +217,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
             maxDbSplSum = 0;
             maxDbSplCount = 0;
         }
-        lat = currentLocation.coordinate.latitude;
-        lng = currentLocation.coordinate.longitude;
+//        lat = currentLocation.coordinate.latitude;
+//        lng = currentLocation.coordinate.longitude;
         
         
         
@@ -314,7 +314,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     // need to do this here for when the app is first granted permissions to
     // access location. Until permission is granted lat and long is 0;
-    currentLocation = [locationManager location];
+   // currentLocation = [locationManager location];
     
     NSDictionary* result;
     NSDate* currentTime = [NSDate date];
@@ -325,7 +325,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
                                               mindbspl: mindbspl
                                               maxdbspl: maxdbspl
                                                meanDba: meanDba
-                                       currentLocation: currentLocation
+                                     //  currentLocation: currentLocation
                                            sampleStart: sampleStart
                            ];
     sampleStart = currentTime;
@@ -356,7 +356,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
                      mindbspl: mindbspl
                      maxdbspl: maxdbspl
                      meanDba: meanDba
-              currentLocation: currentLocation
+             // currentLocation: currentLocation
                   sampleStart: sampleStart
              ];
     

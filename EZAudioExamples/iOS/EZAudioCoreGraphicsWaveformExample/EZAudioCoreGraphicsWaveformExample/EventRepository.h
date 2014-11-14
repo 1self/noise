@@ -23,7 +23,7 @@
                     mindbspl: (float) mindbspl
                     maxdbspl: (float) maxdbspl
                      meanDba: (float) meanDba
-             currentLocation: (CLLocation*) currentLocation
+            // currentLocation: (CLLocation*) currentLocation
                  sampleStart: (NSDate*) sampleStart;
 -(void) load;
 -(void) sendSavedEvents;

@@ -193,7 +193,7 @@ NoiseModel* noiseModel;
 //                                                    buttons:@[ @"No", @"Connect" ]
 //                                              buttonHandler:connectBlock
       [UIAlertView presentWithTitle:@"1self Noise data policy"
-                                                      message:@"1self Noise uses the 1self cloud to show you smart visualizations of your noise. Once connected you can also share and correlate your data. We use connected data to build a high level public map of our noisy planet. Your raw data will never be shown and it won't be possible to tell who you are or where you've been. Would you like to connect Noise to the 1self cloud?"
+                                                      message:@"1self Noise uses the 1self cloud to show you smart visualizations of your noise. Once connected you can also share and correlate your data. Your raw data will never be shown and it won't be possible to tell who you are or where you've been. Would you like to connect Noise to the 1self cloud?"
                                                       buttons:@[ @"No", @"Connect" ]
                 buttonHandler:connectBlock];
 }
@@ -207,21 +207,6 @@ NoiseModel* noiseModel;
     noiseModel.noiseView = self;
     [self setInitialPlotColour];
     [self animate];
-    
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    bool openedAppBefore = [prefs objectForKey:@"openedAppBefore"];
-    if (openedAppBefore == false) {
-        [self requestConnect: ^(NSUInteger buttonIndex){
-            [self storeChoiceMade];
-            if (buttonIndex == 1) {
-                [noiseModel connect];
-            }
-        }];
-        
-
-    }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated

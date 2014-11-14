@@ -11,11 +11,12 @@
 @implementation AppDelegate
 
 @synthesize noiseModel;
+@synthesize apiUrl;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-
+    [self liveMode];
     
     UIApplication *myApp = [UIApplication sharedApplication];
     myApp.idleTimerDisabled = YES;
@@ -80,6 +81,36 @@
         noiseModel = [NoiseModel new];
         [noiseModel load];
     }
+}
+
+- (void)testMode
+{
+    apiUrl = @"https://api-test.1self.co";
+}
+
+- (void)testHttpMode
+{
+    apiUrl = @"http://api-test.1self.co";
+}
+
+- (void)stagingMode
+{
+    apiUrl = @"https://api-staging.1self.co";
+}
+
+- (void)stagingHttpMode
+{
+    apiUrl = @"http://api-staging.1self.co";
+}
+
+- (void)liveMode
+{
+    apiUrl = @"https://api.1self.co";
+}
+
+- (void)liveHttpMode
+{
+    apiUrl = @"http://api.1self.co";
 }
 
 @end

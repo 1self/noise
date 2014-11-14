@@ -16,7 +16,14 @@
 
 @property NoiseModel* noiseModel;
 @property HelpModel* helpModel;
+@property NSString* apiUrl;
 
 - (void)createModels;
+- (void)testMode;
+- (void)testHttpMode;
+- (void)stagingMode;
+- (void)stagingHttpMode;
+- (void)liveMode;
+- (void)liveHttpMode;
 
 @end

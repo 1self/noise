@@ -78,7 +78,7 @@
     NSString *outputString = [outputDateFormatter stringFromDate:date];
     
     cell.textLabel.text = [NSString stringWithFormat: @"%@: %@ decibels", outputString, fullHistory[indexPath.row][@"properties"][@"dbspl"]];
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"lat: %@ long: %@", fullHistory[indexPath.row][@"location"][@"lat"], fullHistory[indexPath.row][@"location"][@"long"]];
+//    cell.detailTextLabel.text = [NSString stringWithFormat: @"lat: %@ long: %@", fullHistory[indexPath.row][@"location"][@"lat"], fullHistory[indexPath.row][@"location"][@"long"]];
     cell.textLabel.textColor =  [UIColor colorWithRed:256/256.0 green:256/256.0 blue:256/256.0 alpha:0.9];
     cell.detailTextLabel.textColor =  [UIColor colorWithRed:256/256.0 green:256/256.0 blue:256/256.0 alpha:0.6];
     cell.backgroundColor = [UIColor colorWithRed:0/256.0 green:0/256.0 blue:0/256.0 alpha:0.4];
