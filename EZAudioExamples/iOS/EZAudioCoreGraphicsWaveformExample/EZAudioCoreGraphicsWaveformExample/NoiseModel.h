@@ -65,6 +65,7 @@
 -(NSMutableArray*) fullHistory;
 
 -(void) connect;
+-(void) disconnect;
 
 @end
 

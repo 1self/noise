@@ -380,6 +380,15 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     connected = true;
 }
 
+- (void) disconnect{
+    eventRepository = [[LocalEventRepository alloc] init];
+    [eventRepository load];
+    [eventRepository createStream];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:false forKey: @"connected"];
+    connected = false;
+}
+
 - (NSMutableArray*) fullHistory{
     return eventRepository.fullHistory;
 }

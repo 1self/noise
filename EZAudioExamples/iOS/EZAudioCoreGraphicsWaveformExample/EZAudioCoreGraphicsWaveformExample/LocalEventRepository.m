@@ -133,4 +133,9 @@
     return @"";
 }
 
+-(void) createStream
+{
+    
+}
+
 @end

@@ -292,7 +292,13 @@ int samplePruining = 0;
     self.iphone4SamplesToSend.text = [NSString stringWithFormat: @"%lu", (unsigned long)(noiseModel.samplesToSend.count)];
     self.iphoneSamplesSending.text = [NSString stringWithFormat: @"%d", noiseModel.samplesSending];
 
-    self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
+    if(noiseModel.connected){
+        self.autoupload.text = [NSString stringWithFormat: @"Auto-upload in\n%@", noiseModel.autouploadLeft];
+    }
+    else{
+        self.autoupload.text = [NSString stringWithFormat: @"Sample-save in\n%@", noiseModel.autouploadLeft];
+    }
+    
     self.dbraw.text = [NSString stringWithFormat:@"%.12f", noiseModel.sampleRawMean];
 }
 
@@ -340,6 +346,13 @@ int samplePruining = 0;
 - (IBAction)historyTap:(id)sender {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"HistoryView"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)settingsTap:(id)sender {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"SettingsView"];
     vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:vc animated:YES completion:nil];
 }

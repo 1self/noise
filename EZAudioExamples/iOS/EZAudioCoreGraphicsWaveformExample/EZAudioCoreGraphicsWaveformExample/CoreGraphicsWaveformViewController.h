@@ -46,6 +46,7 @@
 - (IBAction)help:(id)sender;
 - (IBAction)debug:(id)sender;
 - (IBAction)historyTap:(UIGestureRecognizer*)sender;
+- (IBAction)settingsTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *history;
 
 
