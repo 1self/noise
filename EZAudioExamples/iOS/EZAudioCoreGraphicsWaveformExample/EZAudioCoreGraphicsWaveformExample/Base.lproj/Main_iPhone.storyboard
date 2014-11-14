@@ -45,13 +45,12 @@
                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ean-Tu-Or5">
                                 <rect key="frame" x="8" y="90" width="304" height="290"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">1self noise sends your location and the noise level anonymously to 1self servers at 1self.co. We do this to:
+                                <mutableString key="text">1self noise sends your location and the noise level anonymously to 1self servers at 1self.co. We do this to give you visualizations of your data. We never share this data. You may explicitly choose to share it using the share feature on 1self. 
 
-1. Give you visualizations of your data. We never share this data unless you explicitly choose to share it using the share feature on 1self. 
-2. To build an aggregated and anonymized map of the noise across the globe that we share with the 1self community. You can't be identified from these visualizations.
+If you choose not to send data to 1self right now you can still sample your noise and save it locally. Should you change your mind, you can turn on sending data to 1self in the settings
 
 More information on our privacy policy can be found at http://www.1self.co/privacy.html
-</string>
+</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
