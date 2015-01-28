@@ -358,7 +358,7 @@
 
 -(NSString*)getVizUrl
 {
-    return [NSString stringWithFormat:@"%@/v1/streams/%@/events/ambient,sound/sample/mean(dbspl)/daily/barchart", apiUrlStem, sid];
+    return [NSString stringWithFormat:@"%@/v1/streams/%@/events/ambient,sound/sample/mean(dbspl)/daily/barchart?readToken=%@", apiUrlStem, sid, readToken];
 }
 
 @end
