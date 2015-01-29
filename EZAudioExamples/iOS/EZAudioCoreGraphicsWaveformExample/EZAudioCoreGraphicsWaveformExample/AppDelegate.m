@@ -16,7 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [self liveMode];
+    [self stagingMode];
     
     UIApplication *myApp = [UIApplication sharedApplication];
     myApp.idleTimerDisabled = YES;

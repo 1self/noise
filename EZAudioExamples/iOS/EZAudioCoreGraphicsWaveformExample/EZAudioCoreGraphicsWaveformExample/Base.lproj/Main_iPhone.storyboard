@@ -20,12 +20,12 @@
                             </imageView>
                             <switch opaque="NO" alpha="0.84999999999999987" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="yPl-PT-MDx">
                                 <rect key="frame" x="248" y="452" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <color key="onTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send data to 1self" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cha-dd-jZU">
                                 <rect key="frame" x="99" y="449" width="156" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -45,12 +45,12 @@
                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ean-Tu-Or5">
                                 <rect key="frame" x="8" y="90" width="304" height="290"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">1self noise sends your location and the noise level anonymously to 1self servers at 1self.co. We do this to give you visualizations of your data. We never share this data. You may explicitly choose to share it using the share feature on 1self. 
+                                <string key="text">1self noise sends your noise level anonymously to 1self servers at 1self.co. We do this to give you visualizations of your data. We never share this data. You may explicitly choose to share it using the share feature on 1self. 
 
 If you choose not to send data to 1self right now you can still sample your noise and save it locally. Should you change your mind, you can turn on sending data to 1self in the settings
 
 More information on our privacy policy can be found at http://www.1self.co/privacy.html
-</mutableString>
+</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -309,7 +309,7 @@ More information on our privacy policy can be found at http://www.1self.co/priva
                             </imageView>
                             <imageView alpha="0.84999999999999987" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings.png" id="BBE-n5-Drz">
                                 <rect key="frame" x="246" y="503" width="58" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="i6S-Gq-Ir3" appends="YES" id="xka-rR-o60"/>
@@ -749,9 +749,34 @@ More information on our privacy policy can be found at http://www.1self.co/priva
                                 </connections>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" id="IZM-Su-wqf">
-                                <rect key="frame" x="8" y="20" width="304" height="478"/>
+                                <rect key="frame" x="8" y="31" width="304" height="467"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <mutableString key="text">Need help? We got you, keep scrolling for the details...
+
+How loud is your life? Noise by 1self gives you the sound smarts to tell. Like us humans, the app changes colour depending on what’s happening: from quiet green to angry red. At a glance you can tell how GRRR the world around you is.
+
+There’s a big clear readout of loudness in dbspl. Don't worry if you don't know what that is, there's a list below of decibel values for a few things you should be familiar with. There’s a min and a max because the world around us never sits still.
+
+You data is sent to the 1self cloud automatically, building up the noisescape to your life. We don’t record any audio, just the noisyness. If you don’t want to wait for auto-upload, click on the dial or close the app. Both will fire off the sample currently being collected.
+
+And now, for the non-boffins, some things and how loud they are, so you can compare yourworld to some well known ear-splitters.
+
+Jet aircraft, 50 m away: 140
+Threshold of pain: 130
+Threshold of discomfort: 120
+Chainsaw, 1m distance: 110
+Disco, 1m from speaker: 100
+Diesel truck, 10m away: 90
+Kerbside of busy road, 5m: 80
+Vacuum cleaner, distance 1m : 70
+Conversational speech, 1m: 60
+Average home: 50
+Quiet library: 40
+Quiet bedroom at night: 30
+Background in TV studio: 20
+Rustling leaves in ther distance: 10
+Hearing threshold	: 0
+</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
