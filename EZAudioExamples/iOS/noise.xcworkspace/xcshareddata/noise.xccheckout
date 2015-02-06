@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DC5968B8-69CF-4C25-AB78-BE40170AFED6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>noise</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</key>
+		<string>github.com:1self/noise.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>EZAudioExamples/iOS/noise.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:1self/noise.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BCDF1E4DFD6F504AE72DB3AA7CAFA0B7EDED59DA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>noise</string>
+		</dict>
+	</array>
+</dict>
+</plist>
