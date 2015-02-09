@@ -278,8 +278,8 @@
 //                                             @"long": longitude
 //                                             },
                              @"objectTags":@[@"ambient", @"sound"],
-                             @"properties": @{@"dba": sampleDba,
-                                              @"dbspl": sampleDbspl,
+                             @"properties": @{@"dbspl": sampleDbspl,
+                                              @"dba": sampleDba,
                                               @"mindbspl": sampleMinDbspl,
                                               @"maxdbspl": sampleMaxDbspl,
                                               @"durationMs": [NSNumber numberWithFloat: sampleDuration * 1000]},
