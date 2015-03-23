@@ -32,6 +32,10 @@
 		20686B8A19BDF1520070AA66 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20686B8919BDF1520070AA66 /* OpenGLES.framework */; };
 		2076C53219BDFE410018A5CF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2076C53119BDFE410018A5CF /* Accelerate.framework */; };
 		2076C53419C03FF80018A5CF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2076C53319C03FF80018A5CF /* Pods.xcconfig */; };
+		207A0CE11AC01F8300493E1E /* BeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 207A0CE01AC01F8300493E1E /* BeaconModel.m */; };
+		207A0CE41AC03CCE00493E1E /* BeaconEventFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 207A0CE31AC03CCE00493E1E /* BeaconEventFactory.m */; };
+		207A0CEA1AC06F1100493E1E /* C1selfDateTime.c in Sources */ = {isa = PBXBuildFile; fileRef = 207A0CE91AC06F1100493E1E /* C1selfDateTime.c */; };
+		207A0CEC1AC06F6200493E1E /* C1selfDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 207A0CEB1AC06F6200493E1E /* C1selfDateTime.m */; };
 		20C235CE1A14F7B800AB61FA /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C235CD1A14F7B800AB61FA /* IntroViewController.m */; };
 		20C235D41A14FBD000AB61FA /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 20C235D31A14FBD000AB61FA /* button.png */; };
 		20D077521A160E9500CAF1F1 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 20D077511A160E9500CAF1F1 /* settings.png */; };
@@ -100,6 +104,13 @@
 		20686B8919BDF1520070AA66 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2076C53119BDFE410018A5CF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2076C53319C03FF80018A5CF /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		207A0CDF1AC01F0500493E1E /* BeaconModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeaconModel.h; sourceTree = "<group>"; };
+		207A0CE01AC01F8300493E1E /* BeaconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconModel.m; sourceTree = "<group>"; };
+		207A0CE21AC03BE600493E1E /* BeaconEventFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeaconEventFactory.h; sourceTree = "<group>"; };
+		207A0CE31AC03CCE00493E1E /* BeaconEventFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconEventFactory.m; sourceTree = "<group>"; };
+		207A0CE81AC06A3000493E1E /* C1selfDateTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C1selfDateTime.h; sourceTree = "<group>"; };
+		207A0CE91AC06F1100493E1E /* C1selfDateTime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = C1selfDateTime.c; sourceTree = "<group>"; };
+		207A0CEB1AC06F6200493E1E /* C1selfDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = C1selfDateTime.m; sourceTree = "<group>"; };
 		20C235CC1A14F7B800AB61FA /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		20C235CD1A14F7B800AB61FA /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		20C235D31A14FBD000AB61FA /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
@@ -232,6 +243,8 @@
 				2009C0AF19F557E5009756A1 /* HelpModel.h */,
 				2009C0AD19F17414009756A1 /* NoiseModel.h */,
 				2009C0AB19F173F1009756A1 /* NoiseModel.m */,
+				207A0CDF1AC01F0500493E1E /* BeaconModel.h */,
+				207A0CE01AC01F8300493E1E /* BeaconModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -244,6 +257,11 @@
 				20517EFB1A08FDB50085D7A2 /* EventRepository.h */,
 				20517EFC1A08FE890085D7A2 /* LocalEventRepository.h */,
 				20517EFD1A08FE9C0085D7A2 /* LocalEventRepository.m */,
+				207A0CE21AC03BE600493E1E /* BeaconEventFactory.h */,
+				207A0CE31AC03CCE00493E1E /* BeaconEventFactory.m */,
+				207A0CE81AC06A3000493E1E /* C1selfDateTime.h */,
+				207A0CE91AC06F1100493E1E /* C1selfDateTime.c */,
+				207A0CEB1AC06F6200493E1E /* C1selfDateTime.m */,
 			);
 			name = Repos;
 			sourceTree = "<group>";
@@ -424,6 +442,11 @@
 				TargetAttributes = {
 					94056F79185E593500EB94BA = {
 						DevelopmentTeam = CFYF9QT74F;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -518,6 +541,7 @@
 			files = (
 				2009C0B119F558A6009756A1 /* HelpModel.m in Sources */,
 				9417A7E41867DDD600D9D37B /* TPCircularBuffer.c in Sources */,
+				207A0CEC1AC06F6200493E1E /* C1selfDateTime.m in Sources */,
 				9417A7E11867DDD600D9D37B /* EZOutput.m in Sources */,
 				20D077551A161F3000CAF1F1 /* SettingsViewController.m in Sources */,
 				9417A7DF1867DDD600D9D37B /* EZAudioPlotGLKViewController.m in Sources */,
@@ -525,6 +549,7 @@
 				9417A7DA1867DDD600D9D37B /* AEFloatConverter.m in Sources */,
 				94056F8E185E593500EB94BA /* AppDelegate.m in Sources */,
 				20517EFA1A07A2F60085D7A2 /* C1selfEventRepository.m in Sources */,
+				207A0CE41AC03CCE00493E1E /* BeaconEventFactory.m in Sources */,
 				9417A7DD1867DDD600D9D37B /* EZAudioPlot.m in Sources */,
 				9417A7DC1867DDD600D9D37B /* EZAudioFile.m in Sources */,
 				2009C0B719F6A88F009756A1 /* DebugController.m in Sources */,
@@ -533,10 +558,12 @@
 				94056F8A185E593500EB94BA /* main.m in Sources */,
 				9417A7E21867DDD600D9D37B /* EZPlot.m in Sources */,
 				20517F061A0A20DF0085D7A2 /* HistoryViewController.m in Sources */,
+				207A0CE11AC01F8300493E1E /* BeaconModel.m in Sources */,
 				9417A7E01867DDD600D9D37B /* EZMicrophone.m in Sources */,
 				20C235CE1A14F7B800AB61FA /* IntroViewController.m in Sources */,
 				2009C0B419F655AA009756A1 /* HelpViewController.m in Sources */,
 				9417A7E31867DDD600D9D37B /* EZRecorder.m in Sources */,
+				207A0CEA1AC06F1100493E1E /* C1selfDateTime.c in Sources */,
 				20517F011A0966470085D7A2 /* UIAlertView+additions.m in Sources */,
 				20517EFE1A08FE9C0085D7A2 /* LocalEventRepository.m in Sources */,
 				9417A7DB1867DDD600D9D37B /* EZAudio.m in Sources */,

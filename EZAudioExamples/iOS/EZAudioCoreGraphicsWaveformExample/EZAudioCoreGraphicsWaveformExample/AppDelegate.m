@@ -11,12 +11,13 @@
 @implementation AppDelegate
 
 @synthesize noiseModel;
+@synthesize beaconModel;
 @synthesize apiUrl;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [self stagingMode];
+    [self liveMode];
     
     UIApplication *myApp = [UIApplication sharedApplication];
     myApp.idleTimerDisabled = YES;
@@ -54,6 +55,11 @@
     {
         [noiseModel goToBackground];
     }
+    
+    if(beaconModel != nil)
+    {
+        [beaconModel goToBackground];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -62,6 +68,11 @@
     if(noiseModel != nil)
     {
         [noiseModel goToForeground];
+    }
+    
+    if(beaconModel != nil)
+    {
+        [beaconModel goToForeground];
     }
 }
 
@@ -80,6 +91,11 @@
     if(noiseModel == nil){
         noiseModel = [NoiseModel new];
         [noiseModel load];
+    }
+    
+    if(beaconModel == nil){
+        beaconModel = [BeaconModel new];
+        [beaconModel load:noiseModel];
     }
 }
 

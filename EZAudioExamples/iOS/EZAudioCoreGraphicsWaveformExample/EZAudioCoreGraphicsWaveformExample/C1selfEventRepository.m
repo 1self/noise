@@ -10,6 +10,7 @@
 #import "C1selfEventRepository.h"
 #import <UNIRest.h>
 #import "AppDelegate.h"
+#import "C1selfDateTime.h"
 //#import <CoreLocation/CoreLocation.h>
 
 
@@ -204,11 +205,8 @@
     else{
         event = @{ @"dateTime":   event[@"dateTime"],
                    @"actionTags": event[@"actionTags"],
-                  // @"location": event[@"location"],
                    @"objectTags":event[@"objectTags"],
                    @"properties": event[@"properties"],
-                   @"source": event[ @"source"],
-                   @"version": event[@"version"]
                    };
     }
     
@@ -256,13 +254,6 @@
               //currentLocation: (CLLocation*) currentLocation
                   sampleStart: (NSDate*) sampleStart;
 {
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-    
-    NSString *formattedDateString = [formatter stringFromDate:sampleStart];
-    NSLog(@"ISO-8601 date: %@", formattedDateString);
-    
     NSNumber* sampleDbspl = [NSNumber numberWithFloat: [dbspl intValue]];
     NSNumber* sampleMinDbspl = [NSNumber numberWithFloat: mindbspl ];
     NSNumber* sampleMaxDbspl = [NSNumber numberWithFloat: maxdbspl ];
@@ -272,7 +263,7 @@
 //    
 //    NSNumber *longitude = currentLocation == nil ?  [NSNumber numberWithDouble:0] : [NSNumber numberWithDouble:currentLocation.coordinate.longitude];
     
-    NSDictionary *event = @{ @"dateTime":   formattedDateString,
+    NSDictionary *event = @{ @"dateTime":   getLocalDateTime(),
                              @"actionTags": @[@"sample"],
 //                             @"location": @{ @"lat": latitude,
 //                                             @"long": longitude
@@ -339,6 +330,19 @@
     }];
     
     [self SendEvent:event];
+}
+
+- (void)SendSingleSampleAsync: (NSDictionary* )event
+{
+    if(sid == nil){
+        return;
+    }
+    
+    backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        backgroundTask = UIBackgroundTaskInvalid;
+    }];
+    
+    [self SendEventAsync:event];
 }
 
 - (void)SendUnsentSamples

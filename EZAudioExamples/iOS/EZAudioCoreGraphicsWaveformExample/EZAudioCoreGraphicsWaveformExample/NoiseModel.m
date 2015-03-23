@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+
 #import "NoiseModel.h"
 #import <Accelerate/Accelerate.h>
 #import "C1selfEventRepository.h"
 #import "LocalEventRepository.h"
 
 #import <UIKit/UIKit.h>
+
+static NSString * const beaconRegionId = @"co.1self.noise";
 
 @interface NoiseModel(){
     float meanDba;
@@ -26,6 +29,7 @@
     float maxDbSplCount;
     id<EventRepository> eventRepository;
     NSDate* sampleStart;
+
 }
 
 #pragma mark - UI Extras
@@ -50,6 +54,9 @@
 @synthesize sumDba;
 @synthesize log;
 @synthesize connected;
+@synthesize eventRepository;
+
+
 
 #pragma mark - Initialization
 - (id) init{

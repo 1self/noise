@@ -35,6 +35,7 @@
                      meanDba: (float) meanDba
              //currentLocation: (CLLocation*) currentLocation
                  sampleStart: (NSDate*) sampleStart;
+-(NSDictionary*) CreateBeaconEvent: (NSDate*) currentTime;
 -(void) SendSamples: (NSDictionary*) event;
 -(void) SendSamplesSync: (NSDictionary*) event;
 -(void) SendSingleSample: (NSDictionary*) event;

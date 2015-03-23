@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NoiseModel.h"
+#import "BeaconModel.h"
 #import "HelpModel.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -15,6 +16,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property NoiseModel* noiseModel;
+@property BeaconModel* beaconModel;
 @property HelpModel* helpModel;
 @property NSString* apiUrl;
 

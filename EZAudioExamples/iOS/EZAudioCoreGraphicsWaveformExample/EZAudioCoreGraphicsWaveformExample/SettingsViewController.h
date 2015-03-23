@@ -18,4 +18,6 @@
 - (IBAction)tapDial:(id)sender;
 @property (weak, nonatomic) IBOutlet UISwitch *connected;
 - (IBAction)clickConnected:(id)sender;
+- (IBAction)clickPublic:(UISwitch*)sender;
+@property (weak, nonatomic) IBOutlet UISwitch *beaconEnabled;
 @end

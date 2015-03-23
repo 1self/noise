@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LocalEventRepository.h"
 #import <UNIRest.h>
+#import "C1selfDateTime.h"
 //#import <CoreLocation/CoreLocation.h>
 
 
@@ -76,13 +77,6 @@
              // currentLocation: (CLLocation*) currentLocation
                   sampleStart: (NSDate*) sampleStart;
 {
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-    
-    NSString *formattedDateString = [formatter stringFromDate:sampleStart];
-    NSLog(@"ISO-8601 date: %@", formattedDateString);
-    
     NSNumber* sampleDbspl = [NSNumber numberWithFloat: [dbspl intValue]];
     NSNumber* sampleMinDbspl = [NSNumber numberWithFloat: mindbspl ];
     NSNumber* sampleMaxDbspl = [NSNumber numberWithFloat: maxdbspl ];
@@ -95,7 +89,7 @@
     
     NSString* streamid =  @"";
     
-    NSDictionary *event = @{ @"dateTime":   formattedDateString,
+    NSDictionary *event = @{ @"dateTime":   getLocalDateTime(),
                              @"actionTags": @[@"sample"],
 //                             @"location": @{ @"lat": latitude,
 //                                             @"long": longitude

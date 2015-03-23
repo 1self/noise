@@ -10,6 +10,7 @@
 
 #import "EZAudio.h"
 #import <CoreLocation/CoreLocation.h>
+#import "EventRepository.h"
 
 @protocol NoiseView <NSObject>
 @optional
@@ -19,7 +20,6 @@
      withBufferSize:(UInt32)bufferSize;
 -(void)goToBackground;
 -(void)goToForeground;
-
 
 @end
 
@@ -34,6 +34,7 @@
 @property NSString *autouploadLeft;
 @property (weak) id<NoiseView> noiseView;
 @property bool connected;
+@property id<EventRepository> eventRepository; // eas: I've exposed this here, but if we need to send more events we should probably create an event model and move all the event sending stuff from here into that model.
 
 
 @property float sampleRawMean;

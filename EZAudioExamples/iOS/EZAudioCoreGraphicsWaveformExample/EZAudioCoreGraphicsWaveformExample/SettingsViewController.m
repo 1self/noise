@@ -12,6 +12,7 @@
 
 @interface SettingsViewController ()
 @property NoiseModel* noiseModel;
+@property BeaconModel* beaconModel;
 @property HelpModel* helpModel;
 @property bool animating;
 @property (weak, nonatomic) IBOutlet UIImageView *outerTicker;
@@ -29,6 +30,8 @@
     _noiseModel = appDelegate.noiseModel;
     _noiseModel.noiseView = self;
     _connected.on = _noiseModel.connected;
+    _beaconModel = appDelegate.beaconModel;
+    _beaconEnabled.on = _beaconModel.enabled;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -165,8 +168,6 @@
 }
 
 - (IBAction)clickConnected:(id)sender {
-    
-
     if(_connected.on)
     {
         [self requestConnect: ^(NSUInteger buttonIndex){
@@ -182,5 +183,16 @@
     {
         [_noiseModel disconnect];
     }
+}
+
+- (IBAction)clickPublic:(UISwitch*)sender {
+    if(sender.on){
+        [_beaconModel startAdvertisingBeacon];
+    }
+    else
+    {
+        [_beaconModel stopAdvertisingBeacon];
+    }
+
 }
 @end

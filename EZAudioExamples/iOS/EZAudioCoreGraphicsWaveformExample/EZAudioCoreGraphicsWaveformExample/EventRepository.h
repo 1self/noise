@@ -16,6 +16,7 @@
 -(void) SendSamples: (NSDictionary*) event;
 -(void) SendSamplesSync: (NSDictionary*) event;
 -(void) SendSingleSample: (NSDictionary*) event;
+-(void) SendSingleSampleAsync: (NSDictionary* )event;
 -(NSString*) getVizUrl;
 -(NSDictionary*) CreateEvent: (NSDate*) currentTime
               sampleDuration: (NSTimeInterval) sampleDuration
